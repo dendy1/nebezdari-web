@@ -1,8 +1,14 @@
-# nebezdari-web
+# Публичный корпоративный блог
+## Ссылки на ТЗ
+https://docs.google.com/document/d/15kE4ev0pw2e9SsGf92EzCYWKmbHzqHEuLp6DAWvyYsY/edit?usp=sharing
 ## Доска на Trello
 https://trello.com/b/hzlg8baz/nebezdari-web
 ## Доска на Miro
 https://miro.com/app/board/o9J_kui4M34=/
+## Участники проекта
+[Буйлов Н.О.](mailto:builovn@gmail.ru?subject=[GitHub]%20Публичный%20корпоративный%20блог), backend, PM  
+[Бородин А.О.](mailto:borodin_a_o@sc.vsu.ru?subject=[GitHub]%20Публичный%20корпоративный%20блог), backend, frontend  
+[Свиридов М.А.](mailto:volard39@gmail.com?subject=[GitHub]%20Публичный%20корпоративный%20блог), аналитик, тестировщик
 ## Краткое описание проекта
 Данная работа предполагает создание публичного корпоративного блога компании. Он будет использоваться как сервис для распространения новостей компании.  
 
@@ -23,4 +29,3 @@ https://miro.com/app/board/o9J_kui4M34=/
 На странице “О нас” будет размещена информация о корпорации.  
 
 На странице “Обратная связь” будет располагаться форма для обратной связи с корпорацией по электронной почте.
-
