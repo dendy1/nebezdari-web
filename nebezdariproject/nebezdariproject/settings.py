@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'nebezdariapp.apps.NebezdariappConfig',
 ]
 
 MIDDLEWARE = [
@@ -76,10 +77,9 @@ WSGI_APPLICATION = 'nebezdariproject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'u0979652_nebezdari',
-        'USER': 'u0979652_dendy',
-        'PASSWORD': '05#*wkHK05#*wkHK',
-        'HOST': 'localhost',
+        'OPTIONS': {
+            'read_default_file': os.path.join(BASE_DIR, 'connection.cnf'),
+        },
     }
 }
 
