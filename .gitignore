@@ -5,4 +5,5 @@ migrations/
 *.pyc
 *.pyo
 connection.cnf
+restart
 
