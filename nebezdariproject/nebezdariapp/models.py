@@ -4,7 +4,7 @@ class MailingMembers(models.Model):
     email = models.EmailField(max_length=255)
 
     def __str__(self):
-        print(self.email)
+        return self.email
 
     class Meta:
         db_table = "nebezdariapp_mailing_members"
@@ -18,20 +18,24 @@ class Authors(models.Model):
     about = models.CharField(max_length=512)
 
     def __str__(self):
-        print(self.login)
+        return self.login
 
 
 class Categories(models.Model):
     name = models.CharField(max_length=64, unique=True)
 
     def __str__(self):
-        print(self.name)
+        return self.name
 
 
 class Posts(models.Model):
     author = models.ForeignKey(Authors, null=True, on_delete=models.SET_NULL)
+    title = models.CharField(max_length=256)
     text = models.TextField()
     categories = models.ManyToManyField(Categories)
+
+    def __str__(self):
+        return self.author.login
 
 
 class Comments(models.Model):
@@ -40,4 +44,7 @@ class Comments(models.Model):
     name = models.CharField(max_length=64)
     text = models.CharField(max_length=512)
     author = models.ForeignKey(Authors, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.text
 
