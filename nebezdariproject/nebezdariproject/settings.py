@@ -25,7 +25,7 @@ SECRET_KEY = '3k6t(2!m@^mmxd+do^px$f-9a$83kmv*iqi&f6512$&u@(jhkb'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['nebezdari.ru', 'www.nebezdari.ru']
+ALLOWED_HOSTS = ['nebezdari.ru', 'www.nebezdari.ru', 'localhost']
 
 
 # Application definition
