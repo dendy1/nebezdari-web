@@ -55,10 +55,7 @@ ROOT_URLCONF = 'nebezdariproject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-        "templates/blog/",
-        os.path.join(BASE_DIR, "templates/blog/"),
-        ],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -126,7 +123,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-    'static/',
+    os.path.join(BASE_DIR, "static")
 ]
  
