@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <section class="sec-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="one_half">
+                        <div class="cforms_sty3">
+                            <div id="form_status"></div>
+                            <form method="POST" id="gsr-contact" onsubmit="return valid_datas( this );">
+                                <label class="label">Name <em>*</em></label>
+                                <label class="input">
+                                    <input type="text" name="name" id="name">
+                                </label>
+                                <div class="clearfix"></div>
+
+                                <label class="label">E-mail <em>*</em></label>
+                                <label class="input">
+                                    <input type="email" name="email" id="email">
+                                </label>
+                                <div class="clearfix"></div>
+
+                                <label class="label">Subject <em>*</em></label>
+                                <label class="input">
+                                    <input type="text" name="subject" id="subject">
+                                </label>
+                                <div class="clearfix"></div>
+
+                                <label class="label">Message <em>*</em></label>
+                                <label class="textarea">
+                                    <textarea rows="5" name="message" id="message"></textarea>
+                                </label>
+                                <div class="clearfix"></div>
+
+                                <input type="hidden" name="token" value="FsWga4&amp;@f6aw">
+                                <button type="submit" class="button">Send Message</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!--end item-->
+
+                <div class="col-md-4 text-left">
+                    <h3><strong>Get in Touch</strong></h3>
+                    <br>
+                    <h4>Address Info</h4>
+                    <h6>Nebezdari Team</h6>
+                    <p>13031 W Jefferson Blvd UNIT 200, Los Angeles, CA 90094
+                        Telephone: +7 952 952 52 38
+                    </p>
+                    <br>
+                    <p>E-mail: admin@nebezdari.ru</p>
+                    <p>Website: www.nebezdari.ru</p>
+                </div>
+                <!--end item-->
+
+
+            </div>
+        </div>
+    </section>
+    <div class="clearfix"></div>
+{% endblock content %}
