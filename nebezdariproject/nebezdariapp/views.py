@@ -1,40 +1,39 @@
-from django.shortcuts import HttpResponse
+from django.shortcuts import HttpResponse, render
 from django.template import loader
+from .models import Categories, Posts
 
 
 # Create your views here.
 def index(request):
-    template = loader.get_template('main-page.html')
-    context = {
-    }
-    return HttpResponse(template.render(context, request))
+    index_categories_count = 10
+    categories_list = Categories.objects.all()[:index_categories_count]
+    posts_list = Posts.objects.all()
+    return render(request,
+                  'main-page.html',
+                  context={'categories_list': categories_list,
+                           'posts_list': posts_list})
 
 def post(request):
-    template = loader.get_template('post-page.html')
-    context = {
-    }
-    return HttpResponse(template.render(context, request))
+    return render(request,
+                  'post-page.html',
+                  context={})
 
 def about(request):
-    template = loader.get_template('about-page.html')
-    context = {
-    }
-    return HttpResponse(template.render(context, request))
+    return render(request,
+                  'about-page.html',
+                  context={})
 
 def contact(request):
-    template = loader.get_template('contact-page.html')
-    context = {
-    }
-    return HttpResponse(template.render(context, request))
+    return render(request,
+                  'contact-page.html',
+                  context={})
 
 def author(request):
-    template = loader.get_template('author-page.html')
-    context = {
-    }
-    return HttpResponse(template.render(context, request))
+    return render(request,
+                  'author-page.html',
+                  context={})
 
 def login(request):
-    template = loader.get_template('login-page.html')
-    context = {
-    }
-    return HttpResponse(template.render(context, request))
+    return render(request,
+                  'author-page.html',
+                  context={})
