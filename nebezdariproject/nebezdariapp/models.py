@@ -31,6 +31,7 @@ class Categories(models.Model):
 class Posts(models.Model):
     author = models.ForeignKey(Authors, null=True, on_delete=models.SET_NULL)
     title = models.CharField(max_length=256)
+    cut = models.TextField()
     text = models.TextField()
     categories = models.ManyToManyField(Categories)
 

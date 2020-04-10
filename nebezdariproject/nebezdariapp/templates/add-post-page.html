@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block extra_head %}
+    {{ form.media }}
+{% endblock extra_head %}
+
+{% block content %}
+    <!-- Form Start -->
+    <div class="form-body bg-light">
+
+        <div class="row">
+            <div class="col-md-12">
+                {{ form.title.errors }}
+                <label class="lable-text" for="{{ form.title.id_for_label }}">Заголовок</label>
+                {{ form.title }}
+            </div>
+        </div>
+        <!-- end row -->
+
+        <div class="row">
+            <div class="col-md-12">
+                {{ form.cut.errors }}
+                <label class="lable-text" for="{{ form.cut.id_for_label }}"> Кат</label>
+                {{ form.cut }}
+            </div>
+        </div>
+        <!-- end row -->
+
+        <div class="row">
+            <div class="col-md-12">
+                {{ form.text.errors }}
+                <label class="lable-text" for="{{ form.text.id_for_label }}">Текст статьи</label>
+                {{ form.text }}
+            </div>
+        </div>
+        <!-- end row -->
+
+        <div class="row">
+            <br>
+            <div class="col-md-12 text-center">
+                <button class="btn btn-dark btn-medium uppercase" type="submit">
+                    <i class="fa fa-paper-plane"></i>
+                    Опублировать пост
+                </button>
+            </div>
+        </div>
+        <!-- end row -->
+    </div>
+    <!-- Form End -->
+{% endblock content %}

@@ -18,5 +18,6 @@ from django.urls import include, path
 
 urlpatterns = [
     path('', include('nebezdariapp.urls')),
+    path(r'^tinymce/', include('tinymce.urls')),
     path('admin/', admin.site.urls),
 ]
