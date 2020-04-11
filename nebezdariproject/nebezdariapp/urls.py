@@ -11,4 +11,8 @@ urlpatterns = [
     path('contact', views.contact, name='contact'),
     path('author', views.author, name='author'),
     path('login', views.login, name='login'),
+
+    path('admin/adduser', views.admin_add_user, name='admin_add_user'),
+    path('admin/posts', views.admin_all_posts, name='admin_all_posts'),
+    path('admin/users', views.admin_all_users, name='admin_all_users'),
 ]
