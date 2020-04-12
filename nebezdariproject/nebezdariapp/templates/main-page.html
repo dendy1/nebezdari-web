@@ -52,16 +52,18 @@
                     <div class="col-md-12 text-center">
                         <ul class="pagination style-1 hover-violet">
                             {% if posts.has_previous %}
-                            <li><a href="/?page={{ posts.previous_page_number }}"><span aria-hidden="true"><i class="fas fa-angle-double-left"></i></span></a>
+                            <li><a href="/?page={{ 1 }}"><span aria-hidden="true"><i class="fas fa-angle-double-left"></i></span></a>
+                            </li>
+                            <li><a href="/?page={{ posts.previous_page_number }}"><span aria-hidden="true"><i class="fas fa-angle-left"></i></span></a>
                             </li>
                             {% endif %}
-                            {% for num in posts.paginator.page_range %}
-                                {% if num > posts.number|add:-3 and num < posts.number|add:3 %}
-                                    <li><a {% if posts.number == num %}class="active"{% endif %} href="/?page={{ num }}">{{ num }}</a></li>
-                                {% endif %}
+                            {% for num in pagination_list %}
+                                <li><a {% if posts.number == num %}class="active"{% endif %} href="/?page={{ num }}">{{ num }}</a></li>
                             {% endfor %}
                             {% if posts.has_next %}
-                            <li><a href="/?page={{ posts.next_page_number }}"><span aria-hidden="true"><i class="fas fa-angle-double-right"></i></span></a>
+                            <li><a href="/?page={{ posts.next_page_number }}"><span aria-hidden="true"><i class="fas fa-angle-right"></i></span></a>
+                            </li>
+                            <li><a href="/?page={{ posts.paginator.num_pages }}"><span aria-hidden="true"><i class="fas fa-angle-double-right"></i></span></a>
                             </li>
                             {% endif %}
                         </ul>
