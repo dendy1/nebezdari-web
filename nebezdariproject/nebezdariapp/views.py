@@ -11,7 +11,7 @@ def index(request):
     pagination_pages_range = 2 #count of pages right and left to the current page
     categories_list = Categories.objects.all()[:index_categories_count]
     posts_list = Posts.objects.all()
-    page_num = int(request.GET.get('page'))
+    page_num = request.GET.get('page')
     paginator = CustomPaginator(posts_list, posts_per_page, pagination_pages_range)
     try:
         posts = paginator.page(page_num)
