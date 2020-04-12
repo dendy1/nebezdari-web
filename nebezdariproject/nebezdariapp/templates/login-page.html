@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block header %}
+{% endblock header %}
+
+{% block content %}
+    <section class="sec-padding">
+        <div class="container">
+
+            <div class="col-md-12">
+                <div class="col-md-12 text-center"><h4 class="uppercase">Login</h4></div>
+                <div class="clearfix"></div>
+                <div class="form-body border-light">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="lable-text" for="name"> User Name or Email</label>
+                            <input id="name" class="input-1" type="text" placeholder="Name or Email" name="Name">
+                        </div>
+                        <div class="col-md-12">
+                            <label class="lable-text" for="email"> Password</label>
+                            <input id="email" class="input-1" type="password" placeholder="Password" name="password">
+                        </div>
+                    </div>
+                    <!-- end row -->
+
+                    <div class="row">
+                        <br>
+                        <div class="col">
+                            <div class="mx-auto bg-dark text-white text-center w-50">
+                                <button class="btn btn-dark-3 btn-half-fullwidth uppercase" type="submit">Login</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end row -->
+
+                </div>
+                <!--end form body-->
+            </div>
+            <!--end item-->
+
+        </div>
+    </section>
+{% endblock content %}
+
+{% block footer %}
+{% endblock footer %}
