@@ -18,6 +18,6 @@ from django.urls import include, path
 
 urlpatterns = [
     path('', include('nebezdariapp.urls')),
-    path(r'^tinymce/', include('tinymce.urls')),
+    path(r'^ckeditor/', include('ckeditor_uploader.urls')),
     path('admin/', admin.site.urls),
 ]
