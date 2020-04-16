@@ -1,3 +1,4 @@
+from ckeditor.fields import RichTextField
 from django.db import models
 
 class MailingMembers(models.Model):
@@ -31,7 +32,7 @@ class Categories(models.Model):
 class Posts(models.Model):
     author = models.ForeignKey(Authors, null=True, on_delete=models.SET_NULL)
     title = models.CharField(max_length=256)
-    text = models.TextField()
+    text = RichTextField()
     categories = models.ManyToManyField(Categories)
 
     def __str__(self):

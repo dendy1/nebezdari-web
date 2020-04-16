@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'nebezdariapp.apps.NebezdariappConfig',
+    'ckeditor',
+    'ckeditor_uploader'
 ]
 
 MIDDLEWARE = [
@@ -123,3 +125,13 @@ USE_TZ = True
 STATIC_URL = '/nebezdariproject/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+CKEDITOR_BASEPATH = "/nebezdariproject/static/ckeditor/ckeditor/"
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'width' : '100%'
+    },
+}

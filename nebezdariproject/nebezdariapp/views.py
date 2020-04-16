@@ -2,9 +2,9 @@ from django.shortcuts import HttpResponse, render
 from .models import Categories, Posts
 from django.core.paginator import EmptyPage, PageNotAnInteger
 from .lib.custom_paginator import CustomPaginator
+from nebezdariapp.forms import PostForm
 
 
-# Create your views here.
 def index(request):
     index_categories_count = 10 #count of categories in categories bar
     posts_per_page = 5 #count of posts on page
@@ -52,4 +52,35 @@ def author(request):
 def login(request):
     return render(request,
                   'author-page.html',
-                  context={})
+                  context={})   
+
+def add_post(request):
+    form = PostForm()
+    context = {
+        "form" : form
+    }
+    return render(request, 'add-post-page.html', context)
+
+def edit_post(request):
+    form = PostForm()
+    context = {
+        "form": form
+    }
+    return render(request, 'edit-post-page.html', context)
+
+def admin_all_posts(request):
+    form = PostForm()
+    context = {
+        "form": form
+    }
+    return render(request, 'admin-all-posts-page.html', context)
+
+def admin_add_user(request):
+    context = {
+    }
+    return render(request, 'admin-add-user-page.html', context)
+
+def admin_all_users(request):
+    context = {
+    }
+    return render(request, 'admin-all-users-page.html', context)
