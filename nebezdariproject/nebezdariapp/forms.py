@@ -1,12 +1,17 @@
-from ckeditor.widgets import CKEditorWidget
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from django import forms
-from .models import Posts
+from .models import Post, Category
 
 class PostForm(forms.ModelForm):
-    class Meta:
-        model = Posts
-        fields = ('title', 'text', 'categories')
+    title = forms.CharField(max_length=256,
+                            label="Название статьи",
+                            widget=forms.TextInput(attrs={'class':'input-1'}))
+    text = forms.CharField(widget=CKEditorUploadingWidget())
+    categories = forms.ModelMultipleChoiceField(
+        widget=forms.CheckboxSelectMultiple,
+        queryset=Category.objects.all()
+    )
 
-    def __init__(self, *args, **kwargs):
-        super(PostForm, self).__init__(*args, **kwargs)
-        self.fields['title'].widget.attrs.update({'class': 'input-1'})
+    class Meta:
+        model = Post
+        fields = ('title', 'text', 'categories')
