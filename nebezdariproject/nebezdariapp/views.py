@@ -62,6 +62,7 @@ def add_post(request):
                 author=request.user,
                 title=form.cleaned_data['title'],
                 text=form.cleaned_data['text'])
+
             post.save()
             for category in form.cleaned_data['categories']:
                 post.categories.add(category)

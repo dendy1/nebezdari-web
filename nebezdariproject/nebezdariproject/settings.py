@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'nebezdariapp.apps.NebezdariappConfig',
     'ckeditor',
-    'ckeditor_uploader'
+    'ckeditor_uploader',
+    'django_select2'
 ]
 
 MIDDLEWARE = [

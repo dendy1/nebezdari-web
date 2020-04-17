@@ -1,8 +1,12 @@
 {% extends "base.html" %}
 
 {% block extra_head %}
-    {{ form.media }}
+    {{ form.media.css }}
 {% endblock extra_head %}
+
+{% block extra_body %}
+    {{ form.media.js }}
+{% endblock extra_body %}
 
 {% block content %}
     <section class="sec-padding">
