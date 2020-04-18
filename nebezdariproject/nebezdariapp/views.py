@@ -3,7 +3,8 @@ from django.core.paginator import EmptyPage, PageNotAnInteger
 from django.contrib.auth import authenticate, login, logout
 from .lib.custom_paginator import CustomPaginator
 from .models import Category, Post, Author
-from .forms import PostForm, LoginForm, NewAuthorForm
+from .forms import PostForm, LoginForm, NewAuthorForm, ContactForm
+from django.core.mail import send_mail, BadHeaderError
 
 
 def index(request):
@@ -41,6 +42,25 @@ def about(request):
                   context={})
 
 def contact(request):
+    if request.method == "POST":
+        destination_mail = ["admin@nebezdari.ru",]
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            subject = form.cleaned_data['subject']
+            sender = form.cleaned_data['sender']
+            message = form.cleaned_data['message']
+
+            final_message = "Name: " + name + ", email: " + sender + ", Text: " + message
+            try:
+                send_mail(subject, final_message, 'noreply@nebezdari.ru', destination_mail)
+            except BadHeaderError:
+                return HttpResponse('Invalid header found')
+
+            return render(request, 'thanks-page.html', context={})
+
+    else:
+        form = ContactForm()
     return render(request,
                   'blog/contact-page.html',
                   context={})

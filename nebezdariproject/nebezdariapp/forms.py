@@ -3,6 +3,7 @@ from django import forms
 from django_select2.forms import Select2MultipleWidget
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
+
 class PostForm(forms.ModelForm):
     title = forms.CharField(
         max_length=256,
@@ -75,3 +76,10 @@ class LoginForm(forms.Form):
             attrs={'class': 'input-1', 'placeholder': 'Введите пароль'}
         )
     )
+
+
+class ContactForm(forms.Form):
+    name = forms.CharField(max_length=100)
+    sender = forms.EmailField()
+    subject = forms.CharField(max_length=100)
+    message = forms.CharField(widget=forms.Textarea)

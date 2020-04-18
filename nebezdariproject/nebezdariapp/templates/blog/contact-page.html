@@ -8,29 +8,25 @@
                     <div class="one_half">
                         <div class="cforms_sty3">
                             <div id="form_status"></div>
-                            <form method="POST" id="gsr-contact" onsubmit="return valid_datas( this );">
-                                <label class="label">Name <em>*</em></label>
-                                <label class="input">
-                                    <input type="text" name="name" id="name">
-                                </label>
+                            <form action="/contact" method="POST" id="gsr-contact" onsubmit="return valid_datas( this );">{% csrf_token %}
+                                <label for="id_name" class="label">Name <em>*</em></label>
+                                {{ form.name.errors }}
+                                {{ form.name }}
                                 <div class="clearfix"></div>
 
-                                <label class="label">E-mail <em>*</em></label>
-                                <label class="input">
-                                    <input type="email" name="email" id="email">
-                                </label>
+                                <label for="id_sender" class="label">E-mail <em>*</em></label>
+                                {{ form.sender.errors }}
+	                            {{ form.sender }}
                                 <div class="clearfix"></div>
 
-                                <label class="label">Subject <em>*</em></label>
-                                <label class="input">
-                                    <input type="text" name="subject" id="subject">
-                                </label>
+                                <label for="id_subject" class="label">Subject <em>*</em></label>
+                                {{ form.subject.errors }}
+	                            {{ form.subject }}
                                 <div class="clearfix"></div>
 
-                                <label class="label">Message <em>*</em></label>
-                                <label class="textarea">
-                                    <textarea rows="5" name="message" id="message"></textarea>
-                                </label>
+                                <label for="id_message" class="label">Message <em>*</em></label>
+                                {{ form.message.errors }}
+	                            {{ form.message }}
                                 <div class="clearfix"></div>
 
                                 <input type="hidden" name="token" value="FsWga4&amp;@f6aw">
