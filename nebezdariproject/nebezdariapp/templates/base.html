@@ -146,7 +146,6 @@
                 <!-- end header with image -->
             {% endblock pageheader %}
 
-
             {% block breadcrumbs %}
                 <section>
                     <div class="pagenation-holder">
@@ -155,16 +154,22 @@
                                 <div class="col-md-6"><h4 class="uppercase">Блог компании NBZDR</h4></div>
                                 <div class="col-md-6">
                                     <ol class="breadcrumb">
-                                        <li><a href="#">Главная</a></li>
+                                        {% block extra_breadcrumbs %}
+                                        {% endblock extra_breadcrumbs %}
+
+                                        {% if user.is_authenticated %}
+                                            <li><a href="/logout">Выход</a></li>
+                                        {% else %}
+                                            <li><a href="/login">Авторизация</a></li>
+                                        {% endif %}
                                     </ol>
                                 </div>
-
                             </div>
                         </div>
                     </div>
                 </section>
-                <!--end section-->
             {% endblock breadcrumbs %}
+            <!--end section-->
         {% endblock header %}
 
         {% block content %}

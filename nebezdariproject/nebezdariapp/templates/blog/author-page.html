@@ -11,13 +11,16 @@
     <script src="{% static 'blog/js/owl-carousel/custom.js' %}"></script>
 {% endblock extra_body %}
 
+{% block extra_breadcrumbs %}
+    <li><a href="/author/{{ author.username }}/edit/">Редактировать</a></li>
+{% endblock extra_breadcrumbs %}
+
 {% block content %}
     <section class="sec-padding">
         <div class="container">
             <div class="row">
                 <div class="container-fluid">
                     <div class="row">
-
                         <div class="col-md-10 col-centered">
                             <div class="col-md-5 margin-bottom">
                                 {% if author.avatar %}

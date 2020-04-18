@@ -16,10 +16,11 @@ urlpatterns = [
     path('author/logout/', views.user_logout, name='logout'),
     path('admin/logout/', views.user_logout, name='logout'),
 
-    path('author/<username>/', views.author, name='author'),
-    path('author/<username>/edit/', views.edit_author, name='author'),
+    path('author/', views.add_post, name='add_post'),
     path('author/addpost/', views.add_post, name='add_post'),
     path('author/editpost/', views.edit_post, name='edit_post'),
+    path('author/<username>/', views.author_page, name='author'),
+    path('author/<username>/edit/', views.author_edit, name='author'),
 
     path('admin/adduser', views.admin_add_user, name='admin_add_user'),
     path('admin/authors', views.admin_authors, name='admin_all_users'),
