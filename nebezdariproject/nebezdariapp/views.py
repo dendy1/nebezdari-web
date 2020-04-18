@@ -57,7 +57,7 @@ def contact(request):
             except BadHeaderError:
                 return HttpResponse('Invalid header found')
 
-            return render(request, 'thanks-page.html', context={})
+            return render(request, 'blog/thanks-page.html', context={})
 
     else:
         form = ContactForm()
