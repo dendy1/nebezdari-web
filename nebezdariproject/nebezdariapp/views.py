@@ -1,4 +1,4 @@
-from django.shortcuts import HttpResponse, render, HttpResponseRedirect, get_object_or_404, get_list_or_404
+from django.shortcuts import HttpResponse, render, HttpResponseRedirect, get_object_or_404, get_list_or_404, Http404
 from django.core.paginator import EmptyPage, PageNotAnInteger
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -164,6 +164,14 @@ def admin_all_posts(request):
         "form": form
     }
     return render(request, 'admin/admin-posts-page.html', context)
+
+def author(request):
+    if request.user.is_authenticated:
+        if request.user.is_superuser:
+            return HttpResponseRedirect('/admin/')
+        return HttpResponseRedirect('/author/' + request.user.username)
+
+    raise Http404("Проверьте правильность пути")
 
 def author_page(request, username):
     author = get_object_or_404(Author, username=username)
