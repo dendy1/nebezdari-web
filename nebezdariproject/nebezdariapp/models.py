@@ -1,7 +1,8 @@
-from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-class MailingMembers(models.Model):
+class MailingMember(models.Model):
     email = models.EmailField(max_length=255)
 
     def __str__(self):
@@ -10,42 +11,36 @@ class MailingMembers(models.Model):
     class Meta:
         db_table = "nebezdariapp_mailing_members"
 
-class Authors(models.Model):
-    email = models.EmailField(max_length=255, unique=True)
-    login = models.CharField(max_length=64, unique=True)
-    password = models.CharField(max_length=64)
-    first_name = models.CharField(max_length=64)
-    second_name = models.CharField(max_length=64)
+class Author(AbstractUser):
     about = models.CharField(max_length=512)
 
     def __str__(self):
-        return self.login
+        return self.username
 
 
-class Categories(models.Model):
+class Category(models.Model):
     name = models.CharField(max_length=64, unique=True)
 
     def __str__(self):
         return self.name
 
 
-class Posts(models.Model):
-    author = models.ForeignKey(Authors, null=True, on_delete=models.SET_NULL)
+class Post(models.Model):
+    author = models.ForeignKey(Author, null=True, on_delete=models.SET_NULL)
     title = models.CharField(max_length=256)
-    text = RichTextField()
-    categories = models.ManyToManyField(Categories)
+    text = RichTextUploadingField()
+    categories = models.ManyToManyField(Category)
 
     def __str__(self):
-        return self.author.login
+        return self.title
 
 
-class Comments(models.Model):
+class Comment(models.Model):
     parent = models.ForeignKey('self', on_delete=models.CASCADE)
-    post = models.ForeignKey(Posts, on_delete = models.CASCADE)
+    post = models.ForeignKey(Post, on_delete = models.CASCADE)
     name = models.CharField(max_length=64)
     text = models.CharField(max_length=512)
-    author = models.ForeignKey(Authors, on_delete=models.CASCADE)
-
+    author = models.ForeignKey(Author, on_delete=models.CASCADE)
     def __str__(self):
         return self.text
 

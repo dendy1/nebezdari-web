@@ -50,7 +50,6 @@
     </script>
 
     <!-- Favicon -->
-    <link rel="stylesheet" type="text/css" href="{% static 'blog/js/bootstrap/bootstrap.min.css' %}">
 
     <!-- Google fonts  -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"
@@ -60,9 +59,11 @@
     <link href="https://fonts.googleapis.com/css?family=Yesteryear" rel="stylesheet">
 
     <!-- Template's stylesheets -->
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/js/bootstrap/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'blog/css/theme-default.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'blog/css/corporate.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'blog/css/shortcodes.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'blog/css/shop.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'blog/fonts/fontawesome/all.min.css' %}" type="text/css">
     <!-- Template's stylesheets END -->
 
@@ -188,17 +189,10 @@
                                     <div class="row">
                                         <div class="form-body bg-light">
                                             <form class="form-row">
-                                                <div class="col-md-9">
-
-                                                    <input id="name" class="input-1" type="text"
-                                                           placeholder="Введите Email"
-                                                           name="Name">
+                                                <div class="sp-feature-box-4">
+                                                    <input type="search" class="input-1" placeholder="Введите E-Mail адрес">
+                                                    <button type="submit" class="submit-btn btn-anim-1 uppercase"><i class="far fa-bell" aria-hidden="true"></i> <span>Подписаться</span></button>
                                                 </div>
-
-                                                <button type="submit"
-                                                        class="btn btn-medium btn-dark btn-anim-1 uppercase">
-                                                    <i class="far fa-bell" aria-hidden="true"></i>
-                                                    <span>Подписаться</span></button>
                                             </form>
                                         </div>
                                     </div>
@@ -246,5 +240,8 @@
 
 <!-- Template scripts -->
 <script src="{% static 'blog/fonts/fontawesome/all.min.js' %}"></script>
+
+{% block extra_body %}
+{% endblock extra_body %}
 </body>
 </html>

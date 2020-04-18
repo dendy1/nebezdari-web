@@ -1,61 +1,63 @@
 {% extends "base.html" %}
 
 {% block extra_head %}
-    {{ form.media }}
+    {{ form.media.css }}
 {% endblock extra_head %}
+
+{% block extra_body %}
+    {{ form.media.js }}
+{% endblock extra_body %}
 
 {% block content %}
     <section class="sec-padding">
-        <div class="container">
-            <div class="row">
-                <div class="form-body">
-                    <div class="row">
-                        <div class="col-md-10 col-centered text-center">
-                            {{ form.title.errors }}
-                            <label class="lable-text" for="{{ form.title.id_for_label }}">Заголовок</label>
-                            {{ form.title }}
+        <form method="post" action="addpost">
+            {% csrf_token %}
+            <div class="container">
+                <div class="row">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-10 col-centered text-center">
+                                {{ form.title.errors }}
+                                <label class="lable-text" for="{{ form.title.id_for_label }}">Заголовок</label>
+                                {{ form.title }}
+                            </div>
                         </div>
-                    </div>
-                    <!-- end row -->
+                        <!-- end row -->
 
-                    <br>
-                    <div class="row">
-                        <div class="col-md-10 col-centered text-center">
-                            {{ form.text.errors }}
-                            <label class="lable-text" for="{{ form.text.id_for_label }}">Текст статьи</label>
-                            {{ form.text }}
-                        </div>
-                    </div>
-                    <!-- end row -->
-
-                    <br>
-                    <div class="row">
-                        <div class="col-md-12 col-centered">
-                            {{ form.categories.errors }}
-                            <label class="lable-text" for="{{ form.categories.id_for_label }}">Категории</label>
-                            {% for choice in form.categories.choices %}
-                                <label class="control control--checkbox">{{ choice }}
-                                    <input type="checkbox">
-                                    <div class="control__indicator cyan"></div>
-                                </label>
-                            {% endfor %}
-                        </div>
-                    </div>
-                    <!-- end row -->
-
-                    <div class="row">
                         <br>
-                        <div class="col-md-12 text-center">
-                            <button class="btn btn-dark btn-medium uppercase" type="submit">
-                                <i class="fa fa-paper-plane"></i>
-                                Опубликовать пост
-                            </button>
+                        <div class="row">
+                            <div class="col-md-10 col-centered text-center">
+                                {{ form.text.errors }}
+                                <label class="lable-text" for="{{ form.text.id_for_label }}">Текст статьи</label>
+                                {{ form.text }}
+                            </div>
                         </div>
+                        <!-- end row -->
+
+                        <br>
+                        <div class="row">
+                            <div class="col-md-10 col-centered text-center">
+                                {{ form.categories.errors }}
+                                <label class="lable-text" for="{{ form.categories.id_for_label }}">Категории</label>
+                                {{ form.categories }}
+                            </div>
+                        </div>
+                        <!-- end row -->
+
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <button class="btn btn-dark btn-medium uppercase" type="submit">
+                                    <i class="fa fa-paper-plane"></i>
+                                    Опубликовать пост
+                                </button>
+                            </div>
+                        </div>
+                        <!-- end row -->
                     </div>
-                    <!-- end row -->
                 </div>
             </div>
-        </div>
+        </form>
     </section>
     <!-- Form End -->
 {% endblock content %}
