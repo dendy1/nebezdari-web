@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <section class="sec-padding">
+        <div class="container">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="sp-cart">
+                        <tbody>
+                        <tr>
+                            <th class="pro-img"></th>
+                            <th style="width:10%;">Username</th>
+                            <th style="width:20%;">E-Mail</th>
+                            <th style="width:35%;">Description</th>
+                            <th style="width:10%;"></th>
+                            <th style="width:10%;"></th>
+                        </tr>
+
+                        {% for author in author_list %}
+                            <tr>
+                                <td class="pro-img"><img src="http://via.placeholder.com/600x700" alt="" class="img-responsive"></td>
+                                <td class="pro-title"><h6>{{ author.username }}</h6></td>
+                                <td class="pro-title"><h6>{{ author.email }}</h6></td>
+                                <td class="pro-des"><p>
+                                    First name: {{ author.first_name|default:"---" }} <br>
+                                    Last name: {{ author.last_name|default:"---" }} <br>
+                                    Last login: {{ author.last_login }} <br>
+                                </p></td>
+                                <td><a class="btn btn-green-dark btn-small" href="#">Сбросить пароль</a></td>
+                                <td><a class="btn btn-red-dark btn-small" href="#">Удалить</a></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}
+
+{% block subscription %}
+{% endblock subscription %}

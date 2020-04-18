@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block header %}
+    {{ form.media.css }}
+{% endblock header %}
+
+{% block extra_body %}
+    {{ form.media.js }}
+{% endblock extra_body %}
+
+{% block content %}
+    <section class="sec-padding">
+        <form method="post" action="/login/">
+            {% csrf_token %}
+            <div class="container">
+                <div class="col-md-12">
+                    <div class="col-md-12 text-center"><h4 class="uppercase">Форма входа</h4></div>
+                    <div class="clearfix"></div>
+                    <div class="form-body border-light">
+
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                {{ form.username.errors }}
+                                <label class="lable-text"
+                                       for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+                                {{ form.username }}
+                            </div>
+                        </div>
+                        <!-- end row -->
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{ form.password.errors }}
+                                <label class="lable-text"
+                                       for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+                                {{ form.password }}
+                            </div>
+                        </div>
+                        <!-- end row -->
+                        <br>
+                        <div class="row">
+                            <br>
+                            <div class="col">
+                                <div class="mx-auto bg-dark text-white text-center w-50">
+                                    <button class="btn btn-dark-3 btn-half-fullwidth uppercase" type="submit">
+                                        Авторизоваться
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end row -->
+
+                    </div>
+                    <!--end form body-->
+                </div>
+                <!--end item-->
+            </div>
+        </form>
+    </section>
+{% endblock content %}
+
+{% block footer %}
+{% endblock footer %}
