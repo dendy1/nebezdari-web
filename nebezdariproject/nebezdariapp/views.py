@@ -3,7 +3,7 @@ from django.core.paginator import EmptyPage, PageNotAnInteger
 from django.contrib.auth import authenticate, login, logout
 from .lib.custom_paginator import CustomPaginator
 from .models import Category, Post, Author
-from .forms import PostForm, LoginForm, NewAuthorForm, EditAuthorForm
+from .forms import PostForm, LoginForm, NewAuthorForm
 
 
 def index(request):
@@ -48,16 +48,6 @@ def contact(request):
 def author(request, username):
     author = Author.objects.get(username=username)
     post_list = Post.objects.filter(author=author)
-    if author is not None:
-        return render(request,
-                      'blog/author-page.html',
-                      context={'author':author,
-                               'post_list':post_list})
-
-    return HttpResponseRedirect('/')
-
-def edit_author(request, username):
-    author = Author.objects.get(username=username)
     if author is not None:
         return render(request,
                       'blog/author-page.html',
@@ -127,12 +117,14 @@ def edit_post(request):
 
 def admin_add_user(request):
     if request.method == 'POST':
-        form = AuthorForm(request.POST)
+        form = NewAuthorForm(request.POST)
         if form.is_valid():
+            password = Author.objects.make_random_password(length=10)
+            print(password)
             author = Author.objects.create_user(
                 form.cleaned_data['username'],
                 form.cleaned_data['email'],
-                Author.objects.make_random_password(length=10)
+                password
             )
 
             author.first_name = form.cleaned_data['first_name']
@@ -141,7 +133,7 @@ def admin_add_user(request):
             author.save()
             return HttpResponseRedirect('/admin/authors')
     else:
-        form = AuthorForm()
+        form = NewAuthorForm()
 
     return render(request,
                   'admin/admin-add-user-page.html',

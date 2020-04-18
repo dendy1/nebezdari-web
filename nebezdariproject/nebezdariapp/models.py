@@ -12,7 +12,7 @@ class MailingMember(models.Model):
         db_table = "nebezdariapp_mailing_members"
 
 class Author(AbstractUser):
-    bio = models.CharField(max_length=2047, blank=True, default='')
+    about = models.CharField(max_length=2047, blank=True, default='')
 
     def __str__(self):
         return self.username
