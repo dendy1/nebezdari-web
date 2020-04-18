@@ -59,12 +59,14 @@
     <link href="https://fonts.googleapis.com/css?family=Yesteryear" rel="stylesheet">
 
     <!-- Template's stylesheets -->
-    <link rel="stylesheet" type="text/css" href="{% static 'blog/js/bootstrap/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/js/bootstrap/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'blog/css/theme-default.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'blog/css/corporate.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'blog/css/shortcodes.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'blog/css/shop.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'blog/fonts/fontawesome/all.min.css' %}" type="text/css">
+    {% block extra_head %}
+    {% endblock extra_head %}
     <!-- Template's stylesheets END -->
 
     <!-- Style Customizer's stylesheets -->
@@ -72,9 +74,6 @@
     <!-- Style Customizer's stylesheets END -->
 
     <!-- Skin stylesheet -->
-
-    {% block extra_head %}
-    {% endblock extra_head %}
 </head>
 <body>
 <div class="over-loader loader-live">
@@ -190,8 +189,11 @@
                                         <div class="form-body bg-light">
                                             <form class="form-row">
                                                 <div class="sp-feature-box-4">
-                                                    <input type="search" class="input-1" placeholder="Введите E-Mail адрес">
-                                                    <button type="submit" class="submit-btn btn-anim-1 uppercase"><i class="far fa-bell" aria-hidden="true"></i> <span>Подписаться</span></button>
+                                                    <input type="search" class="input-1"
+                                                           placeholder="Введите E-Mail адрес">
+                                                    <button type="submit" class="submit-btn btn-anim-1 uppercase"><i
+                                                            class="far fa-bell" aria-hidden="true"></i> <span>Подписаться</span>
+                                                    </button>
                                                 </div>
                                             </form>
                                         </div>
@@ -229,19 +231,12 @@
 <script src="{% static 'blog/js/bootstrap/bootstrap.min.js' %}"></script>
 
 <script src="{% static 'blog/js/less/less.min.js' %}" data-env="development"></script>
-<script src="{% static 'blog/js/sticky/jquery.sticky.js' %}"></script>
 
-<script>
-    $(window).load(function () {
-        $("#stickyheader").sticky({topSpacing: 0});
-    });
-</script>
+{% block extra_body %}
+{% endblock extra_body %}
 <!-- Scripts END -->
 
 <!-- Template scripts -->
 <script src="{% static 'blog/fonts/fontawesome/all.min.js' %}"></script>
-
-{% block extra_body %}
-{% endblock extra_body %}
 </body>
 </html>

@@ -12,7 +12,7 @@ class MailingMember(models.Model):
         db_table = "nebezdariapp_mailing_members"
 
 class Author(AbstractUser):
-    about = models.CharField(max_length=512)
+    bio = models.CharField(max_length=2047, blank=True, default='')
 
     def __str__(self):
         return self.username
@@ -36,7 +36,7 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-    parent = models.ForeignKey('self', on_delete=models.CASCADE)
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, blank=True)
     post = models.ForeignKey(Post, on_delete = models.CASCADE)
     name = models.CharField(max_length=64)
     text = models.CharField(max_length=512)

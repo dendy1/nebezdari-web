@@ -1,8 +1,9 @@
 from django.shortcuts import HttpResponse, render, HttpResponseRedirect
-from .models import Category, Post
 from django.core.paginator import EmptyPage, PageNotAnInteger
+from django.contrib.auth import authenticate, login, logout
 from .lib.custom_paginator import CustomPaginator
-from .forms import PostForm
+from .models import Category, Post, Author
+from .forms import PostForm, LoginForm, NewAuthorForm, EditAuthorForm
 
 
 def index(request):
@@ -23,7 +24,7 @@ def index(request):
     pagination_list = paginator.pagination_list()
 
     return render(request,
-                  'main-page.html',
+                  'blog/main-page.html',
                   context={'categories_list': categories_list,
                            'posts': posts,
                            'pagination_list': pagination_list, })
@@ -31,28 +32,69 @@ def index(request):
 
 def post(request):
     return render(request,
-                  'post-page.html',
+                  'blog/post-page.html',
                   context={})
 
 def about(request):
     return render(request,
-                  'about-page.html',
+                  'blog/about-page.html',
                   context={})
 
 def contact(request):
     return render(request,
-                  'contact-page.html',
+                  'blog/contact-page.html',
                   context={})
 
-def author(request):
-    return render(request,
-                  'author-page.html',
-                  context={})
+def author(request, username):
+    author = Author.objects.get(username=username)
+    post_list = Post.objects.filter(author=author)
+    if author is not None:
+        return render(request,
+                      'blog/author-page.html',
+                      context={'author':author,
+                               'post_list':post_list})
 
-def login(request):
+    return HttpResponseRedirect('/')
+
+def edit_author(request, username):
+    author = Author.objects.get(username=username)
+    if author is not None:
+        return render(request,
+                      'blog/author-page.html',
+                      context={'author':author,
+                               'post_list':post_list})
+
+    return HttpResponseRedirect('/')
+
+def user_login(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            user = authenticate(
+                username=form.cleaned_data['username'],
+                password=form.cleaned_data['password']
+            )
+            print(user)
+
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    if user.is_superuser:
+                        return HttpResponseRedirect('/admin')
+                    else:
+                        return HttpResponseRedirect('/author')
+            else:
+                return HttpResponse('Invalid login or password')
+    else:
+        form = LoginForm()
+
     return render(request,
-                  'author-page.html',
-                  context={})   
+                  'blog/login-page.html',
+                  context={'form': form})
+
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect('/')
 
 def add_post(request):
     if request.method == 'POST':
@@ -73,7 +115,7 @@ def add_post(request):
         form = PostForm()
 
     return render(request,
-                  'add-post-page.html',
+                  'author/add-post-page.html',
                   context={'form': form})
 
 def edit_post(request):
@@ -81,21 +123,40 @@ def edit_post(request):
     context = {
         "form": form
     }
-    return render(request, 'edit-post-page.html', context)
+    return render(request, 'author/edit-post-page.html', context)
+
+def admin_add_user(request):
+    if request.method == 'POST':
+        form = AuthorForm(request.POST)
+        if form.is_valid():
+            author = Author.objects.create_user(
+                form.cleaned_data['username'],
+                form.cleaned_data['email'],
+                Author.objects.make_random_password(length=10)
+            )
+
+            author.first_name = form.cleaned_data['first_name']
+            author.last_name = form.cleaned_data['last_name']
+            author.is_active = True
+            author.save()
+            return HttpResponseRedirect('/admin/authors')
+    else:
+        form = AuthorForm()
+
+    return render(request,
+                  'admin/admin-add-user-page.html',
+                  context={'form':form})
+
+def admin_authors(request):
+    author_list = Author.objects.all()
+
+    return render(request,
+                  'admin/admin-authors-page.html',
+                  context={'author_list':author_list})
 
 def admin_all_posts(request):
     form = PostForm()
     context = {
         "form": form
     }
-    return render(request, 'admin-all-posts-page.html', context)
-
-def admin_add_user(request):
-    context = {
-    }
-    return render(request, 'admin-add-user-page.html', context)
-
-def admin_all_users(request):
-    context = {
-    }
-    return render(request, 'admin-all-users-page.html', context)
+    return render(request, 'admin/admin-posts-page.html', context)
