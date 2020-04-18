@@ -27,7 +27,7 @@
                             </div>
                             <div class="text-box padd-1 shadow">
                                 <h4 class="less-mar-1 title"><a href="/post/{{ post.id }}">{{ post.title }} </a></h4>
-                                <p>{{ post.text | truncatewords:10 }}</p>
+                                <p>{{ post.text|safe|truncatewords:10 }}</p>
                                 <div class="date-info-box">
 
 

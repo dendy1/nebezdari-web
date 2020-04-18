@@ -3,7 +3,7 @@ from django.core.paginator import EmptyPage, PageNotAnInteger
 from django.contrib.auth import authenticate, login, logout
 from .lib.custom_paginator import CustomPaginator
 from .models import Category, Post, Author
-from .forms import PostForm, LoginForm, NewAuthorForm
+from .forms import PostForm, LoginForm, NewAuthorForm, EditAuthorForm
 
 
 def index(request):
@@ -55,6 +55,25 @@ def author(request, username):
                                'post_list':post_list})
 
     return HttpResponseRedirect('/')
+
+def edit_author(request, username):
+    author = Author.objects.get(username=username)
+
+    if request.method == "POST":
+        form = EditAuthorForm(request.POST, request.FILES)
+        if form.is_valid():
+            author.first_name = form.cleaned_data['first_name']
+            author.last_name = form.cleaned_data['last_name']
+            author.about = form.cleaned_data['about']
+            author.avatar = form.cleaned_data['avatar']
+            author.save()
+            return HttpResponseRedirect('/author/' + username)
+    else:
+        form = EditAuthorForm(instance=author)
+
+    return render(request,
+                  'author/edit-author-page.html',
+                  context={'form':form, 'username':username})
 
 def user_login(request):
     if request.method == 'POST':

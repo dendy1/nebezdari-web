@@ -17,6 +17,7 @@ urlpatterns = [
     path('admin/logout/', views.user_logout, name='logout'),
 
     path('author/<username>/', views.author, name='author'),
+    path('author/<username>/edit/', views.edit_author, name='author'),
     path('author/addpost/', views.add_post, name='add_post'),
     path('author/editpost/', views.edit_post, name='edit_post'),
 

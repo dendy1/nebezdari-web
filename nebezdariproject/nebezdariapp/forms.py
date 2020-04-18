@@ -62,6 +62,32 @@ class NewAuthorForm(forms.ModelForm):
         model = Author
         fields = ('username', 'email', 'first_name', 'last_name')
 
+class EditAuthorForm(forms.ModelForm):
+    first_name = forms.CharField(
+        label='Имя нового автора',
+        widget=forms.TextInput(
+            attrs={'class': 'input-1', 'placeholder': 'Введите имя'}
+        )
+    )
+
+    last_name = forms.CharField(
+        label='Фамилия нового автора',
+        widget=forms.TextInput(
+            attrs={'class': 'input-1', 'placeholder': 'Введите фамилию'}
+        )
+    )
+
+    about = forms.CharField(
+        label='Краткая информация',
+        widget=CKEditorUploadingWidget
+    )
+
+    avatar = forms.ImageField()
+
+    class Meta:
+        model = Author
+        fields = ('first_name', 'last_name', 'about', 'avatar')
+
 class LoginForm(forms.Form):
     username = forms.CharField(
         label='Логин или E-Mail',

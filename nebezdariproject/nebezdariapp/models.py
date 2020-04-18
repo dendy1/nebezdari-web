@@ -13,6 +13,7 @@ class MailingMember(models.Model):
 
 class Author(AbstractUser):
     about = models.CharField(max_length=2047, blank=True, default='')
+    avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
 
     def __str__(self):
         return self.username
@@ -30,7 +31,7 @@ class Post(models.Model):
     title = models.CharField(max_length=256)
     text = RichTextUploadingField()
     categories = models.ManyToManyField(Category)
-
+    image = models.ImageField(upload_to='posts/', null=True, blank=True)
     def __str__(self):
         return self.title
 
