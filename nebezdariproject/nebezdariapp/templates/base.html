@@ -92,31 +92,7 @@
         {% block header %}
 
             {% block topmenu %}
-                <div class="col-md-12 nopadding">
-                    <div class="header-section">
-                        <div class="topbar dark topbar-padding pin-style">
-                            <div class="container">
-                                <div class="mod-menu">
-                                    <div class="topbar-left-items">
-                                        <ul class="toplist toppadding pull-left paddtop1">
-                                            <li class="rightl"><a href="/">NEBEZDARI</a></li>
-                                        </ul>
-                                    </div>
-                                    <!--end left-->
-
-                                    <div class="topbar-right-items pull-right">
-                                        <ul class="toplist toppadding">
-                                            <li class="lineright"><a href="/">Главная</a></li>
-                                            <li class="lineright"><a href="/about">О нас</a></li>
-                                            <li class="last"><a href="/contact">Контакты</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
+               {% include 'blog/includes/main-menu.html' %}
             {% endblock topmenu %}
 
             {% block pageheader %}
@@ -160,7 +136,7 @@
                                             {% endif %}
 
                                             <li><a href="/author/">Личная страница</a></li>
-                                            <li><a href="/author/addpost/">Добавить пост</a></li>
+                                            <li><a href="/post/add">Добавить пост</a></li>
                                         {% endif %}
 
                                         {% block extra_breadcrumbs %}
@@ -187,52 +163,11 @@
 
         {% block footer %}
             {% block subscription %}
-                <section class="sec-padding-6 section-medium-dark">
-                    <div class="container">
-                        <div class="row justify-content-md-center">
-                            <div class="col-md-auto w-auto">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="sec-title-container less-padding-6 text-center">
-                                            <h3 class="font-weight-6 less-mar-1 line-height-5 text-white">
-                                                Подпишитесь на обновления сайта</h3>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="form-body bg-light">
-                                            <form class="form-row">
-                                                <div class="sp-feature-box-4">
-                                                    <input type="search" class="input-1"
-                                                           placeholder="Введите E-Mail адрес">
-                                                    <button type="submit" class="submit-btn btn-anim-1 uppercase"><i
-                                                            class="far fa-bell" aria-hidden="true"></i> <span>Подписаться</span>
-                                                    </button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                </section>
-                <div class="clearfix"></div>
+                {% include 'blog/includes/subcription.html' %}
             {% endblock subscription %}
 
             {% block copyright %}
-                <section class="sec-padding-6 section-medium-dark">
-                    <div class="container">
-                        <div class="row">
-                            <div class="fo-copyright-holder text-center"> Copyright © 2020 l Codelayers. All rights
-                                reserved.
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <div class="clearfix"></div>
-                <a href="#" class="scrollup"></a>
+                {% include 'blog/includes/copyright.html' %}
             {% endblock copyright %}
         {% endblock footer %}
     </div>

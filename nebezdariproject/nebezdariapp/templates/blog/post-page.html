@@ -5,180 +5,63 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-sm-12 col-xs-12">
-                    <div>
-                        <div class="bg2-video-wrapper">
-                            <iframe src="https://www.youtube.com/embed/JY02BTJrrOc" frameborder="0"
-                                    allowfullscreen=""></iframe>
+                    <div class="clearfix"></div>
+
+                    <div class="col-md-12 nopadding">
+                        <div class="text-box">
+                            <div class="text-center">
+                                <div class="blog-post-info">
+                                    <img src="{{ post.author.avatar.url }}" alt="" class="img-circle imgbox-small">
+                                    <h4 class="uppercase title less-mar-1"><a
+                                            href="/author/{{ post.author.username }}/">{{ post.author.get_full_name }}</a>
+                                    </h4>
+                                    <h4 class="raleway  less-mar-1">{{ post.title }}</h4>
+                                </div>
+
+                                <i class="fa fa-folder"></i>
+                                {% for category in post.categories.all %}
+                                    <a href="/category/{{ category.name }}/">{{ category.name }}</a>
+                                    {% if not forloop.last %} | {% endif %}
+                                {% endfor %}
+                            </div>
                         </div>
-                        <!--end video wrapper-->
-                        <div class="clearfix"></div>
                         <br>
-                        <div class="postinfo-box">
-                            <h4 class="less-mar-1 title"><a href="#">You can start a successful blog and<br>Create
-                                Awesome Design Styles </a></h4>
-                            <br>
-                            <div class="blog-post-info"><span><i class="fa fa-comments-o"></i> 15 Comments</span> <span><i
-                                    class="fa fa-folder"></i> Business/Video</span><span><i class="fa fa-thumbs-up"></i> 256 Likes</span>
-                            </div>
-                            <br>
-                            <p>{% lorem 25 p %}</p>
-                            <br>
-                        </div>
+                        {{ post.text|safe }}
                     </div>
-                </div>
-                <!--end post item-->
 
-                <div class="col-md-4 col-sm-12 col-xs-12 section-white">
-                    <div class="pages-sidebar-item">
-                        <div class="form-body bg-light">
-
-                            <div class="row">
-                                <div class="col-md-12 col-centered text-center">
-                                    <label class="lable-text" for="email">Email Address</label>
-                                    <input id="email" class="input-1" type="text" placeholder="Enter your email"
-                                           name="Name">
-                                </div>
-                            </div>
-                            <!-- end row -->
-
-                            <div class="row">
-                                <br>
-                                <div class="col-md-12 col-centered text-center">
-                                    <button class="btn btn-dark-3 btn-fullwidth uppercase" type="submit">
-                                        <i class="far fa-bell" aria-hidden="true"></i> Подписаться
-                                    </button>
-                                </div>
-                            </div>
-                            <!-- end row -->
-                        </div>
-                    </div>
-                    <!--end item holder-->
-
-                    <div class="pages-sidebar-item">
-                        <h5 class="uppercase pages-sidebar-item-title">Latest Posts</h5>
-                        <div class="col-md-12 col-sm-12 col-xs-12 nopadding">
-                            <div class="imgbox-small left"><img src="http://via.placeholder.com/80x80" alt=""
-                                                                class="img-responsive"></div>
-                            <div class="text-box-right">
-                                <h6 class="uppercase nopadding"><a href="/post" class="text-hover-gyellow">Nullam turpis
-                                    Cras dapibusscing</a></h6>
-                                <div class="blog-post-info padding-top-1"><span> By Benjamin</span>
-                                    <span> 15 Comments</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!--end post-->
-
-                        <div class="divider-line solid light margin"></div>
-                        <div class="col-md-12 col-sm-12 col-xs-12 nopadding">
-                            <div class="imgbox-small left"><img src="http://via.placeholder.com/80x80" alt=""
-                                                                class="img-responsive"></div>
-                            <div class="text-box-right">
-                                <h6 class="uppercase nopadding"><a href="/post" class="text-hover-gyellow">Nullam turpis
-                                    Cras dapibusscing</a></h6>
-                                <div class="blog-post-info padding-top-1"><span> By Benjamin</span>
-                                    <span> 15 Comments</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!--end post-->
-
-                        <div class="divider-line solid light margin"></div>
-                        <div class="col-md-12 col-sm-12 col-xs-12 nopadding">
-                            <div class="imgbox-small left"><img src="http://via.placeholder.com/80x80" alt=""
-                                                                class="img-responsive"></div>
-                            <div class="text-box-right">
-                                <h6 class="uppercase nopadding"><a href="/post" class="text-hover-gyellow">Nullam turpis
-                                    Cras dapibusscing</a></h6>
-                                <div class="blog-post-info padding-top-1"><span> By Benjamin</span>
-                                    <span> 15 Comments</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!--end post-->
-                    </div>
-                    <!--end item holder-->
-                </div>
-                <!--end right col-->
-
-                <div>
-                    <div class="clearfix"></div>
-                    <h4>3 Comments</h4>
-
-                    <div class="text-box border white padding-4">
-                        <div class="imgbox-medium left round overflow-hidden"><img
-                                src="http://via.placeholder.com/350x350" alt="" class="img-responsive"/></div>
-                        <div class="text-box-right more-padding-1">
-                            <h5 class="less-mar-1">Charlotte</h5>
-                            <div class="blog-post-info"><span>July 15 2015 at 10:30 AM</span></div>
-                            <br/>
-                            <p>Lorem ipsum dolor sit amet consectetuer adipiscing elit Suspendisse et justo Praesent
-                                mattis commodo augue amet consectetuer adipiscing. </p>
-                            <br/>
-                            <a class="btn btn-border less-bor dark btn-small" href="#"><i class="fa fa-reply"
-                                                                                          aria-hidden="true"></i> &nbsp;Reply</a>
-                        </div>
-                    </div>
-                    <!--end comment box-->
-
-                    <div class="col-divider-margin-2"></div>
-                    <div class="text-box border white padding-4">
-                        <div class="imgbox-medium left round overflow-hidden"><img
-                                src="http://via.placeholder.com/350x350" alt="" class="img-responsive"/></div>
-                        <div class="text-box-right more-padding-1">
-                            <h5 class="less-mar-1">John William</h5>
-                            <div class="blog-post-info"><span>July 15 2015 at 10:30 AM</span></div>
-                            <br/>
-                            <p>Lorem ipsum dolor sit amet consectetuer adipiscing elit Suspendisse et justo Praesent
-                                mattis commodo augue amet consectetuer adipiscing. </p>
-                            <br/>
-                            <a class="btn btn-border less-bor dark btn-small" href="#"><i class="fa fa-reply"
-                                                                                          aria-hidden="true"></i> &nbsp;Reply</a>
-                        </div>
-                    </div>
-                    <!--end comment box-->
-
-                    <div class="col-divider-margin-2"></div>
-
-                    <div class="col-md-11 pull-right">
-                        <div class="text-box border white padding-4">
-                            <div class="imgbox-medium left round overflow-hidden"><img
-                                    src="http://via.placeholder.com/350x350" alt="" class="img-responsive"/></div>
-                            <div class="text-box-right more-padding-1">
-                                <h5 class="less-mar-1">John William</h5>
-                                <div class="blog-post-info"><span>July 15 2015 at 10:30 AM</span></div>
-                                <br/>
-                                <p>Lorem ipsum dolor sit amet consectetuer adipiscing elit Suspendisse et justo Praesent
-                                    mattis commodo augue amet consectetuer adipiscing. </p>
-                                <br/>
-                                <a class="btn btn-border less-bor dark btn-small" href="#"><i class="fa fa-reply"
-                                                                                              aria-hidden="true"></i>
-                                    &nbsp;Reply</a>
-                            </div>
-                        </div>
-                        <!--end comment box-->
-                    </div>
-                    <!--end less width comment box-->
 
                     <div class="clearfix"></div>
-                    <br/><br/>
-                    <a class="btn btn-dark-3 btn-large uppercase" href="#">Load More Comments</a>
+                    <br><br>
+                    <h4>{{ comment_list.count }} Комментариев</h4>
+
+                    {% for comment in comment_list %}
+                        {% if not comment.parent %}
+                            {% include "blog/includes/comment.html" %}
+                        {% endif %}
+                    {% endfor %}
 
                     <div class="clearfix"></div>
                     <br/><br/>
                     <h4>Post a Comment</h4>
-
-                    <input class="bg-cinput" type="text" placeholder="Enter Name" value="">
-                    <input class="bg-cinput" type="text" placeholder="Email Address" value="">
-                    <input class="bg-cinput" type="text" placeholder="Phone" value="">
-                    <textarea class="bg-ctexteria" placeholder="Your Comment"></textarea>
-                    <div class="clearfix"></div>
-                    <br/>
-                    <a class="btn btn-dark-3 btn-large uppercase" href="#"><i class="fa fa-paper-plane"
-                                                                              aria-hidden="true"></i> &nbsp;Post
-                        Comments</a>
+                    <form method="post" action="/post/{{ post.id }}/add/comment">
+                        <input class="bg-cinput" type="text" placeholder="Введите имя" value="">
+                        <textarea class="bg-ctexteria" style="resize: vertical"
+                                  placeholder="Введите комментарий"></textarea>
+                        <div class="clearfix"></div>
+                        <br>
+                        <button class="btn btn-dark-3 btn-large uppercase" type="submit"><i
+                                class="fa fa-paper-plane"
+                                aria-hidden="true"></i> Опубликовать
+                            комментарий
+                        </button>
+                    </form>
                 </div>
+                <!--end post item-->
+
+                {% include 'blog/includes/right-sidebar.html' %}
+                <!--end right col-->
             </div>
+
         </div>
     </section>
     <!--end comments col-->
