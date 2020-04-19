@@ -31,12 +31,6 @@ def index(request):
                            'posts': posts,
                            'pagination_list': pagination_list, })
 
-
-def post(request):
-    return render(request,
-                  'blog/post-page.html',
-                  context={})
-
 def about(request):
     return render(request,
                   'blog/about-page.html',
@@ -84,25 +78,26 @@ def user_logout(request):
     logout(request)
     return HttpResponseRedirect('/')
 
+
+def post(request, id):
+    post = get_object_or_404(Post, id=id)
+    return render(request,
+                  'blog/post-page.html',
+                  context={'post':post, 'id':id})
+
 @login_required(login_url='/login')
-def add_post(request):
+def post_add(request):
     if request.user.is_superuser:
         raise PermissionDenied
 
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
-            post = Post(
-                author=request.user,
-                title=form.cleaned_data['title'],
-                text=form.cleaned_data['text'])
-
+            post = form.save(commit=False)
+            post.author = request.user
             post.save()
-            for category in form.cleaned_data['categories']:
-                post.categories.add(category)
-            post.save()
-
-            return HttpResponseRedirect('/')
+            form.save_m2m()
+            return HttpResponseRedirect('/author/')
     else:
         form = PostForm()
 
@@ -111,12 +106,24 @@ def add_post(request):
                   context={'form': form})
 
 @login_required(login_url='/login')
-def edit_post(request):
-    form = PostForm()
-    context = {
-        "form": form
-    }
-    return render(request, 'author/edit-post-page.html', context)
+def post_edit(request, id):
+    post = get_object_or_404(Post, id=id)
+    if not request.user.is_authenticated or request.user.is_superuser:
+        raise PermissionDenied
+
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.save()
+            form.save_m2m()
+            return HttpResponseRedirect('/author/')
+    else:
+        form = PostForm(instance=post)
+
+    return render(request,
+                  'author/edit-post-page.html',
+                  context={'form': form})
 
 @login_required(login_url='/login')
 def admin_add_user(request):

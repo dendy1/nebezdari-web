@@ -5,25 +5,96 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-sm-12 col-xs-12">
-                    <div>
-                        <div class="bg2-video-wrapper">
-                            <iframe src="https://www.youtube.com/embed/JY02BTJrrOc" frameborder="0"
-                                    allowfullscreen=""></iframe>
+                    <div class="clearfix"></div>
+
+                    <div class="col-md-12 nopadding">
+                        <div class="text-box">
+                            <h4 class="raleway">{{ post.title }}</h4>
+                            <br>
+                            {{ post.text|safe }}
                         </div>
-                        <!--end video wrapper-->
+                    </div>
+
+
+                    <div class="col-md-12 nopadding">
                         <div class="clearfix"></div>
-                        <br>
-                        <div class="postinfo-box">
-                            <h4 class="less-mar-1 title"><a href="#">You can start a successful blog and<br>Create
-                                Awesome Design Styles </a></h4>
-                            <br>
-                            <div class="blog-post-info"><span><i class="fa fa-comments-o"></i> 15 Comments</span> <span><i
-                                    class="fa fa-folder"></i> Business/Video</span><span><i class="fa fa-thumbs-up"></i> 256 Likes</span>
+                        <h4>3 Comments</h4>
+
+                        <div class="text-box border white padding-4">
+                            <div class="imgbox-medium left round overflow-hidden"><img
+                                    src="http://via.placeholder.com/350x350" alt="" class="img-responsive"/></div>
+                            <div class="text-box-right more-padding-1">
+                                <h5 class="less-mar-1">Charlotte</h5>
+                                <div class="blog-post-info"><span>July 15 2015 at 10:30 AM</span></div>
+                                <br/>
+                                <p>Lorem ipsum dolor sit amet consectetuer adipiscing elit Suspendisse et justo Praesent
+                                    mattis commodo augue amet consectetuer adipiscing. </p>
+                                <br/>
+                                <a class="btn btn-border less-bor dark btn-small" href="#"><i class="fa fa-reply"
+                                                                                              aria-hidden="true"></i>
+                                    &nbsp;Reply</a>
                             </div>
-                            <br>
-                            <p>{% lorem 25 p %}</p>
-                            <br>
                         </div>
+                        <!--end comment box-->
+
+                        <div class="col-divider-margin-2"></div>
+                        <div class="text-box border white padding-4">
+                            <div class="imgbox-medium left round overflow-hidden"><img
+                                    src="http://via.placeholder.com/350x350" alt="" class="img-responsive"/></div>
+                            <div class="text-box-right more-padding-1">
+                                <h5 class="less-mar-1">John William</h5>
+                                <div class="blog-post-info"><span>July 15 2015 at 10:30 AM</span></div>
+                                <br/>
+                                <p>Lorem ipsum dolor sit amet consectetuer adipiscing elit Suspendisse et justo Praesent
+                                    mattis commodo augue amet consectetuer adipiscing. </p>
+                                <br/>
+                                <a class="btn btn-border less-bor dark btn-small" href="#"><i class="fa fa-reply"
+                                                                                              aria-hidden="true"></i>
+                                    &nbsp;Reply</a>
+                            </div>
+                        </div>
+                        <!--end comment box-->
+
+                        <div class="col-divider-margin-2"></div>
+
+                        <div class="col-md-11 pull-right">
+                            <div class="text-box border white padding-4">
+                                <div class="imgbox-medium left round overflow-hidden"><img
+                                        src="http://via.placeholder.com/350x350" alt="" class="img-responsive"/></div>
+                                <div class="text-box-right more-padding-1">
+                                    <h5 class="less-mar-1">John William</h5>
+                                    <div class="blog-post-info"><span>July 15 2015 at 10:30 AM</span></div>
+                                    <br/>
+                                    <p>Lorem ipsum dolor sit amet consectetuer adipiscing elit Suspendisse et justo
+                                        Praesent
+                                        mattis commodo augue amet consectetuer adipiscing. </p>
+                                    <br/>
+                                    <a class="btn btn-border less-bor dark btn-small" href="#"><i class="fa fa-reply"
+                                                                                                  aria-hidden="true"></i>
+                                        &nbsp;Reply</a>
+                                </div>
+                            </div>
+                            <!--end comment box-->
+                        </div>
+                        <!--end less width comment box-->
+
+                        <div class="clearfix"></div>
+                        <br/><br/>
+                        <a class="btn btn-dark-3 btn-large uppercase" href="#">Load More Comments</a>
+
+                        <div class="clearfix"></div>
+                        <br/><br/>
+                        <h4>Post a Comment</h4>
+
+                        <input class="bg-cinput" type="text" placeholder="Enter Name" value="">
+                        <input class="bg-cinput" type="text" placeholder="Email Address" value="">
+                        <input class="bg-cinput" type="text" placeholder="Phone" value="">
+                        <textarea class="bg-ctexteria" placeholder="Your Comment"></textarea>
+                        <div class="clearfix"></div>
+                        <br/>
+                        <a class="btn btn-dark-3 btn-large uppercase" href="#"><i class="fa fa-paper-plane"
+                                                                                  aria-hidden="true"></i> &nbsp;Post
+                            Comments</a>
                     </div>
                 </div>
                 <!--end post item-->
@@ -101,83 +172,7 @@
                 </div>
                 <!--end right col-->
 
-                <div>
-                    <div class="clearfix"></div>
-                    <h4>3 Comments</h4>
 
-                    <div class="text-box border white padding-4">
-                        <div class="imgbox-medium left round overflow-hidden"><img
-                                src="http://via.placeholder.com/350x350" alt="" class="img-responsive"/></div>
-                        <div class="text-box-right more-padding-1">
-                            <h5 class="less-mar-1">Charlotte</h5>
-                            <div class="blog-post-info"><span>July 15 2015 at 10:30 AM</span></div>
-                            <br/>
-                            <p>Lorem ipsum dolor sit amet consectetuer adipiscing elit Suspendisse et justo Praesent
-                                mattis commodo augue amet consectetuer adipiscing. </p>
-                            <br/>
-                            <a class="btn btn-border less-bor dark btn-small" href="#"><i class="fa fa-reply"
-                                                                                          aria-hidden="true"></i> &nbsp;Reply</a>
-                        </div>
-                    </div>
-                    <!--end comment box-->
-
-                    <div class="col-divider-margin-2"></div>
-                    <div class="text-box border white padding-4">
-                        <div class="imgbox-medium left round overflow-hidden"><img
-                                src="http://via.placeholder.com/350x350" alt="" class="img-responsive"/></div>
-                        <div class="text-box-right more-padding-1">
-                            <h5 class="less-mar-1">John William</h5>
-                            <div class="blog-post-info"><span>July 15 2015 at 10:30 AM</span></div>
-                            <br/>
-                            <p>Lorem ipsum dolor sit amet consectetuer adipiscing elit Suspendisse et justo Praesent
-                                mattis commodo augue amet consectetuer adipiscing. </p>
-                            <br/>
-                            <a class="btn btn-border less-bor dark btn-small" href="#"><i class="fa fa-reply"
-                                                                                          aria-hidden="true"></i> &nbsp;Reply</a>
-                        </div>
-                    </div>
-                    <!--end comment box-->
-
-                    <div class="col-divider-margin-2"></div>
-
-                    <div class="col-md-11 pull-right">
-                        <div class="text-box border white padding-4">
-                            <div class="imgbox-medium left round overflow-hidden"><img
-                                    src="http://via.placeholder.com/350x350" alt="" class="img-responsive"/></div>
-                            <div class="text-box-right more-padding-1">
-                                <h5 class="less-mar-1">John William</h5>
-                                <div class="blog-post-info"><span>July 15 2015 at 10:30 AM</span></div>
-                                <br/>
-                                <p>Lorem ipsum dolor sit amet consectetuer adipiscing elit Suspendisse et justo Praesent
-                                    mattis commodo augue amet consectetuer adipiscing. </p>
-                                <br/>
-                                <a class="btn btn-border less-bor dark btn-small" href="#"><i class="fa fa-reply"
-                                                                                              aria-hidden="true"></i>
-                                    &nbsp;Reply</a>
-                            </div>
-                        </div>
-                        <!--end comment box-->
-                    </div>
-                    <!--end less width comment box-->
-
-                    <div class="clearfix"></div>
-                    <br/><br/>
-                    <a class="btn btn-dark-3 btn-large uppercase" href="#">Load More Comments</a>
-
-                    <div class="clearfix"></div>
-                    <br/><br/>
-                    <h4>Post a Comment</h4>
-
-                    <input class="bg-cinput" type="text" placeholder="Enter Name" value="">
-                    <input class="bg-cinput" type="text" placeholder="Email Address" value="">
-                    <input class="bg-cinput" type="text" placeholder="Phone" value="">
-                    <textarea class="bg-ctexteria" placeholder="Your Comment"></textarea>
-                    <div class="clearfix"></div>
-                    <br/>
-                    <a class="btn btn-dark-3 btn-large uppercase" href="#"><i class="fa fa-paper-plane"
-                                                                              aria-hidden="true"></i> &nbsp;Post
-                        Comments</a>
-                </div>
             </div>
         </div>
     </section>

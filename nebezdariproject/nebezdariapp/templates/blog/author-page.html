@@ -54,79 +54,39 @@
                     <!--end title-->
 
                     <div class="col-md-10 col-sm-12 col-xs-12 col-centered">
-                                {% for post in post_list %}
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <div class="ce-feature-box-52 margin-bottom">
-                                            <div class="ce-post-img">
-                                                <div class="info-badge">
-                                                    {% if user.username == author.username %}
-                                                        <a class="btn btn-green-dark btn-small"
-                                                           href="#">Редактировать</a>
-                                                        <a class="btn btn-red-dark btn-small" href="#">Удалить</a>
-                                                    {% endif %}
-                                                </div>
-                                                <img src="http://via.placeholder.com/2000x1000" alt=""
-                                                     class="img-responsive">
+                        {% for post in post_list %}
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="ce-feature-box-52 margin-bottom">
+                                    <div class="text-box padd-1 shadow">
+                                        <div class="info-badge">
+                                            {% if user.username == author.username %}
+                                                <a class="btn btn-green-dark btn-small"
+                                                   href="/post/{{ post.id }}/edit/">Редактировать</a>
+                                                <a class="btn btn-red-dark btn-small"
+                                                   href="/post/{{ post.id }}/delete/">Удалить</a>
+                                            {% endif %}
+                                        </div>
+                                        <h4 class="less-mar-1 title"><a
+                                                href="/post/{{ post.id }}">{{ post.title }}</a>
+                                        </h4>
+                                        <p>{{ post.text|safe|truncatewords:20 }}</p>
+
+                                        <div class="date-info-box">
+                                            <div class="box-left">
+                                                <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;August 19, 2018
+                                                <i class="fas fa-comment" aria-hidden="true"></i>&nbsp; 26
                                             </div>
-                                            <div class="text-box padd-1 shadow">
-                                                <h4 class="less-mar-1 title"><a
-                                                        href="/post/{{ post.id }}">{{ post.title }}</a>
-                                                </h4>
-                                                <p>{{ post.text|safe|truncatewords:20 }}</p>
 
-                                                <div class="date-info-box">
-                                                    <div class="box-left">
-                                                        <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;August
-                                                        19, 2018
-                                                    </div>
+                                            <div class="box-right">
 
-                                                    <div class="box-right">
-                                                        <i class="fas fa-comment" aria-hidden="true"></i>&nbsp; 26
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-divider-margin-6"></div>
-                                {% endfor %}
+                                </div>
                             </div>
-
-                    {#                    <div class="slide-controls-2">#}
-                    {#                        <div id="owl-loop" class="owl-carousel">#}
-                    {#                            {% for post in post_list %}#}
-                    {#                                <div class="item">#}
-                    {#                                    <div class="ce-feature-box-45">#}
-                    {#                                        <div class="ce-post-img">#}
-                    {#                                            <a href="#">#}
-                    {#                                                <div class="info-badge"><span class="icon-pencil icon"></span>Blog</div>#}
-                    {#                                                <div class="overlay"><i class="fa fa-plus" aria-hidden="true"></i></div>#}
-                    {#                                            </a>#}
-                    {#                                            <img src="http://via.placeholder.com/1000x800" alt=""#}
-                    {#                                                 class="img-responsive">#}
-                    {#                                        </div>#}
-                    {##}
-                    {#                                        <div class="text-box">#}
-                    {#                                            <h5 class="less-mar-1 title"><a#}
-                    {#                                                    href="/post/{{ post.id }}">{{ post.title }}</a></h5>#}
-                    {#                                            <p>{{ post.text|safe|truncatewords_html:10 }}</p>#}
-                    {##}
-                    {#                                            <div class="date-info-box">#}
-                    {#                                                <div class="box-left">#}
-                    {#                                                    <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;#}
-                    {#                                                    August 19, 2018#}
-                    {#                                                </div>#}
-                    {##}
-                    {#                                                <div class="box-right">#}
-                    {#                                                    <i class="fa fa-comments-o" aria-hidden="true"></i>&nbsp; 26#}
-                    {#                                                </div>#}
-                    {#                                            </div>#}
-                    {#                                        </div>#}
-                    {#                                    </div>#}
-                    {#                                </div>#}
-                    {#                            {% endfor %}#}
-                    {#                        </div>#}
-                    {#                    </div>#}
-                    {#                    <!--end item-->#}
+                            <div class="col-divider-margin-6"></div>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>
