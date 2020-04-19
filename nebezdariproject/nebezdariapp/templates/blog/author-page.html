@@ -1,4 +1,21 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'blog/js/owl-carousel/owl.carousel.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'blog/js/owl-carousel/owl.theme.css' %}" type="text/css">
+{% endblock extra_head %}
+
+{% block extra_body %}
+    <script src="{% static 'blog/js/owl-carousel/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'blog/js/owl-carousel/custom.js' %}"></script>
+{% endblock extra_body %}
+
+{% block extra_breadcrumbs %}
+    {% if user.username == author.username %}
+        <li><a href="/author/{{ author.username }}/edit/">Редактировать</a></li>
+    {% endif %}
+{% endblock extra_breadcrumbs %}
 
 {% block content %}
     <section class="sec-padding">
@@ -6,123 +23,115 @@
             <div class="row">
                 <div class="container-fluid">
                     <div class="row">
-
                         <div class="col-md-10 col-centered">
-                            <div class="col-md-6 margin-bottom">
-                                <img src="http://via.placeholder.com/1000x800" alt="" class="img-responsive">
-                                <h3 class="font-weight-6 less-mar-1 line-height-4 text-center">First name - Last
-                                    name</h3>
+                            <div class="col-md-5 margin-bottom">
+                                {% if author.avatar %}
+                                    <img src="{{ author.avatar.url }}"
+                                         alt="" class="img-responsive">
+                                {% else %}
+                                    <img src="https://eu.ui-avatars.com/api/?name={{ author.get_full_name }}&size=512"
+                                         alt="" class="img-responsive">
+                                {% endif %}
+                                <br>
+                                <h3 class="font-weight-6 less-mar-1 line-height-4 text-center">{{ author.get_full_name }}</h3>
                             </div>
                             <!--end item-->
                             <div class="col-md-6 padding-left-6">
-                                {% lorem 3 p %}
+                                {{ author.about|safe }}
                             </div>
                             <!--end main col-->
                         </div>
                     </div>
                     <br>
-
-
+                    <br>
+                    <br>
                     <div class="col-sm-12">
                         <div class="sec-title-container text-center">
-                            <h5 class="font-weight-4 less-mar-1 line-height-4 ce-title-top-text">Latest Blog Posts and
-                                news</h5>
-                            <h2 class="font-weight-6 less-mar-1 line-height-5">You can start a successful blog and <br>
-                                Create Awesome Design Styles</h2>
+                            <h2 class="font-weight-6 less-mar-1 line-height-5">Последние посты автора</h2>
                             <div class="ce-title-line"></div>
                         </div>
                     </div>
-                    <div class="clearfix"></div>
                     <!--end title-->
 
-                    <div class="col-md-4 col-sm-6 col-xs-12">
-                        <div class="ce-feature-box-52 margin-bottom">
-                            <div class="ce-post-img"><a href="#">
-                                <div class="info-badge"><span class="icon-pencil icon"></span>Blog</div>
-                                <div class="overlay"><i class="fa fa-plus" aria-hidden="true"></i></div>
-                            </a> <img src="http://via.placeholder.com/1000x800" alt="" class="img-responsive"></div>
-                            <div class="text-box padd-1 shadow">
-                                <h5 class="less-mar-1 title"><a href="#">Awesome Features</a></h5>
-                                <p>Praesent mattis commodo augue Aliquam ornare hendrerit augue Cras tellus In pulvinar
-                                    lectus a est.</p>
-                                <div class="date-info-box">
+                    <div class="col-md-10 col-sm-12 col-xs-12 col-centered">
+                                {% for post in post_list %}
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="ce-feature-box-52 margin-bottom">
+                                            <div class="ce-post-img">
+                                                <div class="info-badge">
+                                                    {% if user.username == author.username %}
+                                                        <a class="btn btn-green-dark btn-small"
+                                                           href="#">Редактировать</a>
+                                                        <a class="btn btn-red-dark btn-small" href="#">Удалить</a>
+                                                    {% endif %}
+                                                </div>
+                                                <img src="http://via.placeholder.com/2000x1000" alt=""
+                                                     class="img-responsive">
+                                            </div>
+                                            <div class="text-box padd-1 shadow">
+                                                <h4 class="less-mar-1 title"><a
+                                                        href="/post/{{ post.id }}">{{ post.title }}</a>
+                                                </h4>
+                                                <p>{{ post.text|safe|truncatewords:20 }}</p>
 
+                                                <div class="date-info-box">
+                                                    <div class="box-left">
+                                                        <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;August
+                                                        19, 2018
+                                                    </div>
 
-                                    <div class="box-left">
-                                        <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;
-                                        August 19, 2018
+                                                    <div class="box-right">
+                                                        <i class="fas fa-comment" aria-hidden="true"></i>&nbsp; 26
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-
-                                    <div class="box-right">
-                                        <i class="fa fa-comments-o" aria-hidden="true"></i>&nbsp; 26
-                                    </div>
-
-
-                                </div>
+                                    <div class="col-divider-margin-6"></div>
+                                {% endfor %}
                             </div>
-                        </div>
-                    </div>
-                    <!--end item-->
 
-                    <div class="col-md-4 col-sm-6 col-xs-12">
-                        <div class="ce-feature-box-52 margin-bottom">
-                            <div class="ce-post-img"><a href="#">
-                                <div class="info-badge"><span class="icon-phone icon"></span>Technology</div>
-                                <div class="overlay"><i class="fa fa-plus" aria-hidden="true"></i></div>
-                            </a> <img src="http://via.placeholder.com/1000x800" alt="" class="img-responsive"></div>
-                            <div class="text-box padd-1 shadow">
-                                <h5 class="less-mar-1 title"><a href="#">Pixel Perfect Design</a></h5>
-                                <p>Praesent mattis commodo augue Aliquam ornare hendrerit augue Cras tellus In pulvinar
-                                    lectus a est.</p>
-                                <div class="date-info-box">
-
-
-                                    <div class="box-left">
-                                        <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;
-                                        August 19, 2018
-                                    </div>
-
-                                    <div class="box-right">
-                                        <i class="fa fa-comments-o" aria-hidden="true"></i>&nbsp; 26
-                                    </div>
-
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--end item-->
-
-                    <div class="col-md-4 col-sm-6 col-xs-12">
-                        <div class="ce-feature-box-52 margin-bottom">
-                            <div class="ce-post-img"><a href="#">
-                                <div class="info-badge"><span class="icon-pencil icon"></span>Blog</div>
-                                <div class="overlay"><i class="fa fa-plus" aria-hidden="true"></i></div>
-                            </a> <img src="http://via.placeholder.com/1000x800" alt="" class="img-responsive"></div>
-                            <div class="text-box padd-1 shadow">
-                                <h5 class="less-mar-1 title"><a href="#">Flexible For allDevices</a></h5>
-                                <p>Lorem ipsum dolor sit amet sit justo et consectetuer dolor sit amet justo adipiscing
-                                    ipsum.</p>
-                                <div class="date-info-box">
-
-                                    <div class="box-left">
-                                        <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;
-                                        August 19, 2018
-                                    </div>
-
-                                    <div class="box-right">
-                                        <i class="fa fa-comments-o" aria-hidden="true"></i>&nbsp; 26
-                                    </div>
-
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--end item-->
-
+                    {#                    <div class="slide-controls-2">#}
+                    {#                        <div id="owl-loop" class="owl-carousel">#}
+                    {#                            {% for post in post_list %}#}
+                    {#                                <div class="item">#}
+                    {#                                    <div class="ce-feature-box-45">#}
+                    {#                                        <div class="ce-post-img">#}
+                    {#                                            <a href="#">#}
+                    {#                                                <div class="info-badge"><span class="icon-pencil icon"></span>Blog</div>#}
+                    {#                                                <div class="overlay"><i class="fa fa-plus" aria-hidden="true"></i></div>#}
+                    {#                                            </a>#}
+                    {#                                            <img src="http://via.placeholder.com/1000x800" alt=""#}
+                    {#                                                 class="img-responsive">#}
+                    {#                                        </div>#}
+                    {##}
+                    {#                                        <div class="text-box">#}
+                    {#                                            <h5 class="less-mar-1 title"><a#}
+                    {#                                                    href="/post/{{ post.id }}">{{ post.title }}</a></h5>#}
+                    {#                                            <p>{{ post.text|safe|truncatewords_html:10 }}</p>#}
+                    {##}
+                    {#                                            <div class="date-info-box">#}
+                    {#                                                <div class="box-left">#}
+                    {#                                                    <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;#}
+                    {#                                                    August 19, 2018#}
+                    {#                                                </div>#}
+                    {##}
+                    {#                                                <div class="box-right">#}
+                    {#                                                    <i class="fa fa-comments-o" aria-hidden="true"></i>&nbsp; 26#}
+                    {#                                                </div>#}
+                    {#                                            </div>#}
+                    {#                                        </div>#}
+                    {#                                    </div>#}
+                    {#                                </div>#}
+                    {#                            {% endfor %}#}
+                    {#                        </div>#}
+                    {#                    </div>#}
+                    {#                    <!--end item-->#}
                 </div>
             </div>
         </div>
     </section>
+
+
 {% endblock content %}
+

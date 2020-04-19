@@ -1,10 +1,12 @@
-from django.shortcuts import HttpResponse, render, HttpResponseRedirect
+from django.shortcuts import HttpResponse, render, HttpResponseRedirect, get_object_or_404, get_list_or_404, Http404
 from django.core.paginator import EmptyPage, PageNotAnInteger
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
 from .lib.custom_paginator import CustomPaginator
 from .models import Category, Post, Author
-from .forms import PostForm, LoginForm, NewAuthorForm, ContactForm
 from django.core.mail import send_mail, BadHeaderError
+from .forms import PostForm, LoginForm, NewAuthorForm, ContactForm, EditAuthorForm
 
 
 def index(request):
@@ -65,18 +67,13 @@ def contact(request):
                   'blog/contact-page.html',
                   context={})
 
-def author(request, username):
-    author = Author.objects.get(username=username)
-    post_list = Post.objects.filter(author=author)
-    if author is not None:
-        return render(request,
-                      'blog/author-page.html',
-                      context={'author':author,
-                               'post_list':post_list})
-
-    return HttpResponseRedirect('/')
-
 def user_login(request):
+    if request.user.is_authenticated:
+        if request.user.is_superuser:
+            return HttpResponseRedirect('/admin')
+        else:
+            return HttpResponseRedirect('/author')
+
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -92,7 +89,7 @@ def user_login(request):
                     if user.is_superuser:
                         return HttpResponseRedirect('/admin')
                     else:
-                        return HttpResponseRedirect('/author')
+                        return HttpResponseRedirect('/author/' + user.username)
             else:
                 return HttpResponse('Invalid login or password')
     else:
@@ -102,11 +99,16 @@ def user_login(request):
                   'blog/login-page.html',
                   context={'form': form})
 
+@login_required(login_url='/login')
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect('/')
 
+@login_required(login_url='/login')
 def add_post(request):
+    if request.user.is_superuser:
+        raise PermissionDenied
+
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
@@ -128,6 +130,7 @@ def add_post(request):
                   'author/add-post-page.html',
                   context={'form': form})
 
+@login_required(login_url='/login')
 def edit_post(request):
     form = PostForm()
     context = {
@@ -135,7 +138,11 @@ def edit_post(request):
     }
     return render(request, 'author/edit-post-page.html', context)
 
+@login_required(login_url='/login')
 def admin_add_user(request):
+    if not request.user.is_superuser:
+        raise PermissionDenied
+
     if request.method == 'POST':
         form = NewAuthorForm(request.POST)
         if form.is_valid():
@@ -159,6 +166,7 @@ def admin_add_user(request):
                   'admin/admin-add-user-page.html',
                   context={'form':form})
 
+@login_required(login_url='/login')
 def admin_authors(request):
     author_list = Author.objects.all()
 
@@ -166,9 +174,51 @@ def admin_authors(request):
                   'admin/admin-authors-page.html',
                   context={'author_list':author_list})
 
+@login_required(login_url='/login')
 def admin_all_posts(request):
+    if not request.user.is_superuser:
+        raise PermissionDenied
+
     form = PostForm()
     context = {
         "form": form
     }
     return render(request, 'admin/admin-posts-page.html', context)
+
+def author(request):
+    if request.user.is_authenticated:
+        if request.user.is_superuser:
+            return HttpResponseRedirect('/admin/')
+        return HttpResponseRedirect('/author/' + request.user.username)
+
+    raise Http404("Проверьте правильность пути")
+
+def author_page(request, username):
+    author = get_object_or_404(Author, username=username)
+    post_list = Post.objects.filter(author=author)
+    return render(request,
+                  'blog/author-page.html',
+                  context={'author': author,
+                           'post_list': post_list})
+
+@login_required(login_url='/login')
+def author_edit(request, username):
+    if not request.user.is_superuser and request.user.username != username:
+        raise PermissionDenied
+
+    author = get_object_or_404(Author, username=username)
+    if request.method == "POST":
+        form = EditAuthorForm(request.POST, request.FILES)
+        if form.is_valid():
+            author.first_name = form.cleaned_data['first_name']
+            author.last_name = form.cleaned_data['last_name']
+            author.about = form.cleaned_data['about']
+            author.avatar = form.cleaned_data['avatar']
+            author.save()
+            return HttpResponseRedirect('/author/' + username)
+    else:
+        form = EditAuthorForm(instance=author)
+
+    return render(request,
+                  'author/edit-author-page.html',
+                  context={'form':form, 'username':username})
