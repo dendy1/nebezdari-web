@@ -1,0 +1,17 @@
+<div class="text-box border white padding-3">
+    <h5 class="less-mar-1">{{ comment.name }}</h5>
+    <div class="blog-post-info"><span>July 15 2015 at 10:30 AM</span></div>
+    <br>
+    <p>{{ comment.text }}</p>
+    <br>
+    <a class="btn btn-border less-bor dark btn-small" href="#"><i class="fa fa-reply" aria-hidden="true"></i>&nbsp;Reply</a>
+</div>
+<div class="col-divider-margin-2"></div>
+
+{% if comment.children %}
+    <div class="col-md-11 pull-right">
+        {% for comment in comment.children.all %}
+            {% include 'blog/includes/comment.html' %}
+        {% endfor %}
+    </div>
+{% endif %}

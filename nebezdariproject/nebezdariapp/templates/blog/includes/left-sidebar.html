@@ -1,0 +1,12 @@
+<div class="col-md-4 col-sm-12 col-xs-12 section-white">
+    <div class="pages-sidebar-item">
+        <h5 class="uppercase pages-sidebar-item-title">Категории</h5>
+        <ul class="pages-sidebar-links">
+            {% for category in categories_list %}
+                <li><a class="" href="/category/{{ category | lower }}">{{ category.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    <!--end item holder-->
+</div>
+<!--end left col-->

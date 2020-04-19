@@ -4,18 +4,8 @@
     <section class="sec-padding">
         <div class="container">
             <div class="row">
-                <div class="col-md-4 col-sm-12 col-xs-12 section-white">
-                    <div class="pages-sidebar-item">
-                        <h5 class="uppercase pages-sidebar-item-title">Категории</h5>
-                        <ul class="pages-sidebar-links">
-                            {% for category in categories_list %}
-                            <li><a class="active" href="/category/{{ category | lower }}">{{ category.name }}</a></li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    <!--end item holder-->
-                </div>
-                <!--end left col-->
+                {% include 'blog/includes/left-sidebar.html' %}
+
                 <div class="col-md-8 nopadding">
                     {% for post in posts %}
                     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -29,8 +19,6 @@
                                 <h4 class="less-mar-1 title"><a href="/post/{{ post.id }}">{{ post.title }} </a></h4>
                                 <p>{{ post.text|safe|truncatewords:10 }}</p>
                                 <div class="date-info-box">
-
-
                                     <div class="box-left">
                                         <i class="fas fa-calendar" aria-hidden="true"></i>&nbsp;
                                         August 19, 2018
@@ -39,7 +27,6 @@
                                     <div class="box-right">
                                         <i class="fas fa-comment" aria-hidden="true"></i>&nbsp; 26
                                     </div>
-
                                 </div>
                             </div>
                         </div>

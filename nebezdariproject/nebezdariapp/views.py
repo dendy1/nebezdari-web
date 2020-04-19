@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from .lib.custom_paginator import CustomPaginator
-from .models import Category, Post, Author
+from .models import Category, Post, Author, Comment
 from .forms import PostForm, LoginForm, NewAuthorForm, EditAuthorForm
 
 
@@ -81,9 +81,11 @@ def user_logout(request):
 
 def post(request, id):
     post = get_object_or_404(Post, id=id)
+    comments = post.comments.filter()
+    related_posts = Post.objects.all()
     return render(request,
                   'blog/post-page.html',
-                  context={'post':post, 'id':id})
+                  context={'post':post, 'id':id, 'comment_list':comments, 'related_post_list':related_posts})
 
 @login_required(login_url='/login')
 def post_add(request):
