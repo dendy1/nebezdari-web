@@ -8,24 +8,25 @@
                     <div class="one_half">
                         <div class="cforms_sty3">
                             <div id="form_status"></div>
-                            <form action="/contact" method="POST" id="gsr-contact" onsubmit="return valid_datas( this );">{% csrf_token %}
-                                <label for="id_name" class="label">Name <em>*</em></label>
+                            <form action="/contact" method="POST" id="gsr-contact" onsubmit="return valid_datas( this );">
+                                {% csrf_token %}
                                 {{ form.name.errors }}
+                                <label for="{{ form.name.id_for_label }}" class="label">{{ form.name.label }} <em>*</em></label>
                                 {{ form.name }}
                                 <div class="clearfix"></div>
 
-                                <label for="id_sender" class="label">E-mail <em>*</em></label>
                                 {{ form.sender.errors }}
+                                <label for="{{ form.sender.id_for_label }}" class="label">{{ form.sender.label }} <em>*</em></label>
 	                            {{ form.sender }}
                                 <div class="clearfix"></div>
 
-                                <label for="id_subject" class="label">Subject <em>*</em></label>
                                 {{ form.subject.errors }}
+                                <label for="{{ form.subject.id_for_label }}" class="label">{{ form.subject.label }} <em>*</em></label>
 	                            {{ form.subject }}
                                 <div class="clearfix"></div>
 
-                                <label for="id_message" class="label">Message <em>*</em></label>
                                 {{ form.message.errors }}
+                                <label for="{{ form.message.if_for_label }}" class="label">{{ form.message.label }} <em>*</em></label>
 	                            {{ form.message }}
                                 <div class="clearfix"></div>
 

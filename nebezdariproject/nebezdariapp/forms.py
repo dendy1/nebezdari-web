@@ -105,7 +105,28 @@ class LoginForm(forms.Form):
 
 
 class ContactForm(forms.Form):
-    name = forms.CharField(max_length=100)
-    sender = forms.EmailField()
-    subject = forms.CharField(max_length=100)
-    message = forms.CharField(widget=forms.Textarea)
+    name = forms.CharField(
+        label="Имя",
+        max_length=100,
+        widget=forms.TextInput(
+            attrs={'class': 'input-1', 'placeholder': 'Введите имя'}
+        )
+    )
+    sender = forms.EmailField(
+        label="E-mail",
+        widget=forms.TextInput(
+            attrs={'class': 'input-1', 'placeholder': 'Введите e-mail'}
+        )
+    )
+    subject = forms.CharField(
+        label="Тема",
+        max_length=100,
+        widget=forms.TextInput(
+            attrs={'class': 'input-1', 'placeholder': 'Введите тему сообщения'}
+        )
+    )
+    message = forms.CharField(
+        label="Сообщение",
+        widget=forms.Textarea(
+            attrs={'placeholder': 'Введите сообщение'}
+        ))
