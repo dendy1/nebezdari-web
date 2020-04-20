@@ -21,11 +21,12 @@ def index(request):
     try:
         posts = paginator.page(page_num)
     except PageNotAnInteger:
-        posts = paginator.page(1)
+        page_num = 1
+        posts = paginator.page(page_num)
     except EmptyPage:
         posts = paginator.page(paginator.num_pages)
 
-    pagination_list = paginator.pagination_list(int(page_num))
+    pagination_list = paginator.pagination_list(page_num)
 
     return render(request,
                   'blog/main-page.html',
