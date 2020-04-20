@@ -1,5 +1,12 @@
 {% extends "base.html" %}
 
+{% block extra_breadcrumbs %}
+    {% if user.username == post.author.username %}
+        <li><a href="/post/{{ post.id }}/edit/">Редактировать пост</a></li>
+    {% endif %}
+{% endblock extra_breadcrumbs %}
+
+
 {% block content %}
     <section class="sec-padding">
         <div class="container">

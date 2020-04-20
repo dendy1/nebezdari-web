@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block breadcrumbs %}
+    <section>
+        <div class="pagenation-holder">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6"><h4 class="uppercase">Admin panel</h4></div>
+                    <div class="col-md-6">
+                        <ol class="breadcrumb">
+                            {% if user.is_authenticated %}
+                                <li><a href="/admin/posts/">Посты</a></li>
+                                <li><a href="/admin/users/">Авторы</a></li>
+                                <li><a href="/admin/user/add">Добавить автора</a></li>
+                            {% endif %}
+
+                            {% block extra_breadcrumbs %}
+                            {% endblock extra_breadcrumbs %}
+
+                            {% if user.is_authenticated %}
+                                <li><a href="/logout">Выход</a></li>
+                            {% else %}
+                                <li><a href="/login">Авторизация</a></li>
+                            {% endif %}
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock breadcrumbs %}
+
+
+{% block subscription %}
+{% endblock subscription %}
