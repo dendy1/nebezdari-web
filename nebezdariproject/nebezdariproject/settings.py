@@ -138,5 +138,6 @@ CKEDITOR_CONFIGS = {
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'mail.hosting.reg.ru'
+EMAIL_PORT = '587'
 EMAIL_HOST_USER = 'noreply@nebezdari.ru'
 EMAIL_HOST_PASSWORD = '2B2x0H5o'
