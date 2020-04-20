@@ -16,7 +16,8 @@
                             <li class="lineright"><a href="/about/">О нас</a></li>
                             {% if user.is_superuser %}
                                 <li class="lineright"><a href="/contact/">Контакты</a></li>
-                                <li class="last"><a href="/admin/">Панель админа</a></li>
+                                <li class="lineright"><a href="/admin/">Панель админа</a></li>
+                                <li class="last"><a href="/django/admin/">Django</a></li>
                             {% else %}
                                 <li class="last"><a href="/contact/">Контакты</a></li>
                             {% endif %}

@@ -8,7 +8,7 @@
                     <div class="one_half">
                         <div class="cforms_sty3">
                             <div id="form_status"></div>
-                            <form action="/contact" method="POST" id="gsr-contact" onsubmit="return valid_datas( this );">{% csrf_token %}
+                            <form action="/contact/" method="POST" id="gsr-contact" onsubmit="return valid_datas( this );">{% csrf_token %}
                                 <label for="id_name" class="label">Name <em>*</em></label>
                                 {{ form.name.errors }}
                                 {{ form.name }}

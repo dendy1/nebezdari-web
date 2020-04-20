@@ -86,7 +86,6 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
-AUTH_USER_MODEL = 'nebezdariapp.Author'
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -100,6 +99,12 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
+]
+
+AUTH_USER_MODEL = 'nebezdariapp.Author'
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'nebezdariapp.backends.EmailBackend',
 ]
 
 # Internationalization
@@ -140,3 +145,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST = 'mail.hosting.reg.ru'
 EMAIL_HOST_USER = 'noreply@nebezdari.ru'
 EMAIL_HOST_PASSWORD = '2B2x0H5o'
+
+DEFAULT_FROM_EMAIL = 'noreply@nebezdari.ru'
+DEFAULT_TO_EMAIL = 'admin@nebezdari.ru'
+EMAIL_PORT = 587

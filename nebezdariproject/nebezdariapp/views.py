@@ -2,6 +2,7 @@ from django.shortcuts import HttpResponse, render, HttpResponseRedirect, get_obj
 from django.core.paginator import EmptyPage, PageNotAnInteger
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 from django.core.exceptions import PermissionDenied
 from .lib.custom_paginator import CustomPaginator
 from .models import Category, Post, Author, Comment
@@ -39,7 +40,7 @@ def about(request):
 
 def contact(request):
     if request.method == "POST":
-        destination_mail = ["admin@nebezdari.ru",]
+        destination_mail = ["admin@nebezdari.ru", ]
         form = ContactForm(request.POST)
         if form.is_valid():
             name = form.cleaned_data['name']
@@ -53,17 +54,44 @@ def contact(request):
             except BadHeaderError:
                 return HttpResponse('Invalid header found')
 
-            return render(request, 'blog/thanks-page.html', context={})
+            return render(request, 'blog/thanks-page.html', context={
+                'redirect_to':'/',
+                'redirect_time': 5 #in seconds
+            })
 
     else:
         form = ContactForm()
     return render(request,
                   'blog/contact-page.html',
-                  context={})
+                  context={"form": form})
+
+def post(request, id):
+    post = get_object_or_404(Post, id=id)
+    comments = post.comments.filter()
+    related_posts = Post.objects.all()
+    return render(request,
+                  'blog/post-page.html',
+                  context={'post':post, 'id':id, 'comment_list':comments, 'related_post_list':related_posts})
+
+def author(request):
+    if request.user.is_authenticated:
+        if request.user.is_staff:
+            return HttpResponseRedirect('/admin/')
+        return HttpResponseRedirect('/author/' + request.user.username)
+
+    raise Http404("Проверьте правильность пути")
+
+def author_page(request, username):
+    author = get_object_or_404(Author, username=username)
+    post_list = Post.objects.filter(author=author)
+    return render(request,
+                  'blog/author-page.html',
+                  context={'author': author,
+                           'post_list': post_list})
 
 def user_login(request):
     if request.user.is_authenticated:
-        if request.user.is_superuser:
+        if request.user.is_staff:
             return HttpResponseRedirect('/admin')
         else:
             return HttpResponseRedirect('/author')
@@ -71,16 +99,19 @@ def user_login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+
             user = authenticate(
-                username=form.cleaned_data['username'],
-                password=form.cleaned_data['password']
+                request=request,
+                username=username,
+                password=password
             )
-            print(user)
 
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    if user.is_superuser:
+                    if user.is_staff:
                         return HttpResponseRedirect('/admin')
                     else:
                         return HttpResponseRedirect('/author/' + user.username)
@@ -96,20 +127,11 @@ def user_login(request):
 @login_required(login_url='/login')
 def user_logout(request):
     logout(request)
-    return HttpResponseRedirect('/')
-
-
-def post(request, id):
-    post = get_object_or_404(Post, id=id)
-    comments = post.comments.filter()
-    related_posts = Post.objects.all()
-    return render(request,
-                  'blog/post-page.html',
-                  context={'post':post, 'id':id, 'comment_list':comments, 'related_post_list':related_posts})
+    return HttpResponseRedirect('/login')
 
 @login_required(login_url='/login')
 def post_add(request):
-    if request.user.is_superuser:
+    if request.user.is_staff:
         raise PermissionDenied
 
     if request.method == 'POST':
@@ -130,7 +152,7 @@ def post_add(request):
 @login_required(login_url='/login')
 def post_edit(request, id):
     post = get_object_or_404(Post, id=id)
-    if not request.user.is_authenticated or request.user.is_superuser or request.user.username != post.author.username:
+    if request.user.username != post.author.username:
         raise PermissionDenied
 
     if request.method == 'POST':
@@ -149,97 +171,21 @@ def post_edit(request, id):
                   context={'form': form, 'id':id})
 
 @login_required(login_url='/login')
-def admin(request):
-    if not request.user.is_superuser:
+def post_delete(request, id):
+    post = get_object_or_404(Post, id=id)
+    if not request.user.is_staff or (post.author != None and request.user.username != post.author.username):
         raise PermissionDenied
 
-    return render(request,
-                  'admin/admin-main-page.html',
-                  context={})
+    Post.delete(post)
 
-@login_required(login_url='/login')
-def admin_user_add(request):
-    if not request.user.is_superuser:
-        raise PermissionDenied
-
-    if request.method == 'POST':
-        form = NewAuthorForm(request.POST)
-        if form.is_valid():
-            password = Author.objects.make_random_password(length=10)
-            print(password)
-            author = Author.objects.create_user(
-                form.cleaned_data['username'],
-                form.cleaned_data['email'],
-                password
-            )
-
-            author.first_name = form.cleaned_data['first_name']
-            author.last_name = form.cleaned_data['last_name']
-            author.is_active = True
-            author.save()
-            return HttpResponseRedirect('/admin/authors')
+    if request.user.is_staff:
+        return HttpResponseRedirect('/admin/posts/')
     else:
-        form = NewAuthorForm()
-
-    return render(request,
-                  'admin/admin-add-user-page.html',
-                  context={'form':form})
-
-@login_required(login_url='/login')
-def admin_authors(request):
-    if not request.user.is_superuser:
-        raise PermissionDenied
-
-    author_list = Author.objects.all()
-    return render(request,
-                  'admin/admin-authors-page.html',
-                  context={'author_list':author_list})
-
-@login_required(login_url='/login')
-def admin_posts(request):
-    if not request.user.is_superuser:
-        raise PermissionDenied
-
-    posts_list = Post.objects.all()
-    return render(request,
-                  'admin/admin-posts-page.html',
-                  context={'posts_list':posts_list})
-
-@login_required(login_url='/login')
-def admin_reset_password(request, username):
-    if not request.user.is_superuser:
-        raise PermissionDenied
-
-    user = get_object_or_404(Author, username=username)
-
-
-@login_required(login_url='/login')
-def admin_user_delete(request, username):
-    if not request.user.is_superuser:
-        raise PermissionDenied
-
-    user = get_object_or_404(Author, username=username)
-
-
-def author(request):
-    if request.user.is_authenticated:
-        if request.user.is_superuser:
-            return HttpResponseRedirect('/admin/')
-        return HttpResponseRedirect('/author/' + request.user.username)
-
-    raise Http404("Проверьте правильность пути")
-
-def author_page(request, username):
-    author = get_object_or_404(Author, username=username)
-    post_list = Post.objects.filter(author=author)
-    return render(request,
-                  'blog/author-page.html',
-                  context={'author': author,
-                           'post_list': post_list})
+        return HttpResponseRedirect('/author/')
 
 @login_required(login_url='/login')
 def author_edit(request, username):
-    if not request.user.is_superuser and request.user.username != username:
+    if not request.user.is_staff and request.user.username != username:
         raise PermissionDenied
 
     author = get_object_or_404(Author, username=username)
@@ -258,6 +204,86 @@ def author_edit(request, username):
     return render(request,
                   'author/edit-author-page.html',
                   context={'form':form, 'username':username})
+
+@staff_member_required
+def admin(request):
+    return render(request,
+                  'admin/admin-main-page.html',
+                  context={})
+
+@staff_member_required
+def admin_user_add(request):
+    if request.method == 'POST':
+        form = NewAuthorForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            email = form.cleaned_data['email']
+            password = Author.objects.make_random_password(length=10)
+
+            subject = username + ". Регистрация на nebezdari.ru"
+            message = "На ваш E-Mail адрес был зарегистрирован аккаунт на сайте nebezdari.ru" + "\nЛогин: " + username + "\nПароль: " + password
+            destination_mail = [email, ]
+
+            try:
+                send_mail(subject, message, 'noreply@nebezdari.ru', destination_mail)
+
+                author = Author.objects.create_user(
+                    username,
+                    email,
+                    password
+                )
+
+                author.first_name = form.cleaned_data['first_name']
+                author.last_name = form.cleaned_data['last_name']
+                author.is_active = True
+                author.save()
+
+                return HttpResponseRedirect('/admin/users/')
+            except BadHeaderError:
+                return HttpResponse('Invalid header found')
+    else:
+        form = NewAuthorForm()
+
+    return render(request,
+                  'admin/admin-add-user-page.html',
+                  context={'form':form})
+
+@staff_member_required
+def admin_authors(request):
+    author_list = Author.objects.filter(is_staff=False)
+    return render(request,
+                  'admin/admin-authors-page.html',
+                  context={'author_list':author_list})
+
+@staff_member_required
+def admin_posts(request):
+    posts_list = Post.objects.all()
+    return render(request,
+                  'admin/admin-posts-page.html',
+                  context={'posts_list':posts_list})
+
+@staff_member_required
+def admin_reset_password(request, username):
+    user = get_object_or_404(Author, username=username)
+    password = Author.objects.make_random_password(length=10)
+
+    subject = user.username + ". Новый пароль на nebezdari.ru"
+    message = "Ваш новый пароль: " + password
+    destination_mail = [user.email, ]
+
+    try:
+        send_mail(subject, message, 'noreply@nebezdari.ru', destination_mail)
+        user.set_password(password)
+        user.save()
+        return HttpResponseRedirect('/admin/users/')
+    except BadHeaderError:
+        return HttpResponse('Invalid header found')
+
+@staff_member_required
+def admin_user_delete(request, username):
+    user = get_object_or_404(Author, username=username)
+    Author.delete(user)
+    return HttpResponseRedirect('/admin/users/')
 
 def error(request):
     return render(request,
