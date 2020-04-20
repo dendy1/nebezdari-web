@@ -129,4 +129,9 @@ class ContactForm(forms.Form):
         label="Сообщение",
         widget=forms.Textarea(
             attrs={'placeholder': 'Введите сообщение'}
-        ))
+        )
+    )
+
+
+class SubscribeForm(forms.Form):
+    email = forms.EmailField()

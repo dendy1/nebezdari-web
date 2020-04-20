@@ -12,10 +12,11 @@
 
                     <div class="row">
                         <div class="form-body bg-light">
-                            <form class="form-row">
+                            <form action="/subscribe" method="POST" class="form-row", >
+                                {% csrf_token %}
                                 <div class="sp-feature-box-4">
-                                    <input type="search" class="input-1"
-                                           placeholder="Введите E-Mail адрес">
+                                    <input class="input-1" type="text"
+                                           placeholder="Введите E-Mail адрес", name="email", required>
                                     <button type="submit" class="submit-btn btn-anim-1 uppercase"><i
                                             class="far fa-bell" aria-hidden="true"></i> <span>Подписаться</span>
                                     </button>
