@@ -25,7 +25,7 @@ def index(request):
     except EmptyPage:
         posts = paginator.page(paginator.num_pages)
 
-    pagination_list = paginator.pagination_list()
+    pagination_list = paginator.pagination_list(int(page_num))
 
     return render(request,
                   'blog/main-page.html',
