@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "admin-base.html" %}
 
 {% block content %}
     <section class="sec-padding">
@@ -26,8 +26,8 @@
                                     Last name: {{ author.last_name|default:"---" }} <br>
                                     Last login: {{ author.last_login }} <br>
                                 </p></td>
-                                <td><a class="btn btn-green-dark btn-small" href="#">Сбросить пароль</a></td>
-                                <td><a class="btn btn-red-dark btn-small" href="#">Удалить</a></td>
+                                <td><a class="btn btn-green-dark btn-small" href="/admin/user/{{ author.username }}/resetpassword/">Сбросить пароль</a></td>
+                                <td><a class="btn btn-red-dark btn-small" href="/admin/user/{{ author.username }}/delete/">Удалить</a></td>
                             </tr>
                         {% endfor %}
                         </tbody>
@@ -37,6 +37,3 @@
         </div>
     </section>
 {% endblock content %}
-
-{% block subscription %}
-{% endblock subscription %}

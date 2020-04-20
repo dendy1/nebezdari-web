@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "admin-base.html" %}
 
 {% block extra_head %}
     {{ form.media.css }}
@@ -10,7 +10,7 @@
 
 {% block content %}
     <section class="sec-padding">
-        <form action="/admin/adduser" method="post">
+        <form action="/admin/user/add/" method="post">
             {% csrf_token %}
             <div class="container">
                 <div class="col-md-12">
@@ -84,6 +84,3 @@
         </form>
     </section>
 {% endblock content %}
-
-{% block subscription %}
-{% endblock subscription %}
