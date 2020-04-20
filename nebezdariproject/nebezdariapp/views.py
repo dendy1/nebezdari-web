@@ -130,13 +130,14 @@ def post_add(request):
 @login_required(login_url='/login')
 def post_edit(request, id):
     post = get_object_or_404(Post, id=id)
-    if not request.user.is_authenticated or request.user.is_superuser:
+    if not request.user.is_authenticated or request.user.is_superuser or request.user.username != post.author.username:
         raise PermissionDenied
 
     if request.method == 'POST':
-        form = PostForm(request.POST)
+        form = PostForm(request.POST, instance=post)
         if form.is_valid():
             post = form.save(commit=False)
+            post.author = request.user
             post.save()
             form.save_m2m()
             return HttpResponseRedirect('/author/')
@@ -145,10 +146,19 @@ def post_edit(request, id):
 
     return render(request,
                   'author/edit-post-page.html',
-                  context={'form': form})
+                  context={'form': form, 'id':id})
 
 @login_required(login_url='/login')
-def admin_add_user(request):
+def admin(request):
+    if not request.user.is_superuser:
+        raise PermissionDenied
+
+    return render(request,
+                  'admin/admin-main-page.html',
+                  context={})
+
+@login_required(login_url='/login')
+def admin_user_add(request):
     if not request.user.is_superuser:
         raise PermissionDenied
 
@@ -177,22 +187,39 @@ def admin_add_user(request):
 
 @login_required(login_url='/login')
 def admin_authors(request):
-    author_list = Author.objects.all()
+    if not request.user.is_superuser:
+        raise PermissionDenied
 
+    author_list = Author.objects.all()
     return render(request,
                   'admin/admin-authors-page.html',
                   context={'author_list':author_list})
 
 @login_required(login_url='/login')
-def admin_all_posts(request):
+def admin_posts(request):
     if not request.user.is_superuser:
         raise PermissionDenied
 
-    form = PostForm()
-    context = {
-        "form": form
-    }
-    return render(request, 'admin/admin-posts-page.html', context)
+    posts_list = Post.objects.all()
+    return render(request,
+                  'admin/admin-posts-page.html',
+                  context={'posts_list':posts_list})
+
+@login_required(login_url='/login')
+def admin_reset_password(request, username):
+    if not request.user.is_superuser:
+        raise PermissionDenied
+
+    user = get_object_or_404(Author, username=username)
+
+
+@login_required(login_url='/login')
+def admin_user_delete(request, username):
+    if not request.user.is_superuser:
+        raise PermissionDenied
+
+    user = get_object_or_404(Author, username=username)
+
 
 def author(request):
     if request.user.is_authenticated:
@@ -231,3 +258,8 @@ def author_edit(request, username):
     return render(request,
                   'author/edit-author-page.html',
                   context={'form':form, 'username':username})
+
+def error(request):
+    return render(request,
+                  'errors/404.html',
+                  context={})
