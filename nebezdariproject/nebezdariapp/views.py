@@ -4,9 +4,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from .lib.custom_paginator import CustomPaginator
-from .models import Category, Post, Author, Comment
-from django.core.mail import send_mail, BadHeaderError
-from .forms import PostForm, LoginForm, NewAuthorForm, ContactForm, EditAuthorForm
+from .lib.mail.mass_mailing import subscribers_mass_mail
+from .models import Category, Post, Author, Comment, MailingMember
+from django.core.mail import send_mass_mail, send_mail, BadHeaderError
+from .forms import PostForm, LoginForm, NewAuthorForm, ContactForm, EditAuthorForm, SubscribeForm
 
 
 def index(request):
@@ -118,6 +119,11 @@ def post_add(request):
             post.author = request.user
             post.save()
             form.save_m2m()
+
+            subscribers_message = "Вышел новый пост: "
+            link = "https://www.nebezdari.ru/post/" + str(post.id)
+            subscribers_mass_mail(subscribers_message, link=link)
+
             return HttpResponseRedirect('/author/')
     else:
         form = PostForm()
@@ -230,3 +236,14 @@ def author_edit(request, username):
     return render(request,
                   'author/edit-author-page.html',
                   context={'form':form, 'username':username})
+
+
+def subscribe(request):
+    if request.method == "POST":
+        form = SubscribeForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            mailing_member = MailingMember(email=email)
+            mailing_member.save()
+
+    return HttpResponseRedirect('/')
