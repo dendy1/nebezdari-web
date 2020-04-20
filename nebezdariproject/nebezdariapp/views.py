@@ -8,7 +8,7 @@ from .lib.custom_paginator import CustomPaginator
 from .lib.mail.mass_mailing import subscribers_mass_mail
 from .models import Category, Post, Author, Comment, MailingMember
 from django.core.mail import send_mass_mail, send_mail, BadHeaderError
-from .forms import PostForm, LoginForm, NewAuthorForm, ContactForm, EditAuthorForm, SubscribeForm
+from .forms import PostForm, LoginForm, NewAuthorForm, ContactForm, EditAuthorForm, SubscribeForm, CommentForm
 
 
 def index(request):
@@ -19,6 +19,7 @@ def index(request):
     posts_list = Post.objects.all()
     page_num = request.GET.get('page')
     paginator = CustomPaginator(posts_list, posts_per_page, pagination_pages_range)
+    print(paginator.num_pages)
     try:
         posts = paginator.page(page_num)
     except PageNotAnInteger:
@@ -70,9 +71,21 @@ def post(request, id):
     post = get_object_or_404(Post, id=id)
     comments = post.comments.filter()
     related_posts = Post.objects.all()
+    commentForm = CommentForm(request.POST or None)
+    if commentForm.is_valid():
+        comment = commentForm.save(commit=False)
+        comment.post = post
+        if request.user.is_authenticated:
+            comment.author = request.user
+        comment.parent = Comment.objects.get(id=commentForm.cleaned_data['parent_comment'])
+        comment.save()
+        return HttpResponseRedirect(request.path_info)
     return render(request,
                   'blog/post-page.html',
-                  context={'post':post, 'id':id, 'comment_list':comments, 'related_post_list':related_posts})
+                  context={'post':post,
+                           'comment_list':comments,
+                           'related_post_list':related_posts,
+                           'commentForm':commentForm})
 
 def author(request):
     if request.user.is_authenticated:
