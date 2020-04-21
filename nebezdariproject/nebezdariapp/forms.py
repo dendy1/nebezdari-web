@@ -26,37 +26,45 @@ class PostForm(forms.ModelForm):
         )
     )
 
+    image = forms.ImageField(
+        label='Картинка-превью'
+    )
+
     class Meta:
         model = Post
-        fields = ('title', 'text', 'categories')
+        fields = ('title', 'text', 'categories', 'image')
 
 class NewAuthorForm(forms.ModelForm):
     username = forms.CharField(
         label='Логин нового автора',
         widget=forms.TextInput(
             attrs={'class': 'input-1', 'placeholder': 'Введите логин'}
-        )
+        ),
+        required=True
     )
 
     email = forms.CharField(
         label='E-mail нового автора',
         widget=forms.EmailInput(
             attrs={'class': 'input-1', 'placeholder': 'Введите E-Mail'}
-        )
+        ),
+        required=True
     )
 
     first_name = forms.CharField(
         label='Имя нового автора',
         widget=forms.TextInput(
             attrs={'class': 'input-1', 'placeholder': 'Введите имя'}
-        )
+        ),
+        required=False
     )
 
     last_name = forms.CharField(
         label='Фамилия нового автора',
         widget=forms.TextInput(
             attrs={'class': 'input-1', 'placeholder': 'Введите фамилию'}
-        )
+        ),
+        required=False
     )
 
     class Meta:
@@ -135,6 +143,17 @@ class ContactForm(forms.Form):
 
 class SubscribeForm(forms.Form):
     email = forms.EmailField()
+
+class CategoriesForm(forms.Form):
+    categories = forms.ModelMultipleChoiceField(
+        label='Категории',
+        queryset=Category.objects.all(),
+        widget=Select2MultipleWidget(
+            attrs={'class': 'input-1'}
+        ),
+        required=False,
+        help_text='Выберите категории'
+    )
 
 class CommentForm(forms.ModelForm):
     name = forms.CharField(

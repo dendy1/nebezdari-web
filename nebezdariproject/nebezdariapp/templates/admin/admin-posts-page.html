@@ -17,9 +17,27 @@
                         {% for post in posts_list %}
                             <tr>
                                 <td class="pro-title"><h4><a href="/post/{{ post.id }}/">{{ post.title }}</a></h4></td>
-                                <td class="pro-des">{{ post.text|safe|truncatewords:20 }}</td>
+                                <td class="pro-des"><p>
+
+                                    Author:
+                                    {% if post.author %}
+                                        <a href="author/{{ post.author.username }}/">{{ post.author.first_name }}</a>
+                                        <br>
+                                    {% else %}
+                                        ---<br>
+                                    {% endif %}
+
+                                    Posted at: {{ post.posted_at }} <br>
+                                    Edited at: {{ post.edited_at }} <br>
+                                    Categories:
+                                    {% for category in post.categories.all %}
+                                        <a href="/?categories={{ category.id }}">{{ category.name }}</a>
+                                        {% if not forloop.last %} | {% endif %}
+                                    {% endfor %} <br>
+                                </p></td>
                                 <td><a class="btn btn-green-dark btn-small" href="/post/{{ post.id }}/">Читать</a></td>
-                                <td><a class="btn btn-red-dark btn-small" href="/post/{{ post.id }}/delete/">Удалить</a></td>
+                                <td><a class="btn btn-red-dark btn-small" href="/post/{{ post.id }}/delete/">Удалить</a>
+                                </td>
                             </tr>
                         {% endfor %}
                         </tbody>
