@@ -1,4 +1,4 @@
-from .models import Post, Category, Author
+from .models import Post, Category, Author, Comment
 from django import forms
 from django_select2.forms import Select2MultipleWidget
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
@@ -135,3 +135,34 @@ class ContactForm(forms.Form):
 
 class SubscribeForm(forms.Form):
     email = forms.EmailField()
+
+class CommentForm(forms.ModelForm):
+    name = forms.CharField(
+        max_length=64,
+        label="Имя",
+        widget=forms.TextInput(
+            attrs={
+                'class':'bg-cinput'
+            }
+        )
+    )
+
+    text = forms.CharField(
+        max_length=64,
+        label="Текст сообщения",
+        widget=forms.Textarea(
+            attrs={
+                'class':'bg-ctexteria',
+                'style':'resize: vertical'
+            }
+        )
+    )
+
+    parent_comment = forms.IntegerField(
+        widget=forms.HiddenInput,
+        required=False
+    )
+
+    class Meta:
+        model = Comment
+        fields = ('name', 'text')

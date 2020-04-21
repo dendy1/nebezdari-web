@@ -1,10 +1,20 @@
-<div class="text-box border white padding-3">
-    <h5 class="less-mar-1">{{ comment.name }}</h5>
-    <div class="blog-post-info"><span>July 15 2015 at 10:30 AM</span></div>
+<a name="comment-{{ comment.id }}"></a>
+<div id="{{ comment.id }}" class="text-box border white padding-3">
+    <h5 class="less-mar-1">
+        {% if comment.author %}
+            <a href="/author/{{ comment.author.username }}/">{{ comment.author.username }} ({{ comment.author.get_full_name }})</a>
+            {% else %}
+            {{ comment.name }}
+        {% endif %}
+    <a href="#comment-{{ comment.id }}">#</a></h5>
+    <div class="blog-post-info"><span>{{ comment.created_at }}</span></div>
     <br>
     <p>{{ comment.text }}</p>
     <br>
-    <a class="btn btn-border less-bor dark btn-small" href="#"><i class="fa fa-reply" aria-hidden="true"></i>&nbsp;Reply</a>
+    {% if commentForm %}
+        <a class="btn btn-border less-bor dark btn-small" onclick="return show_comments_form({{ comment.id }})"><i
+                class="fa fa-reply" aria-hidden="true"></i>&nbsp;Ответить</a>
+    {% endif %}
 </div>
 <div class="col-divider-margin-2"></div>
 

@@ -32,6 +32,10 @@ class Post(models.Model):
     text = RichTextUploadingField()
     categories = models.ManyToManyField(Category)
     image = models.ImageField(upload_to='posts/', null=True, blank=True)
+
+    posted_at = models.DateTimeField(auto_now_add=True)
+    edited_at = models.DateTimeField(auto_now_add=True)
+
     def __str__(self):
         return self.title
 
@@ -42,6 +46,7 @@ class Comment(models.Model):
     name = models.CharField(max_length=64)
     text = models.CharField(max_length=512)
     author = models.ForeignKey(Author, on_delete=models.CASCADE, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.text
 
