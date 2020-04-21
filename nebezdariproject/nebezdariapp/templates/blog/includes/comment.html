@@ -1,6 +1,11 @@
 <a name="comment-{{ comment.id }}"></a>
 <div id="{{ comment.id }}" class="text-box border white padding-3">
-    <h5 class="less-mar-1">{{ comment.name }}
+    <h5 class="less-mar-1">
+        {% if comment.author %}
+            <a href="/author/{{ comment.author.username }}/">{{ comment.author.username }} ({{ comment.author.get_full_name }})</a>
+            {% else %}
+            {{ comment.name }}
+        {% endif %}
     <a href="#comment-{{ comment.id }}">#</a></h5>
     <div class="blog-post-info"><span>{{ comment.created_at }}</span></div>
     <br>

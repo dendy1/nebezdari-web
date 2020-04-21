@@ -77,7 +77,12 @@ def post(request, id):
         comment.post = post
         if request.user.is_authenticated:
             comment.author = request.user
-        comment.parent = Comment.objects.get(id=commentForm.cleaned_data['parent_comment'])
+
+        try:
+            comment.parent = Comment.objects.get(id=commentForm.cleaned_data['parent_comment'])
+        except Comment.DoesNotExist:
+            comment.parent = None
+
         comment.save()
         return HttpResponseRedirect(request.path_info)
     return render(request,

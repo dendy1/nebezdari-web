@@ -32,6 +32,10 @@ class Post(models.Model):
     text = RichTextUploadingField()
     categories = models.ManyToManyField(Category)
     image = models.ImageField(upload_to='posts/', null=True, blank=True)
+
+    posted_at = models.DateTimeField(auto_now_add=True)
+    edited_at = models.DateTimeField(auto_now_add=True)
+
     def __str__(self):
         return self.title
 

@@ -18,16 +18,28 @@
 
                         {% for author in author_list %}
                             <tr>
-                                <td class="pro-img"><img src="http://via.placeholder.com/600x700" alt="" class="img-responsive"></td>
-                                <td class="pro-title"><h6>{{ author.username }}</h6></td>
-                                <td class="pro-title"><h6>{{ author.email }}</h6></td>
-                                <td class="pro-des"><p>
+                                <td class="pro-img"><a href="/author/{{ author.username }}/">
+                                    {% if author.avatar %}
+                                        <img src="{{ author.avatar.url }}"
+                                             alt="" class="img-circle imgbox-small">
+                                    {% else %}
+                                        <img src="https://eu.ui-avatars.com/api/?name={{ author.get_full_name }}&size=512"
+                                             alt="" class="img-circle imgbox-small">
+                                    {% endif %}
+                                </a></td>
+                                <td class="pro-title"><a href="/author/{{ author.username }}/">
+                                    <h6>{{ author.username }}</h6></a></td>
+                                <td class="pro-title"><a href="/author/{{ author.username }}/">
+                                    <h6>{{ author.email }}</h6></a></td>
+                                <td class="pro-des"><p><a href="/author/{{ author.username }}/">
                                     First name: {{ author.first_name|default:"---" }} <br>
                                     Last name: {{ author.last_name|default:"---" }} <br>
                                     Last login: {{ author.last_login }} <br>
-                                </p></td>
-                                <td><a class="btn btn-green-dark btn-small" href="/admin/user/{{ author.username }}/resetpassword/">Сбросить пароль</a></td>
-                                <td><a class="btn btn-red-dark btn-small" href="/admin/user/{{ author.username }}/delete/">Удалить</a></td>
+                                </a></p></td>
+                                <td><a class="btn btn-green-dark btn-small"
+                                       href="/admin/user/{{ author.username }}/resetpassword/">Сбросить пароль</a></td>
+                                <td><a class="btn btn-red-dark btn-small"
+                                       href="/admin/user/{{ author.username }}/delete/">Удалить</a></td>
                             </tr>
                         {% endfor %}
                         </tbody>
