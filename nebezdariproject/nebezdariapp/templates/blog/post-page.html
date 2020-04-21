@@ -18,7 +18,14 @@
                         <div class="text-box">
                             <div class="text-center">
                                 <div class="blog-post-info">
-                                    <img src="{{ post.author.avatar.url }}" alt="" class="img-circle imgbox-small">
+                                    {% if post.author.avatar %}
+                                        <img src="{{ post.author.avatar.url }}"
+                                             alt="" class="img-circle imgbox-small">
+                                    {% else %}
+                                        <img src="https://eu.ui-avatars.com/api/?name={{ post.author.get_full_name }}&size=512"
+                                             alt="" class="img-circle imgbox-small">
+                                    {% endif %}
+
                                     <h4 class="uppercase title less-mar-1"><a
                                             href="/author/{{ post.author.username }}/">{{ post.author.get_full_name }}</a>
                                     </h4>
