@@ -16,12 +16,15 @@ def index(request):
     if request.method == 'GET':
         if categories_form.is_valid():
             categories = categories_form.cleaned_data['categories']
-            posts_list = Post.objects.filter(categories__in=categories).distinct()
-            print(posts_list)
+            if not categories:
+                print("Test")
+                posts_list = Post.objects.all()
+            else:
+                posts_list = Post.objects.filter(categories__in=categories).order_by('posted_at')
         else:
-            posts_list = Post.objects.all()
+            posts_list = Post.objects.all().order_by('posted_at')
     else:
-        posts_list = Post.objects.all()
+        posts_list = Post.objects.all().order_by('posted_at')
 
     index_categories_count = 10 #count of categories in categories bar
     posts_per_page = 5 #count of posts on page
@@ -36,8 +39,7 @@ def index(request):
     except EmptyPage:
         posts = paginator.page(paginator.num_pages)
 
-    pagination_list = paginator.pagination_list()
-
+    pagination_list = paginator.pagination_list(page_num)
 
     return render(request,
                   'blog/main-page.html',

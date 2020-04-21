@@ -34,7 +34,7 @@
 
                                 <i class="fa fa-folder"></i>
                                 {% for category in post.categories.all %}
-                                    <a href="/category/{{ category.name }}/">{{ category.name }}</a>
+                                    <a href="/?categories={{ category.id }}">{{ category.name }}</a>
                                     {% if not forloop.last %} | {% endif %}
                                 {% endfor %}
                             </div>
