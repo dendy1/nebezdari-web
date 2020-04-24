@@ -125,12 +125,12 @@ def user_login(request):
                   'blog/login-page.html',
                   context={'form': form})
 
-@login_required(login_url='/login')
+@login_required(login_url='/login/')
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect('/login')
 
-@login_required(login_url='/login')
+@login_required(login_url='/login/')
 def post_add(request):
     if request.user.is_staff:
         raise PermissionDenied
@@ -155,7 +155,7 @@ def post_add(request):
                   'author/add-post-page.html',
                   context={'form': form})
 
-@login_required(login_url='/login')
+@login_required(login_url='/login/')
 def post_edit(request, id):
     post = get_object_or_404(Post, id=id)
     if request.user.username != post.author.username:
@@ -176,7 +176,7 @@ def post_edit(request, id):
                   'author/edit-post-page.html',
                   context={'form': form, 'id':id})
 
-@login_required(login_url='/login')
+@login_required(login_url='/login/')
 def post_delete(request, id):
     post = get_object_or_404(Post, id=id)
     if not request.user.is_staff or (post.author != None and request.user.username != post.author.username):
@@ -189,7 +189,7 @@ def post_delete(request, id):
     else:
         return HttpResponseRedirect('/author/')
 
-@login_required(login_url='/login')
+@login_required(login_url='/login/')
 def author_edit(request, username):
     if not request.user.is_staff and request.user.username != username:
         raise PermissionDenied
