@@ -51,6 +51,17 @@
 
                         <br>
                         <div class="row">
+                            <div class="col-md-10 col-centered text-center">
+                                {{ form.image.errors }}
+                                <label class="lable-text"
+                                       for="{{ form.image.id_for_label }}">{{ form.image.label }}</label>
+                                {{ form.image }}
+                            </div>
+                        </div>
+                        <!-- end row -->
+
+                        <br>
+                        <div class="row">
                             <div class="col-md-12 text-center">
                                 <button class="btn btn-dark btn-medium uppercase" type="submit">
                                     <i class="fa fa-paper-plane"></i>
