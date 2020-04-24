@@ -1,6 +1,8 @@
+from ckeditor_uploader.fields import RichTextUploadingField
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-class MailingMembers(models.Model):
+class MailingMember(models.Model):
     email = models.EmailField(max_length=255)
 
     def __str__(self):
@@ -9,42 +11,41 @@ class MailingMembers(models.Model):
     class Meta:
         db_table = "nebezdariapp_mailing_members"
 
-class Authors(models.Model):
-    email = models.EmailField(max_length=255, unique=True)
-    login = models.CharField(max_length=64, unique=True)
-    password = models.CharField(max_length=64)
-    first_name = models.CharField(max_length=64)
-    second_name = models.CharField(max_length=64)
-    about = models.CharField(max_length=512)
+class Author(AbstractUser):
+    about = models.CharField(max_length=2047, blank=True, default='')
+    avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
 
     def __str__(self):
-        return self.login
+        return self.username
 
 
-class Categories(models.Model):
+class Category(models.Model):
     name = models.CharField(max_length=64, unique=True)
 
     def __str__(self):
         return self.name
 
 
-class Posts(models.Model):
-    author = models.ForeignKey(Authors, null=True, on_delete=models.SET_NULL)
+class Post(models.Model):
+    author = models.ForeignKey(Author, null=True, on_delete=models.SET_NULL)
     title = models.CharField(max_length=256)
-    text = models.TextField()
-    categories = models.ManyToManyField(Categories)
+    text = RichTextUploadingField()
+    categories = models.ManyToManyField(Category)
+    image = models.ImageField(upload_to='posts/', null=True, blank=True)
+    posted_at = models.DateTimeField(auto_now_add=True)
+    edited_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.author.login
+        return self.title
 
 
-class Comments(models.Model):
-    parent = models.ForeignKey('self', on_delete=models.CASCADE)
-    post = models.ForeignKey(Posts, on_delete = models.CASCADE)
+class Comment(models.Model):
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
+    post = models.ForeignKey(Post, on_delete = models.CASCADE, null=True, related_name='comments')
     name = models.CharField(max_length=64)
     text = models.CharField(max_length=512)
-    author = models.ForeignKey(Authors, on_delete=models.CASCADE)
-
+    author = models.ForeignKey(Author, on_delete=models.CASCADE, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.text
 

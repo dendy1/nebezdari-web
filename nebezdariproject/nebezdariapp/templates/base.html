@@ -12,8 +12,44 @@
     <!-- Mobile view -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function (m, e, t, r, i, k, a) {
+            m[i] = m[i] || function () {
+                (m[i].a = m[i].a || []).push(arguments)
+            };
+            m[i].l = 1 * new Date();
+            k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+        })
+        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+        ym(61840354, "init", {
+            clickmap: true,
+            trackLinks: true,
+            accurateTrackBounce: true,
+            webvisor: true
+        });
+    </script>
+    <noscript>
+        <div><img src="https://mc.yandex.ru/watch/61840354" style="position:absolute; left:-9999px;" alt=""/></div>
+    </noscript>
+    <!-- /Yandex.Metrika counter -->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-163297483-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'UA-163297483-1');
+    </script>
+
     <!-- Favicon -->
-    <link rel="stylesheet" type="text/css" href="{% static 'blog/js/bootstrap/bootstrap.min.css' %}">
 
     <!-- Google fonts  -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"
@@ -23,10 +59,14 @@
     <link href="https://fonts.googleapis.com/css?family=Yesteryear" rel="stylesheet">
 
     <!-- Template's stylesheets -->
+    <link rel="stylesheet" href="{% static 'blog/js/bootstrap/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'blog/css/theme-default.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'blog/css/corporate.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'blog/css/shortcodes.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'blog/css/shop.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'blog/fonts/fontawesome/all.min.css' %}" type="text/css">
+    {% block extra_head %}
+    {% endblock extra_head %}
     <!-- Template's stylesheets END -->
 
     <!-- Style Customizer's stylesheets -->
@@ -34,7 +74,6 @@
     <!-- Style Customizer's stylesheets END -->
 
     <!-- Skin stylesheet -->
-
 </head>
 <body>
 <div class="over-loader loader-live">
@@ -53,31 +92,7 @@
         {% block header %}
 
             {% block topmenu %}
-                <div class="col-md-12 nopadding">
-                    <div class="header-section">
-                        <div class="topbar dark topbar-padding pin-style">
-                            <div class="container">
-                                <div class="mod-menu">
-                                    <div class="topbar-left-items">
-                                        <ul class="toplist toppadding pull-left paddtop1">
-                                            <li class="rightl"><a href="/">NEBEZDARI</a></li>
-                                        </ul>
-                                    </div>
-                                    <!--end left-->
-
-                                    <div class="topbar-right-items pull-right">
-                                        <ul class="toplist toppadding">
-                                            <li class="lineright"><a href="/">Главная</a></li>
-                                            <li class="lineright"><a href="/about">О нас</a></li>
-                                            <li class="last"><a href="/contact">Контакты</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
+               {% include 'blog/includes/main-menu.html' %}
             {% endblock topmenu %}
 
             {% block pageheader %}
@@ -107,7 +122,6 @@
                 <!-- end header with image -->
             {% endblock pageheader %}
 
-
             {% block breadcrumbs %}
                 <section>
                     <div class="pagenation-holder">
@@ -116,16 +130,27 @@
                                 <div class="col-md-6"><h4 class="uppercase">Блог компании NBZDR</h4></div>
                                 <div class="col-md-6">
                                     <ol class="breadcrumb">
-                                        <li><a href="#">Главная</a></li>
+                                        {% if user.is_authenticated %}
+                                            <li><a href="/author/">Личная страница</a></li>
+                                            <li><a href="/post/add">Добавить пост</a></li>
+                                        {% endif %}
+
+                                        {% block extra_breadcrumbs %}
+                                        {% endblock extra_breadcrumbs %}
+
+                                        {% if user.is_authenticated %}
+                                            <li><a href="/logout">Выход</a></li>
+                                        {% else %}
+                                            <li><a href="/login">Авторизация</a></li>
+                                        {% endif %}
                                     </ol>
                                 </div>
-
                             </div>
                         </div>
                     </div>
                 </section>
-                <!--end section-->
             {% endblock breadcrumbs %}
+            <!--end section-->
         {% endblock header %}
 
         {% block content %}
@@ -134,56 +159,11 @@
 
         {% block footer %}
             {% block subscription %}
-                <section class="sec-padding-6 section-medium-dark">
-                    <div class="container">
-                        <div class="row justify-content-md-center">
-                            <div class="col-md-auto w-auto">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="sec-title-container less-padding-6 text-center">
-                                            <h3 class="font-weight-6 less-mar-1 line-height-5 text-white">
-                                                Подпишитесь на обновления сайта</h3>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="form-body bg-light">
-                                            <form class="form-row">
-                                                <div class="col-md-9">
-
-                                                    <input id="name" class="input-1" type="text"
-                                                           placeholder="Введите Email"
-                                                           name="Name">
-                                                </div>
-
-                                                <button type="submit"
-                                                        class="btn btn-medium btn-dark btn-anim-1 uppercase">
-                                                    <i class="far fa-bell" aria-hidden="true"></i>
-                                                    <span>Подписаться</span></button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                </section>
-                <div class="clearfix"></div>
+                {% include 'blog/includes/subcription.html' %}
             {% endblock subscription %}
 
             {% block copyright %}
-                <section class="sec-padding-6 section-medium-dark">
-                    <div class="container">
-                        <div class="row">
-                            <div class="fo-copyright-holder text-center"> Copyright © 2020 l Codelayers. All rights
-                                reserved.
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <div class="clearfix"></div>
-                <a href="#" class="scrollup"></a>
+                {% include 'blog/includes/copyright.html' %}
             {% endblock copyright %}
         {% endblock footer %}
     </div>
@@ -196,13 +176,9 @@
 <script src="{% static 'blog/js/bootstrap/bootstrap.min.js' %}"></script>
 
 <script src="{% static 'blog/js/less/less.min.js' %}" data-env="development"></script>
-<script src="{% static 'blog/js/sticky/jquery.sticky.js' %}"></script>
 
-<script>
-    $(window).load(function () {
-        $("#stickyheader").sticky({topSpacing: 0});
-    });
-</script>
+{% block extra_body %}
+{% endblock extra_body %}
 <!-- Scripts END -->
 
 <!-- Template scripts -->

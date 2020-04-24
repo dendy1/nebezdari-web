@@ -1,0 +1,51 @@
+{% extends "admin-base.html" %}
+
+{% block content %}
+    <section class="sec-padding">
+        <div class="container">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="sp-cart">
+                        <tbody>
+                        <tr>
+                            <th class="pro-img"></th>
+                            <th style="width:10%;">Username</th>
+                            <th style="width:20%;">E-Mail</th>
+                            <th style="width:35%;">Description</th>
+                            <th style="width:10%;"></th>
+                            <th style="width:10%;"></th>
+                        </tr>
+
+                        {% for author in author_list %}
+                            <tr>
+                                <td class="pro-img"><a href="/author/{{ author.username }}/">
+                                    {% if author.avatar %}
+                                        <img src="{{ author.avatar.url }}"
+                                             alt="" class="img-circle imgbox-small">
+                                    {% else %}
+                                        <img src="https://eu.ui-avatars.com/api/?name={{ author.get_full_name }}&size=512"
+                                             alt="" class="img-circle imgbox-small">
+                                    {% endif %}
+                                </a></td>
+                                <td class="pro-title"><a href="/author/{{ author.username }}/">
+                                    <h6>{{ author.username }}</h6></a></td>
+                                <td class="pro-title"><a href="/author/{{ author.username }}/">
+                                    <h6>{{ author.email }}</h6></a></td>
+                                <td class="pro-des"><p><a href="/author/{{ author.username }}/">
+                                    First name: {{ author.first_name|default:"---" }} <br>
+                                    Last name: {{ author.last_name|default:"---" }} <br>
+                                    Last login: {{ author.last_login }} <br>
+                                </a></p></td>
+                                <td><a class="btn btn-green-dark btn-small"
+                                       href="/admin/user/{{ author.username }}/resetpassword/">Сбросить пароль</a></td>
+                                <td><a class="btn btn-red-dark btn-small"
+                                       href="/admin/user/{{ author.username }}/delete/">Удалить</a></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

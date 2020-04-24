@@ -1,0 +1,15 @@
+<div class="col-md-3 col-sm-12 col-xs-12 section-white text-center">
+    <form method="get" action="/">
+        {{ categories_form.categories.errors }}
+        <label class="lable-text"
+               for="{{ categories_form.categories.id_for_label }}">
+            {{ categories_form.categories.label }}</label>
+        {{ categories_form.categories }}
+
+        <button class="btn btn-medium btn-cyan btn-anim-3 uppercase xround-6 text-center"
+                type="submit">
+            <span>Показать</span>
+            <i>Посты</i>
+        </button>
+    </form>
+</div>

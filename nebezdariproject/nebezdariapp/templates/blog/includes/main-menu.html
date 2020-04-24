@@ -1,0 +1,31 @@
+<div class="col-md-12 nopadding">
+    <div class="header-section">
+        <div class="topbar dark topbar-padding pin-style">
+            <div class="container">
+                <div class="mod-menu">
+                    <div class="topbar-left-items">
+                        <ul class="toplist toppadding pull-left paddtop1">
+                            <li class="rightl"><a href="/">NEBEZDARI</a></li>
+                        </ul>
+                    </div>
+                    <!--end left-->
+
+                    <div class="topbar-right-items pull-right">
+                        <ul class="toplist toppadding">
+                            <li class="lineright"><a href="/">Главная</a></li>
+                            <li class="lineright"><a href="/about/">О нас</a></li>
+                            {% if user.is_superuser %}
+                                <li class="lineright"><a href="/contact/">Контакты</a></li>
+                                <li class="lineright"><a href="/admin/">Панель админа</a></li>
+                                <li class="last"><a href="/django/admin/">Django</a></li>
+                            {% else %}
+                                <li class="last"><a href="/contact/">Контакты</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>

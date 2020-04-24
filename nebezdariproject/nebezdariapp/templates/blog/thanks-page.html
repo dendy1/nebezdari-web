@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <section class="sec-padding">
+        <div class="container">
+            <div class="row">
+
+                <div class="error_holder">
+                    <h1 class="">Спасибо за письмо!</h1>
+                    <br/>
+                    <h2 class="">Вы будете перенаправлены на главную страницу через <span id="count">{{ redirect_time }}</span> секунд</h2>
+
+                    <p>Если перенаправления не произашло, перейдите по <a href="/">этой ссылке</a></p>
+                    <br/>
+                    <br/>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+{% endblock content %}
+
+{% block extra_body %}
+    {% include 'blog/includes/redirect.html' %}
+
+    <script>
+        window.onload = function () {
+
+            (function () {
+                var counter = {{ redirect_time }} * 1000;
+
+                setInterval(function () {
+                    counter--;
+                    if (counter >= 0) {
+                        span = document.getElementById("count");
+                        span.innerHTML = counter;
+                    }
+                    // Display 'counter' wherever you want to display it.
+                    if (counter === 0) {
+                        alert('this is where it happens');
+                        clearInterval(counter);
+                    }
+
+                }, 1000);
+
+            })();
+
+        }
+    </script>
+{% endblock extra_body %}
+

@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <section class="sec-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="one_half">
+                        <div class="cforms_sty3">
+                            <div id="form_status"></div>
+                            <form action="/contact/" method="POST" id="gsr-contact" onsubmit="return valid_datas( this );">{% csrf_token %}
+                                {% csrf_token %}
+                                {{ form.name.errors }}
+                                <label for="{{ form.name.id_for_label }}" class="label">{{ form.name.label }} <em>*</em></label>
+                                {{ form.name }}
+                                <div class="clearfix"></div>
+
+                                {{ form.sender.errors }}
+                                <label for="{{ form.sender.id_for_label }}" class="label">{{ form.sender.label }} <em>*</em></label>
+	                            {{ form.sender }}
+                                <div class="clearfix"></div>
+
+                                {{ form.subject.errors }}
+                                <label for="{{ form.subject.id_for_label }}" class="label">{{ form.subject.label }} <em>*</em></label>
+	                            {{ form.subject }}
+                                <div class="clearfix"></div>
+
+                                {{ form.message.errors }}
+                                <label for="{{ form.message.if_for_label }}" class="label">{{ form.message.label }} <em>*</em></label>
+	                            {{ form.message }}
+                                <div class="clearfix"></div>
+
+                                <input type="hidden" name="token" value="FsWga4&amp;@f6aw">
+                                <button type="submit" class="button">Send Message</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!--end item-->
+
+                <div class="col-md-4 text-left">
+                    <h3><strong>Get in Touch</strong></h3>
+                    <br>
+                    <h4>Address Info</h4>
+                    <h6>Nebezdari Team</h6>
+                    <p>13031 W Jefferson Blvd UNIT 200, Los Angeles, CA 90094
+                        Telephone: +7 952 952 52 38
+                    </p>
+                    <br>
+                    <p>E-mail: admin@nebezdari.ru</p>
+                    <p>Website: www.nebezdari.ru</p>
+                </div>
+                <!--end item-->
+
+
+            </div>
+        </div>
+    </section>
+    <div class="clearfix"></div>
+{% endblock content %}

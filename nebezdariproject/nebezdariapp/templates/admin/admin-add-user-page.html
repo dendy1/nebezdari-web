@@ -1,0 +1,86 @@
+{% extends "admin-base.html" %}
+
+{% block extra_head %}
+    {{ form.media.css }}
+{% endblock extra_head %}
+
+{% block extra_body %}
+    {{ form.media.js }}
+{% endblock extra_body %}
+
+{% block content %}
+    <section class="sec-padding">
+        <form action="/admin/user/add/" method="post">
+            {% csrf_token %}
+            <div class="container">
+                <div class="col-md-12">
+                    <div class="col-md-12 text-center"><h4 class="uppercase">Добавление нового автора</h4></div>
+                    <div class="clearfix"></div>
+                    <div class="form-body border-light">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{ form.username.errors }}
+                                <label class="lable-text"
+                                       for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+                                {{ form.username }}
+                            </div>
+                        </div>
+                        <!-- end row -->
+                        <br>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{ form.email.errors }}
+                                <label class="lable-text"
+                                       for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+                                {{ form.email }}
+                            </div>
+                        </div>
+                        <!-- end row -->
+                        <br>
+
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{ form.first_name.errors }}
+                                <label class="lable-text"
+                                       for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}{% if not form.first_name.required %} - <i>Optional</i> {% endif %}</label>
+                                {{ form.first_name }}
+                            </div>
+                        </div>
+                        <!-- end row -->
+                        <br>
+
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{ form.last_name.errors }}
+                                <label class="lable-text"
+                                       for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}{% if not form.last_name.required %} - <i>Optional</i> {% endif %}</label>
+                                {{ form.last_name }}
+                            </div>
+                        </div>
+                        <!-- end row -->
+                        <br>
+
+                        <div class="row">
+                            <br>
+                            <div class="col">
+                                <div class="mx-auto bg-dark text-white text-center w-50">
+                                    <button class="btn btn-dark-3 btn-half-fullwidth uppercase" type="submit">Добавить
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end row -->
+
+                    </div>
+                    <!--end form body-->
+                </div>
+                <!--end item-->
+
+            </div>
+        </form>
+    </section>
+{% endblock content %}

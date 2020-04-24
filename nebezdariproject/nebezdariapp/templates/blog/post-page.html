@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block extra_breadcrumbs %}
+    {% if user.username == post.author.username %}
+        <li><a href="/post/{{ post.id }}/edit/">Редактировать пост</a></li>
+    {% endif %}
+{% endblock extra_breadcrumbs %}
+
+
+{% block content %}
+    <section class="sec-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-sm-12 col-xs-12">
+                    <div class="clearfix"></div>
+
+                    <div class="col-md-12 nopadding">
+                        <div class="text-box">
+                            <div class="text-center">
+                                <div class="blog-post-info">
+                                    <a href="/author/{{ post.author.username }}/">
+                                        {% if post.author.avatar %}
+                                            <img src="{{ post.author.avatar.url }}"
+                                                 alt="" class="img-circle imgbox-small">
+                                        {% else %}
+                                            <img src="https://eu.ui-avatars.com/api/?name={{ post.author.get_full_name }}&size=512"
+                                                 alt="" class="img-circle imgbox-small">
+                                        {% endif %}
+
+                                        <h4 class="uppercase title margin-top-2">{{ post.author.get_full_name }}</h4>
+                                    </a>
+
+                                    <h4 class="raleway margin-bottom-1">{{ post.title }}</h4>
+                                </div>
+
+                                <i class="fa fa-folder"></i>
+                                {% for category in post.categories.all %}
+                                    <a href="/?categories={{ category.id }}">{{ category.name }}</a>
+                                    {% if not forloop.last %} | {% endif %}
+                                {% endfor %}
+                                <p>{{ post.posted_at }}</p>
+                            </div>
+                        </div>
+                        <br>
+                        {{ post.text|safe }}
+                    </div>
+
+
+                    <div class="clearfix"></div>
+                    <br><br>
+
+
+                    <h4>{{ comment_list.count }} Комментариев</h4>
+
+                    {% for comment in comment_list %}
+                        {% if not comment.parent %}
+                            {% include "blog/includes/comment.html" %}
+                        {% endif %}
+                    {% endfor %}
+
+                    <div class="clearfix"></div>
+                    <br/><br/>
+
+
+                    <h4 id="write_comment"><a onclick="return show_comments_form('write_comment')">Опубликовать
+                        комментарий!</a></h4>
+                    {% if commentForm %}
+                        <form id="comment_form" method="post" action="/post/{{ post.id }}/">
+                            {% csrf_token %}
+                            <div class="col-centered text-center">
+                                {{ commentForm.name.errors }}
+                                <label class="lable-text"
+                                       for="{{ commentForm.name.id_for_label }}">{{ commentForm.name.label }}</label>
+                                {{ commentForm.name }}
+
+                                <div class="clearfix"></div>
+
+                                {{ commentForm.text.errors }}
+                                <label class="lable-text"
+                                       for="{{ commentForm.text.id_for_label }}">{{ commentForm.text.label }}</label>
+                                {{ commentForm.text }}
+
+                                {{ commentForm.parent_comment.errors }}
+                                <div>
+                                    {{ commentForm.parent_comment }}
+                                </div>
+
+                                <button id="sumbit" class="btn btn-blue-dark btn-medium uppercase"
+                                        type="submit"><i
+                                        class="fa fa-paper-plane"
+                                        aria-hidden="true"></i> Опубликовать
+                                    комментарий
+                                </button>
+
+                                <div id="cancel">
+                                </div>
+                            </div>
+                        </form>
+                        </div>
+                        <!--end post item-->
+                    {% endif %}
+
+                {% include 'blog/includes/right-sidebar.html' %}
+                <!--end right col-->
+            </div>
+
+        </div>
+    </section>
+    <!--end comments col-->
+{% endblock content %}
+
+{% block extra_body %}
+    <script>
+        function show_comments_form(parent_comment_id) {
+            if (parent_comment_id === 'write_comment') {
+                $("#id_parent_comment").val('');
+                document.getElementById("cancel").innerHTML = "";
+            } else {
+                $("#id_parent_comment").val(parent_comment_id);
+                document.getElementById("cancel").innerHTML =
+                    "<a onclick=\"return show_comments_form('write_comment')\" class=\"btn btn-dark-3 btn-small uppercase\"> " +
+                    "Отменить\n" +
+                    "</a>";
+            }
+            $("#comment_form").insertAfter("#" + parent_comment_id);
+
+
+        }
+    </script>
+{% endblock extra_body %}

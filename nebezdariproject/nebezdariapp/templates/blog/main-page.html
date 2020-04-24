@@ -1,0 +1,79 @@
+{% extends user.is_staff|yesno:'admin-base.html,base.html' %}}
+
+{% block content %}
+    <section class="sec-padding">
+        <div class="container">
+            <div class="row">
+                {% include 'blog/includes/left-sidebar.html' %}
+
+                <div class="col-md-9 nopadding">
+                    {% for post in posts %}
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="ce-feature-box-52 margin-bottom">
+                                <div class="ce-post-img"><a href="/post/{{ post.id }}">
+                                    <div class="info-badge"><span class="icon-pencil icon"></span>Blog</div>
+                                    <div class="overlay"><i class="fa fa-plus" aria-hidden="true"></i></div>
+                                </a> <img src="http://via.placeholder.com/2000x1000" alt="" class="img-responsive">
+                                </div>
+                                <div class="text-box padd-1 shadow">
+                                    <h4 class="less-mar-1 title"><a href="/post/{{ post.id }}">{{ post.title }} </a>
+                                    </h4>
+                                    <p>{{ post.text|safe|truncatewords:10 }}</p>
+                                    <div class="date-info-box">
+                                        <div class="box-left">
+                                            <i class="fas fa-calendar" aria-hidden="true"></i>&nbsp;
+                                            August 19, 2018
+                                        </div>
+
+                                        <div class="box-right">
+                                            <i class="fas fa-comment" aria-hidden="true"></i>&nbsp; 26
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-divider-margin-5"></div>
+                    {% endfor %}
+
+                    <!-- PAGINATION SECTION START -->
+                    <div class="col-divider-margin-3"></div>
+                    <div class="col-md-12 text-center">
+                        <ul class="pagination style-1 hover-violet">
+                            {% if posts.has_previous %}
+                                <li><a href="/?page={{ 1 }}"><span aria-hidden="true"><i
+                                        class="fas fa-angle-double-left"></i></span></a>
+                                </li>
+                                <li><a href="/?page={{ posts.previous_page_number }}"><span aria-hidden="true"><i
+                                        class="fas fa-angle-left"></i></span></a>
+                                </li>
+                            {% endif %}
+                            {% for num in pagination_list %}
+                                <li><a {% if posts.number == num %}class="active"{% endif %}
+                                       href="/?page={{ num }}">{{ num }}</a></li>
+                            {% endfor %}
+                            {% if posts.has_next %}
+                                <li><a href="/?page={{ posts.next_page_number }}"><span aria-hidden="true"><i
+                                        class="fas fa-angle-right"></i></span></a>
+                                </li>
+                                <li><a href="/?page={{ posts.paginator.num_pages }}"><span aria-hidden="true"><i
+                                        class="fas fa-angle-double-right"></i></span></a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <!-- PAGINATION SECTION END -->
+                </div>
+                <!--end main block with posts-->
+            </div>
+        </div>
+    </section>
+{% endblock content %}
+
+
+{% block extra_head %}
+    {{ categories_form.media.css }}
+{% endblock extra_head %}
+
+{% block extra_body %}
+    {{ categories_form.media.js }}
+{% endblock extra_body %}

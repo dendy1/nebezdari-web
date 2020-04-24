@@ -1,0 +1,48 @@
+<div class="col-md-4 col-sm-12 col-xs-12 section-white">
+    <div class="pages-sidebar-item">
+        <form action="/subscribe/" method="post">
+            <div class="form-body bg-light">
+                <div class="row">
+                    <div class="col-md-12 col-centered text-center">
+                        <label class="lable-text" for="email">E-Mail адрес</label>
+                        <input id="email" class="input-1" type="text" placeholder="Введите свой E-Mail"
+                               name="Name">
+                    </div>
+                </div>
+                <!-- end row -->
+
+                <div class="row">
+                    <br>
+                    <div class="col-md-12 col-centered text-center">
+                        <button class="btn btn-dark-3 btn-medium uppercase" type="submit">
+                            <i class="far fa-bell" aria-hidden="true"></i> Подписаться
+                        </button>
+                    </div>
+                </div>
+                <!-- end row -->
+            </div>
+        </form>
+    </div>
+    <!--end item holder-->
+
+    <div class="pages-sidebar-item">
+        <h5 class="uppercase pages-sidebar-item-title">Другие посты</h5>
+
+        <div class="col-md-12 col-sm-12 col-xs-12 col-centered">
+            {% for related_post in related_post_list %}
+                <div class="text-box border-bottom padding-1">
+                    <h6 class="uppercase nopadding"><a href="/post/{{ related_post.id }}"
+                                                       class="text-hover-gyellow">{{ related_post.title }}</a>
+                    </h6>
+                    <div class="blog-post-info padding-top-1">
+                        <span>{{ related_post.author.get_full_name|default:"Аноним" }}</span>
+                        <i class="fas fa-comment"></i> {{ related_post.comments.count }}
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+    <!--end item holder-->
+</div>
+<!--end right col-->
