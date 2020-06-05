@@ -18,16 +18,14 @@ class Author(AbstractUser):
     def __str__(self):
         return self.username
 
-
 class Category(models.Model):
     name = models.CharField(max_length=64, unique=True)
 
     def __str__(self):
         return self.name
 
-
 class Post(models.Model):
-    author = models.ForeignKey(Author, null=True, on_delete=models.SET_NULL)
+    author = models.ForeignKey(Author, null=True, on_delete=models.SET_NULL, related_name='posts')
     title = models.CharField(max_length=256)
     text = RichTextUploadingField()
     categories = models.ManyToManyField(Category)
@@ -38,7 +36,6 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
-
 class Comment(models.Model):
     parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
     post = models.ForeignKey(Post, on_delete = models.CASCADE, null=True, related_name='comments')
@@ -46,6 +43,6 @@ class Comment(models.Model):
     text = models.CharField(max_length=512)
     author = models.ForeignKey(Author, on_delete=models.CASCADE, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
     def __str__(self):
         return self.text
-

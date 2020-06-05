@@ -24,7 +24,7 @@ SECRET_KEY = '3k6t(2!m@^mmxd+do^px$f-9a$83kmv*iqi&f6512$&u@(jhkb'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['nebezdari.ru', 'www.nebezdari.ru', 'localhost']
+ALLOWED_HOSTS = ['nebezdari.ru', 'www.nebezdari.ru', 'localhost', '127.0.0.1']
 
 # Application definition
 
@@ -35,10 +35,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'nebezdariapp.apps.NebezdariappConfig',
+    'nebezdariapi.apps.NebezdariapiConfig',
     'ckeditor',
     'ckeditor_uploader',
-    'django_select2'
+    'django_select2',
 ]
 
 MIDDLEWARE = [
@@ -107,6 +109,13 @@ AUTHENTICATION_BACKENDS = [
     'nebezdariapp.backends.EmailBackend',
 ]
 
+
+# Django REST framework
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 10
+}
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -143,7 +152,6 @@ CKEDITOR_CONFIGS = {
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'mail.hosting.reg.ru'
-EMAIL_PORT = '587'
 EMAIL_HOST_USER = 'noreply@nebezdari.ru'
 EMAIL_HOST_PASSWORD = '2B2x0H5o'
 
