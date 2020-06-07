@@ -1,24 +1,29 @@
-from django.urls import path
-from rest_framework.urlpatterns import format_suffix_patterns
+from django.conf.urls import url
+from django.urls import path, include
+from rest_framework_extensions.routers import ExtendedSimpleRouter
+from .views import *
 
-from . import views
+router = ExtendedSimpleRouter()
+posts_routers = router.register(r'posts', PostViewSet, basename='post')
+posts_routers.register(
+    r'comments',
+    CommentViewSet,
+    basename='post-comment',
+    parents_query_lookups=['post']
+)
+posts_routers.register(
+    r'categories',
+    CategoryViewSet,
+    basename='post-category',
+    parents_query_lookups=['post']
+)
+
+router.register(r'categories', CategoryViewSet, basename='category')
+router.register(r'mailingmembers', MailingMemberViewSet, basename='mailingmember')
+router.register(r'comments', CommentViewSet, basename='comment')
+router.register(r'author', AuthorViewSet, basename='author')
 
 urlpatterns = [
-    path('', views.api_root),
-    path('posts/', views.PostList.as_view(), name='post-list'),
-    path('posts/<int:pk>/', views.PostDetail.as_view(), name='post-detail'),
-
-    path('categories/', views.CategoryList.as_view(), name='category-list'),
-    path('categories/<int:pk>', views.CategoryDetail.as_view(), name='category-detail'),
-
-    path('authors/', views.AuthorList.as_view(), name='author-list'),
-    path('authors/<int:pk>', views.AuthorDetail.as_view(), name='author-detail'),
-
-    path('comments/', views.CommentList.as_view(), name='comment-list'),
-    path('comments/<int:pk>', views.CommentDetail.as_view(), name='comment-detail'),
-
-    path('mailingmembers/', views.MailingMemberList.as_view(), name='mailingmember-list'),
-    path('mailingmembers/<int:pk>', views.MailingMemberDetail.as_view(), name='mailingmember-detail')
+    path('', api_root),
+    url(r'^', include(router.urls)),
 ]
-
-urlpatterns = format_suffix_patterns(urlpatterns)

@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework_filters',
     'nebezdariapp.apps.NebezdariappConfig',
     'nebezdariapi.apps.NebezdariapiConfig',
     'ckeditor',
@@ -75,7 +76,6 @@ WSGI_APPLICATION = 'nebezdariproject.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -113,7 +113,10 @@ AUTHENTICATION_BACKENDS = [
 # Django REST framework
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 10
+    'PAGE_SIZE': 10,
+    'DEFAULT_FILTER_BACKENDS': (
+        'rest_framework_filters.backends.RestFrameworkFilterBackend',
+    ),
 }
 
 # Internationalization

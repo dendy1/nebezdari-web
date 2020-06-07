@@ -10,6 +10,9 @@ class CategorySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Category
         fields = ('url', 'id', 'name')
+        extra_kwargs = {
+            'name': {'validators': []},
+        }
 
 class MailingMemberSerializer(serializers.ModelSerializer):
     class Meta:
@@ -24,32 +27,36 @@ class CommentSerializer(serializers.HyperlinkedModelSerializer):
 class PostSerializer(serializers.HyperlinkedModelSerializer):
     author = serializers.ReadOnlyField(source='author.username')
     categories = CategorySerializer(many=True)
-    comments = CommentSerializer(many=True)
+    comments = CommentSerializer(many=True, read_only=True)
+    posted_at = serializers.DateTimeField(read_only=True)
+    edited_at = serializers.DateTimeField(read_only=True)
 
     def create(self, validated_data):
         categories_validated_data = validated_data.pop('categories')
-        comments_validated_data = validated_data.pop('comments')
-
         post = Post.objects.create(**validated_data)
 
         for category_data in categories_validated_data:
-            category = Category.objects.create(post=post, **category_data)
+            category, created = Category.objects.get_or_create(**category_data)
             post.categories.add(category)
-
-        for comment_data in comments_validated_data:
-            Comment.objects.create(post=post, **comment_data)
 
         return post
 
     def update(self, instance, validated_data):
         categories_validated_data = validated_data.pop('categories')
-        comments_validated_data = validated_data.pop('comments')
+
+        instance.title = validated_data.get('title', instance.title)
+        instance.text = validated_data.get('text', instance.text)
+        instance.author = validated_data.get('author', instance.author)
+        instance.edited_at = validated_data.get('edited_at', instance.edited_at)
+        instance.categories.clear()
 
         for category_data in categories_validated_data:
-            Category.objects.update_or_create(**category_data)
+            category, created = Category.objects.get_or_create(**category_data)
+            instance.categories.add(category)
 
-        for comment_data in comments_validated_data:
-            Comment.objects.update_or_create(**comment_data)
+        instance.save()
+
+        return instance
 
     class Meta:
         model = Post
