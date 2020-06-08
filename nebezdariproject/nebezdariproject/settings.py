@@ -24,7 +24,7 @@ SECRET_KEY = '3k6t(2!m@^mmxd+do^px$f-9a$83kmv*iqi&f6512$&u@(jhkb'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['nebezdari.ru', 'www.nebezdari.ru', 'localhost']
+ALLOWED_HOSTS = ['nebezdari.ru', 'www.nebezdari.ru', 'builovn.space', 'www.builovn.space', 'localhost', '127.0.0.1']
 
 # Application definition
 
@@ -35,10 +35,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework_filters',
+    'drf_yasg',
     'nebezdariapp.apps.NebezdariappConfig',
+    'nebezdariapi.apps.NebezdariapiConfig',
     'ckeditor',
     'ckeditor_uploader',
-    'django_select2'
+    'django_select2',
+    'snowpenguin.django.recaptcha3',
 ]
 
 MIDDLEWARE = [
@@ -73,7 +78,6 @@ WSGI_APPLICATION = 'nebezdariproject.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -107,6 +111,16 @@ AUTHENTICATION_BACKENDS = [
     'nebezdariapp.backends.EmailBackend',
 ]
 
+
+# Django REST framework
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 10,
+    'DEFAULT_FILTER_BACKENDS': (
+        'rest_framework_filters.backends.RestFrameworkFilterBackend',
+    ),
+}
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -129,6 +143,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/nebezdariproject/media/'
 
+# CKEditor settings
 CKEDITOR_BASEPATH = "/nebezdariproject/static/ckeditor/ckeditor/"
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 CKEDITOR_ALLOW_NONIMAGE_FILES = False
@@ -141,12 +156,18 @@ CKEDITOR_CONFIGS = {
     },
 }
 
+# Email settings
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'mail.hosting.reg.ru'
-EMAIL_PORT = '587'
 EMAIL_HOST_USER = 'noreply@nebezdari.ru'
 EMAIL_HOST_PASSWORD = '2B2x0H5o'
 
 DEFAULT_FROM_EMAIL = 'noreply@nebezdari.ru'
 DEFAULT_TO_EMAIL = 'admin@nebezdari.ru'
 EMAIL_PORT = 587
+
+# reCAPTCHA settings
+RECAPTCHA_PUBLIC_KEY = '6Lf99a4UAAAAAJqUU5KZbT8Q6G-rZU1KZsa_SRqA'
+RECAPTCHA_PRIVATE_KEY = '6Lf99a4UAAAAADr0-2012ghQhzn8llaZrjQz2J_F'
+RECAPTCHA_DEFAULT_ACTION = 'generic'
+RECAPTCHA_SCORE_THRESHOLD = 0.5

@@ -1,11 +1,16 @@
 {% extends "base.html" %}
+{% load recaptcha3 %}
+
+{% block extra_head %}
+    {% recaptcha_init %}
+    {% recaptcha_ready action_name='comment_form' %}
+{% endblock extra_head %}
 
 {% block extra_breadcrumbs %}
     {% if user.username == post.author.username %}
         <li><a href="/post/{{ post.id }}/edit/">Редактировать пост</a></li>
     {% endif %}
 {% endblock extra_breadcrumbs %}
-
 
 {% block content %}
     <section class="sec-padding">
@@ -85,6 +90,7 @@
                                     {{ commentForm.parent_comment }}
                                 </div>
 
+                                {{ commentForm.captcha }}
                                 <button id="sumbit" class="btn btn-blue-dark btn-medium uppercase"
                                         type="submit"><i
                                         class="fa fa-paper-plane"
@@ -127,4 +133,10 @@
 
         }
     </script>
+
+     <script>
+          function alertToken(token) {
+              alert(token);
+          }
+      </script>
 {% endblock extra_body %}
