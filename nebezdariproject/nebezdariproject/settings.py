@@ -121,9 +121,13 @@ REST_FRAMEWORK = {
     ),
 }
 
+# Swagger/Redoc settings
+SWAGGER_SETTINGS = {
+    'LOGIN_URL': '/login/'
+}
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
-
 TIME_ZONE = 'UTC'
 USE_TZ = True
 USE_I18N = True
@@ -131,9 +135,8 @@ USE_L10N = False
 LANGUAGE_CODE = 'ru-RU'
 DATE_FORMAT = 'd M Y H:i'
 
-# Static files (CSS, JavaScript, Images)
+# Static files (CSS, JavaScript, Images) + Media files
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
-
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 STATIC_URL = '/nebezdariproject/static/'
 
