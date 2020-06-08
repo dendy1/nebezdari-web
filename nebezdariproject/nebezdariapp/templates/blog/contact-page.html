@@ -1,4 +1,10 @@
 {% extends "base.html" %}
+{% load recaptcha3 %}
+
+{% block extra_head %}
+    {% recaptcha_init %}
+    {% recaptcha_ready action_name='post-page' %}
+{% endblock extra_head %}
 
 {% block content %}
     <section class="sec-padding">
@@ -30,6 +36,7 @@
 	                            {{ form.message }}
                                 <div class="clearfix"></div>
 
+                                {{ form.captcha }}
                                 <input type="hidden" name="token" value="FsWga4&amp;@f6aw">
                                 <button type="submit" class="button">Send Message</button>
                             </form>

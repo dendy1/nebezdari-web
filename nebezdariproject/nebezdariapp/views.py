@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.core.exceptions import PermissionDenied
+
 from .lib.custom_paginator import CustomPaginator
 from .lib.mail.mass_mailing import subscribers_mass_mail
 from .models import Category, Post, Author, Comment, MailingMember
@@ -74,7 +75,6 @@ def contact(request):
                 'redirect_to':'/',
                 'redirect_time': 5 #in seconds
             })
-
     else:
         form = ContactForm()
     return render(request,

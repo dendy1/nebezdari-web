@@ -1,3 +1,5 @@
+from snowpenguin.django.recaptcha3.fields import ReCaptchaField
+
 from .models import Post, Category, Author, Comment
 from django import forms
 from django_select2.forms import Select2MultipleWidget
@@ -113,6 +115,8 @@ class LoginForm(forms.Form):
 
 
 class ContactForm(forms.Form):
+    captcha = ReCaptchaField()
+
     name = forms.CharField(
         label="Имя",
         max_length=100,
@@ -156,6 +160,8 @@ class CategoriesForm(forms.Form):
     )
 
 class CommentForm(forms.ModelForm):
+    captcha = ReCaptchaField()
+
     name = forms.CharField(
         max_length=64,
         label="Имя",
