@@ -47,3 +47,8 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('django/admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler400 = 'nebezdariapp.views.error_400'
+handler403 = 'nebezdariapp.views.error_403'
+handler404 = 'nebezdariapp.views.error_404'
+handler500 = 'nebezdariapp.views.error_500'

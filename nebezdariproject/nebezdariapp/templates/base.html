@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{% block title %}nebezdari.ru - Блог компании NBZDR{% endblock %}</title>
+    <title>{% block title %} nebezdari.ru - Блог компании NBZDR {% endblock %}</title>
     <meta name="keywords" content=""/>
     <meta name="description" content="">
     <meta name="author" content="">
@@ -65,6 +65,7 @@
     <link rel="stylesheet" href="{% static 'blog/css/shortcodes.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'blog/css/shop.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'blog/fonts/fontawesome/all.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'blog/css/vacation.css' %}" type="text/css">
     {% block extra_head %}
     {% endblock extra_head %}
     <!-- Template's stylesheets END -->
@@ -99,8 +100,8 @@
                 <section class="section-side-image clearfix">
                     <div class="img-holder col-md-12 col-sm-12 col-xs-12">
                         <div class="background-imgholder"
-                             style="background:url(http://via.placeholder.com/1500x1000);">
-                            <img class="nodisplay-image" src="http://via.placeholder.com/1500x1000" alt=""/>
+                             style="background:url(/nebezdariproject/media/main-page.jpg);">
+                            <img class="nodisplay-image" src="/nebezdariproject/media/main-page.jpg" alt=""/>
                         </div>
                     </div>
                     <div class="container-fluid">
