@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from django.urls import path, include
+from django.urls import include
 from rest_framework_extensions.routers import ExtendedSimpleRouter
 from .views import *
 
@@ -21,9 +21,8 @@ posts_routers.register(
 router.register(r'categories', CategoryViewSet, basename='category')
 router.register(r'mailingmembers', MailingMemberViewSet, basename='mailingmember')
 router.register(r'comments', CommentViewSet, basename='comment')
-router.register(r'author', AuthorViewSet, basename='author')
+router.register(r'authors', AuthorViewSet, basename='author')
 
 urlpatterns = [
-    path('', api_root),
     url(r'^', include(router.urls)),
 ]

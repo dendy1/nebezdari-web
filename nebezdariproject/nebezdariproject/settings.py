@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_filters',
+    'drf_yasg',
     'nebezdariapp.apps.NebezdariappConfig',
     'nebezdariapi.apps.NebezdariapiConfig',
     'ckeditor',
