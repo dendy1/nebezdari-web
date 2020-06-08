@@ -49,7 +49,7 @@ class CommentSerializerForPost(serializers.HyperlinkedModelSerializer):
         fields = ('url', 'id', 'author', 'name', 'text', 'created_at', 'parent')
 
 class AuthorSerializer(serializers.HyperlinkedModelSerializer):
-    posts = PostSerializerForAuthor(many=True)
+    posts = PostSerializerForAuthor(read_only=True, many=True)
 
     class Meta:
         model = Author
@@ -72,7 +72,7 @@ class CategorySerializer(serializers.HyperlinkedModelSerializer):
 
 class CommentSerializer(serializers.HyperlinkedModelSerializer):
     author = AuthorSerializerForPost(required=False, allow_null=True)
-    post = PostSerializerForComment()
+    post = PostSerializerForComment(read_only=True)
 
     def create(self, validated_data):
         author_validated_data = validated_data.pop('author')
