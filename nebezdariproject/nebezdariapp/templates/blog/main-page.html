@@ -1,11 +1,18 @@
-{% extends user.is_staff|yesno:'admin-base.html,base.html' %}}
+{% extends 'base.html' %}
+
+{% block image_url %}
+    /nebezdariproject/media/main-page.jpg
+{% endblock image_url %}
+
+{% block page_title %}
+    Главная страница
+{% endblock page_title %}
 
 {% block content %}
     <section class="sec-padding">
         <div class="container">
             <div class="row">
                 {% include 'blog/includes/left-sidebar.html' %}
-
                 <div class="col-md-9 nopadding">
                     {% for post in posts %}
                         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -72,6 +79,7 @@
                     <!--end main block with posts-->
                 </div>
             </div>
+        </div>
     </section>
 {% endblock content %}
 

@@ -93,15 +93,15 @@
         {% block header %}
 
             {% block topmenu %}
-               {% include 'blog/includes/main-menu.html' %}
+                {% include 'blog/includes/main-menu.html' %}
             {% endblock topmenu %}
 
             {% block pageheader %}
                 <section class="section-side-image clearfix">
                     <div class="img-holder col-md-12 col-sm-12 col-xs-12">
                         <div class="background-imgholder"
-                             style="background:url(/nebezdariproject/media/main-page.jpg);">
-                            <img class="nodisplay-image" src="/nebezdariproject/media/main-page.jpg" alt=""/>
+                             style="background:url({% block image_url %}/nebezdariproject/media/widepeepohappy.jpg{% endblock image_url %});">
+                            <img class="nodisplay-image" src="/nebezdariproject/media/widepeepohappy.jpg" alt=""/>
                         </div>
                     </div>
                     <div class="container-fluid">
@@ -110,8 +110,10 @@
                                 <div class="header-inner less-height">
                                     <div class="overlay">
                                         <div class="text text-center">
-                                            <h3 class="uppercase text-white less-mar-1 title">Блог компании NBZDR</h3>
-                                            <h6 class="uppercase text-white sub-title">Knowledge is power</h6>
+                                            <h3 class="uppercase text-white less-mar-1 title">
+                                                {% block page_title %}{% endblock page_title %}</h3>
+                                            <h6 class="uppercase text-white sub-title">
+                                                {% block page_subtitle %}{% endblock page_subtitle %}</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -132,8 +134,14 @@
                                 <div class="col-md-6">
                                     <ol class="breadcrumb">
                                         {% if user.is_authenticated %}
-                                            <li><a href="/author/">Личная страница</a></li>
-                                            <li><a href="/post/add">Добавить пост</a></li>
+                                            {% if user.is_staff %}
+                                                <li><a href="/admin/posts/">Посты</a></li>
+                                                <li><a href="/admin/users/">Авторы</a></li>
+                                                <li><a href="/admin/user/add">Добавить автора</a></li>
+                                            {% else %}
+                                                <li><a href="/author/">Личная страница</a></li>
+                                                <li><a href="/post/add">Добавить пост</a></li>
+                                            {% endif %}
                                         {% endif %}
 
                                         {% block extra_breadcrumbs %}

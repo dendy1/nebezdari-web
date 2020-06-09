@@ -9,9 +9,14 @@
                     <div class="col-md-6">
                         <ol class="breadcrumb">
                             {% if user.is_authenticated %}
-                                <li><a href="/admin/posts/">Посты</a></li>
-                                <li><a href="/admin/users/">Авторы</a></li>
-                                <li><a href="/admin/user/add">Добавить автора</a></li>
+                                {% if user.is_staff %}
+                                    <li><a href="/admin/posts/">Посты</a></li>
+                                    <li><a href="/admin/users/">Авторы</a></li>
+                                    <li><a href="/admin/user/add">Добавить автора</a></li>
+                                {% else %}
+                                    <li><a href="/author/">Личная страница</a></li>
+                                    <li><a href="/post/add">Добавить пост</a></li>
+                                {% endif %}
                             {% endif %}
 
                             {% block extra_breadcrumbs %}
