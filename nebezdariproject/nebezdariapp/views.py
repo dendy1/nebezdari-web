@@ -1,3 +1,4 @@
+from django.http import HttpResponseForbidden
 from django.shortcuts import HttpResponse, render, HttpResponseRedirect, get_object_or_404, get_list_or_404, Http404
 from django.core.paginator import EmptyPage, PageNotAnInteger
 from django.contrib.auth import authenticate, login, logout
@@ -347,3 +348,13 @@ def error_404(request, exception):
 def error_500(request):
     data = {}
     return render(request, 'errors/500.html', data)
+
+def delete_comment(request, post_id, comment_id):
+    post = get_object_or_404(Post, id=post_id)
+
+    if (request.user == post.author or request.user.is_staff):
+        comment = get_object_or_404(Comment, id=comment_id)
+        comment.delete()
+        return HttpResponseRedirect('/post/' + str(post.id))
+    else:
+        return HttpResponseForbidden()
