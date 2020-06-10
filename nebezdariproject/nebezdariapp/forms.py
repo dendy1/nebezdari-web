@@ -175,7 +175,7 @@ class CommentForm(forms.ModelForm):
     )
 
     text = forms.CharField(
-        max_length=64,
+        max_length=512,
         label="Текст сообщения",
         widget=forms.Textarea(
             attrs={
