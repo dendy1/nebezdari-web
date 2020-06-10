@@ -74,7 +74,7 @@
                                         <div class="date-info-box">
                                             <div class="box-left">
                                                 <i class="fa fa-calendar"
-                                                   aria-hidden="true"></i>&nbsp;{{ post.posted_at }}
+                                                   aria-hidden="true"></i>&nbsp;{{ post.posted_at|date:'d M Y H:i' }}
 
                                                 {% if user.username == author.username %}
                                                       <i class="fas fa-comment"

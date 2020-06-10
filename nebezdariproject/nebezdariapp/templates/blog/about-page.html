@@ -1,14 +1,26 @@
 {% extends "base.html" %}
 
+{% block image_url %}
+    /nebezdariproject/media/about-page.png
+{% endblock image_url %}
+
+{% block page_title %}
+    Страница о нас
+{% endblock page_title %}
+
 {% block content %}
     <section class="sec-padding">
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
                     <div class="sec-title-container text-center">
-                        <h5 class="font-weight-4 less-mar-1 line-height-4 ce-title-top-text">Meet Our Creative Team</h5>
-                        <h2 class="font-weight-6 less-mar-1 line-height-5">Meet Our Expert Team and get <br>
-                            Support and Discounts </h2>
+                        <h5 class="font-weight-4 less-mar-1 line-height-4 ce-title-top-text">Встречайте нашу креативную
+                            команду!</h5>
+                        <h2 class="font-weight-6 less-mar-1 line-height-5">
+                            Встречайте нашу экспертную команду <br>
+                            и получите поддержку и скидки <br>
+                            на будущие продукты
+                        </h2>
                         <div class="ce-title-line"></div>
                     </div>
                 </div>
@@ -20,20 +32,18 @@
                         <div class="main-box">
                             <div class="img-box">
                                 <div class="overlay">
-                                    <p class="small-text text-center">Lorem ipsum dolor sit amet, consectetuer
-                                        adipiscing elit. Suspendisse et justo. </p>
+                                    <p class="small-text text-center">Лучший и лучших</p>
                                     <br>
                                     <ul class="sc-icons">
-                                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-facebook"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-google-plus"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                                        <li><a href="https://vk.com/yaneandreiyaandroid"><i class="fab fa-vk"></i></a>
+                                        </li>
                                     </ul>
                                 </div>
-                                <img src="http://via.placeholder.com/550x700" alt="" class="img-responsive"></div>
+                                <img src="/nebezdariproject/media/photos/peepohappy.jpg" alt="" class="img-responsive">
+                            </div>
                             <div class="text-box text-center">
-                                <h5 class="nopadding title">Matthew</h5>
-                                <p class="subtext">Founder and CEO</p>
+                                <h5 class="nopadding title">Андрюша</h5>
+                                <p class="subtext">CEO, Backend, Frontend</p>
                             </div>
                         </div>
                     </div>
@@ -46,20 +56,17 @@
                         <div class="main-box">
                             <div class="img-box">
                                 <div class="overlay">
-                                    <p class="small-text text-center">Lorem ipsum dolor sit amet, consectetuer
-                                        adipiscing elit. Suspendisse et justo. </p>
+                                    <p class="small-text text-center">Лучший проект-менеджер</p>
                                     <br>
                                     <ul class="sc-icons">
-                                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-facebook"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-google-plus"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                                        <li><a href="https://vk.com/id152291174"><i class="fab fa-vk"></i></a></li>
                                     </ul>
                                 </div>
-                                <img src="http://via.placeholder.com/550x700" alt="" class="img-responsive"></div>
+                                <img src="/nebezdariproject/media/photos/pepehands.jpg" alt="" class="img-responsive">
+                            </div>
                             <div class="text-box text-center">
-                                <h5 class="nopadding title">Margaret</h5>
-                                <p class="subtext">UI Designer</p>
+                                <h5 class="nopadding title">Никитка</h5>
+                                <p class="subtext">PM, UI Designer</p>
                             </div>
                         </div>
                     </div>
@@ -73,20 +80,18 @@
                         <div class="main-box">
                             <div class="img-box">
                                 <div class="overlay">
-                                    <p class="small-text text-center">Lorem ipsum dolor sit amet, consectetuer
-                                        adipiscing elit. Suspendisse et justo. </p>
+                                    <p class="small-text text-center">Лучший тестировщик и разработчик AR</p>
                                     <br>
                                     <ul class="sc-icons">
-                                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-facebook"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-google-plus"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                                        <li><a href="https://vk.com/somenoticesomeknowthis"><i
+                                                class="fab fa-vk"></i></a></li>
                                     </ul>
                                 </div>
-                                <img src="http://via.placeholder.com/550x700" alt="" class="img-responsive"></div>
+                                <img src="/nebezdariproject/media/photos/peepoweird.jpg" alt="" class="img-responsive">
+                            </div>
                             <div class="text-box text-center">
-                                <h5 class="nopadding title">Benjamin</h5>
-                                <p class="subtext">Marketing</p>
+                                <h5 class="nopadding title">Максимка</h5>
+                                <p class="subtext">Аналитика, тестирование</p>
                             </div>
                         </div>
                     </div>
@@ -98,52 +103,4 @@
         </div>
     </section>
     <div class="clearfix"></div>
-    <section class="sec-bpadding-2">
-        <div class="container-fluid">
-            <div class="row">
-
-                <div class="col-md-10 col-centered">
-
-                    <div class="col-md-6 margin-bottom"><img src="http://via.placeholder.com/1000x800" alt=""
-                                                             class="img-responsive"></div>
-                    <!--end item-->
-
-
-                    <div class="col-md-6 padding-left-6">
-
-                        <div class="col-sm-12 nopadding">
-                            <div class="sec-title-container less-padding-3 text-left">
-                                <h5 class="font-weight-4 less-mar-1 line-height-4 ce-title-top-text">What we offer for
-                                    your business</h5>
-                                <h2 class="font-weight-6 less-mar-1 line-height-4">We Create awesome designs <br>
-                                    for your Business </h2>
-                                <div class="ce-title-line align-left"></div>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <!--end title-->
-
-                        <br>
-                        <p>Lorem ipsum dolor sit amet consectetuer adipiscing elit Suspendisse et justo Praesent mattis
-                            commodo augue Aliquam ornare hendrerit augue Cras tellus In pulvinar lectus a est Curabitur
-                            eget orci Cras laoreet ligula Etiam sit amet dolor Vestibulum ante ipsum primis in faucibus
-                            orci luctus Lorem ipsum dolor. </p>
-
-                        <p>Lorem ipsum dolor sit amet consectetuer adipiscing elit Suspendisse et justo Praesent mattis
-                            commodo augue. Aliquam ornare hendrerit augue Cras tellus In pulvinar lectus a est Curabitur
-                            eget orci Cras laoreet ligula Etiam sit amet dolor Vestibulum . </p>
-
-                        <br>
-                        <br>
-                        <a class="btn btn-dark btn-round uppercase" href="#">Read more</a></div>
-                    <!--end item-->
-
-
-                </div>
-                <!--end main col-->
-
-
-            </div>
-        </div>
-    </section>
 {% endblock content %}

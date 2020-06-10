@@ -30,6 +30,4 @@ urlpatterns = [
     path('admin/user/<username>/delete/', views.admin_user_delete, name='Delete user'),
     path('admin/users/', views.admin_authors, name='admin_all_users'),
     path('admin/posts/', views.admin_posts, name='admin_all_posts'),
-
-    path('error/', views.error, name='admin_all_posts'),
 ]

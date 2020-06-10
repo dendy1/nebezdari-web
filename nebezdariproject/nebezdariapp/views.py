@@ -18,10 +18,9 @@ def index(request):
         if categories_form.is_valid():
             categories = categories_form.cleaned_data['categories']
             if not categories:
-                print("Test")
-                posts_list = Post.objects.all()
+                posts_list = Post.objects.all().order_by('-posted_at')
             else:
-                posts_list = Post.objects.filter(categories__in=categories).order_by('posted_at')
+                posts_list = Post.objects.filter(categories__in=categories).order_by('-posted_at')
         else:
             posts_list = Post.objects.all().order_by('posted_at')
     else:
@@ -33,7 +32,7 @@ def index(request):
     categories_list = Category.objects.all()[:index_categories_count]
     page_num = request.GET.get('page')
     paginator = CustomPaginator(posts_list, posts_per_page, pagination_pages_range)
-    print(paginator.num_pages)
+
     try:
         posts = paginator.page(page_num)
     except PageNotAnInteger:
@@ -167,7 +166,7 @@ def post_add(request):
         raise PermissionDenied
 
     if request.method == 'POST':
-        form = PostForm(request.POST)
+        form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
@@ -193,12 +192,13 @@ def post_edit(request, id):
         raise PermissionDenied
 
     if request.method == 'POST':
-        form = PostForm(request.POST, instance=post)
+        form = PostForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
             post.save()
             form.save_m2m()
+
             return HttpResponseRedirect('/author/')
     else:
         form = PostForm(instance=post)
@@ -322,11 +322,6 @@ def admin_user_delete(request, username):
     Author.delete(user)
     return HttpResponseRedirect('/admin/users/')
 
-def error(request):
-    return render(request,
-                  'errors/404.html',
-                  context={})
-
 def subscribe(request):
     if request.method == "POST":
         form = SubscribeForm(request.POST)
@@ -336,3 +331,19 @@ def subscribe(request):
             mailing_member.save()
 
     return HttpResponseRedirect('/')
+
+def error_400(request, exception):
+    data = {}
+    return render(request, 'errors/400.html', data)
+
+def error_403(request, exception):
+    data = {}
+    return render(request, 'errors/403.html', data)
+
+def error_404(request, exception):
+    data = {}
+    return render(request, 'errors/404.html', data)
+
+def error_500(request):
+    data = {}
+    return render(request, 'errors/500.html', data)

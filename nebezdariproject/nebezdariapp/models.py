@@ -33,6 +33,9 @@ class Post(models.Model):
     posted_at = models.DateTimeField(auto_now_add=True)
     edited_at = models.DateTimeField(auto_now_add=True)
 
+    def comments_count(self):
+        return self.comments.count()
+
     def __str__(self):
         return self.title
 
