@@ -21,14 +21,14 @@ def index(request):
             if not categories:
                 posts_list = Post.objects.all().order_by('-posted_at')
             else:
-                posts_list = Post.objects.filter(categories__in=categories).order_by('-posted_at')
+                posts_list = Post.objects.filter(categories__in=categories).distinct().order_by('-posted_at')
         else:
             posts_list = Post.objects.all().order_by('posted_at')
     else:
         posts_list = Post.objects.all().order_by('posted_at')
 
     index_categories_count = 10 #count of categories in categories bar
-    posts_per_page = 5 #count of posts on page
+    posts_per_page = 2 #count of posts on page
     pagination_pages_range = 2 #count of pages right and left to the current page
     categories_list = Category.objects.all()[:index_categories_count]
     page_num = request.GET.get('page')
