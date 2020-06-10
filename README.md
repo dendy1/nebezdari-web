@@ -11,6 +11,8 @@ password: adminpassword
 ### Яндекс.Метрика
 login: nebezdarianalytics  
 password: *yNA2N9WkmZ.tJW
+## Ссылка на демо-видео
+[Google Drive](https://drive.google.com/file/d/1AmLJdMrwq3bVH_NeWNa3s1ljeOxUpWs_/view?usp=sharing)
 ## Ссылки на ТЗ
 [GitHub PDF](https://github.com/dendy1/nebezdari-web/blob/master/Documentation/%D0%A2%D0%B5%D1%85%D0%BD%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%BE%D0%B5%20%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5/%D0%A2%D0%B5%D1%85%D0%BD%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%BE%D0%B5%20%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5.pdf)  
 [GitHub DOCX](https://github.com/dendy1/nebezdari-web/blob/master/Documentation/%D0%A2%D0%B5%D1%85%D0%BD%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%BE%D0%B5%20%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5/%D0%A2%D0%B5%D1%85%D0%BD%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%BE%D0%B5%20%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5.docx)  
@@ -18,7 +20,6 @@ password: *yNA2N9WkmZ.tJW
 ## Ссылки на Курсовой проект
 [GitHub PDF](https://github.com/dendy1/nebezdari-web/blob/master/Documentation/%D0%9A%D1%83%D1%80%D1%81%D0%BE%D0%B2%D0%BE%D0%B9%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82/nebezdari.ru%20%D0%9A%D1%83%D1%80%D1%81%D0%BE%D0%B2%D0%BE%D0%B9%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82.pdf)  
 [GitHub DOCX](https://github.com/dendy1/nebezdari-web/blob/master/Documentation/%D0%9A%D1%83%D1%80%D1%81%D0%BE%D0%B2%D0%BE%D0%B9%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82/nebezdari.ru%20%D0%9A%D1%83%D1%80%D1%81%D0%BE%D0%B2%D0%BE%D0%B9%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82.docx)  
-[Google Docs](https://docs.google.com/document/d/1IPDi1lgiTh34fuZuEkliWe7PwpyMDRqXkPi0tAp2tQs/view)
 ## Распределение ролей
 [GitHub PDF](https://github.com/dendy1/nebezdari-web/blob/master/Documentation/%D0%A0%D0%B0%D1%81%D0%BF%D1%80%D0%B5%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D1%80%D0%BE%D0%BB%D0%B5%D0%B9.pdf)  
 [GitHub DOCX](https://github.com/dendy1/nebezdari-web/blob/master/Documentation/%D0%A0%D0%B0%D1%81%D0%BF%D1%80%D0%B5%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D1%80%D0%BE%D0%BB%D0%B5%D0%B9.docx)  
