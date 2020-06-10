@@ -29,7 +29,8 @@ class PostForm(forms.ModelForm):
     )
 
     image = forms.ImageField(
-        label='Картинка-превью'
+         label='Картинка-превью',
+         required=False
     )
 
     class Meta:
@@ -90,7 +91,8 @@ class EditAuthorForm(forms.ModelForm):
 
     about = forms.CharField(
         label='Краткая информация',
-        widget=CKEditorUploadingWidget
+        widget=CKEditorUploadingWidget,
+        required=False
     )
 
     avatar = forms.ImageField()
@@ -173,7 +175,7 @@ class CommentForm(forms.ModelForm):
     )
 
     text = forms.CharField(
-        max_length=64,
+        max_length=512,
         label="Текст сообщения",
         widget=forms.Textarea(
             attrs={

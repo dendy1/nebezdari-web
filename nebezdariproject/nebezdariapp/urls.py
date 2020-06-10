@@ -31,5 +31,5 @@ urlpatterns = [
     path('admin/users/', views.admin_authors, name='admin_all_users'),
     path('admin/posts/', views.admin_posts, name='admin_all_posts'),
 
-    path('error/', views.error, name='admin_all_posts'),
+    path('post/<int:post_id>/deletecomment/<int:comment_id>/', views.delete_comment, name='delete-comment')
 ]

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+    <section class="sec-padding">
+        <div class="container">
+            <div class="row">
+                <div class="error_holder">
+                    <h1 class="uppercase title text-orange-2">403</h1>
+                    <br/>
+                    <h2 class="uppercase">Ой... Доступ на эту страницу вам запрещён!</h2>
+                    <p>Извините, но данная страница не может быть отображена. Вернитесь на главную страницу с помощью
+                        кнопки ниже.</p>
+                    <br/>
+                    <br/>
+                    <br/>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <a href="/">
+                <audio src="{% static 'blog/img/vacation-audio.wav' %}" loop autoplay></audio>
+                <em class="PTAG pull-right"></em>
+                <a class="CPTAG CFTAG" href="/"><img src="{% static 'blog/img/vacation-tree.gif' %}" alt=""  class="left"></a>
+                <a class="CPTAG CFTAG" href="/"><img src="{% static 'blog/img/vacation-dance.gif' %}" alt="" class="middle"></a>
+                <a class="CPTAG CFTAG" href="/"><img src="{% static 'blog/img/vacation-tree.gif' %}"  alt="" class="right"></a>
+            </a>
+        </div>
+    </section>
+
+{% endblock content %}

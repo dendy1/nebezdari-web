@@ -1,33 +1,46 @@
-{% extends user.is_staff|yesno:'admin-base.html,base.html' %}}
+{% extends 'base.html' %}
+
+{% block image_url %}
+    /nebezdariproject/media/talant.gif
+{% endblock image_url %}
+
+{% block page_title %}
+    Главная страница
+{% endblock page_title %}
 
 {% block content %}
     <section class="sec-padding">
         <div class="container">
             <div class="row">
                 {% include 'blog/includes/left-sidebar.html' %}
-
                 <div class="col-md-9 nopadding">
                     {% for post in posts %}
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                            <div class="ce-feature-box-52 margin-bottom">
-                                <div class="ce-post-img"><a href="/post/{{ post.id }}">
-                                    <div class="info-badge"><span class="icon-pencil icon"></span>Blog</div>
-                                    <div class="overlay"><i class="fa fa-plus" aria-hidden="true"></i></div>
-                                </a> <img src="http://via.placeholder.com/2000x1000" alt="" class="img-responsive">
-                                </div>
-                                <div class="text-box padd-1 shadow">
-                                    <h4 class="less-mar-1 title"><a href="/post/{{ post.id }}">{{ post.title }} </a>
-                                    </h4>
-                                    <p>{{ post.text|safe|truncatewords:10 }}</p>
-                                    <div class="date-info-box">
-                                        <div class="box-left">
-                                            <i class="fas fa-calendar" aria-hidden="true"></i>&nbsp;
-                                            August 19, 2018
-                                        </div>
+                        <div class="ce-feature-box-52 margin-bottom">
+                            <div class="ce-post-img">
+                                <a href="/post/{{ post.id }}">
+                                    {% if post.image %}
+                                        <img src="{{ post.image.url }}"
+                                             alt="" class="ce-post-img">
+                                    {% else %}
+                                        <img src="/nebezdariproject/media/no-preview.png"
+                                             alt="" class="ce-post-img">
+                                    {% endif %}
+                                </a>
+                            </div>
+                            <div class="text-box padd-1 shadow">
+                                <h4 class="less-mar-1 title"><a href="/post/{{ post.id }}">{{ post.title }} </a>
+                                </h4>
+                                <p>{{ post.text|safe|truncatewords:10 }}</p>
+                                <div class="date-info-box">
+                                    <div class="box-left">
+                                        <i class="fas fa-calendar" aria-hidden="true"></i>&nbsp;
+                                        {{ post.posted_at|date:'d M Y H:i' }}
+                                    </div>
 
-                                        <div class="box-right">
-                                            <i class="fas fa-comment" aria-hidden="true"></i>&nbsp; 26
-                                        </div>
+                                    <div class="box-right">
+                                        <i class="fas fa-comment"
+                                           aria-hidden="true"></i>&nbsp; {{ post.comments_count }}
                                     </div>
                                 </div>
                             </div>
@@ -62,8 +75,9 @@
                         </ul>
                     </div>
                     <!-- PAGINATION SECTION END -->
+                    </div>
+                    <!--end main block with posts-->
                 </div>
-                <!--end main block with posts-->
             </div>
         </div>
     </section>

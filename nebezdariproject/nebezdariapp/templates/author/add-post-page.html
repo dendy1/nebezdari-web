@@ -12,7 +12,7 @@
 
 {% block content %}
     <section class="sec-padding">
-        <form method="post" action="/post/add/" onsubmit="ym(61840354,'reachGoal','post_button')">
+        <form method="post" action="/post/add/" onsubmit="ym(61840354,'reachGoal','post_button')" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="container">
                 <div class="row">
@@ -84,13 +84,13 @@
                             <br>
                             <div class="postinfo-box">
                                 <h4 class="less-mar-1 title">
-                                    Preview post title
+                                    Название статьи
                                 </h4>
                                 <br>
-                                <div class="blog-post-info"><span><i class="fa fa-comments-o"></i> 15 Comments</span>
+                                <div class="blog-post-info"><span><i class="fa fa-comments-o"></i> 15 Комментариев</span>
                                     <span><i
-                                            class="fa fa-folder"></i> Preview/Post</span><span><i
-                                            class="fa fa-thumbs-up"></i> 256 Likes</span>
+                                            class="fa fa-folder"></i> Preview/Статья</span><span><i
+                                            class="fa fa-thumbs-up"></i> 256 Лайков</span>
                                 </div>
                                 <br>
                                 <div id="preview"></div>
@@ -105,8 +105,8 @@
 
                                 <div class="row">
                                     <div class="col-md-12 col-centered text-center">
-                                        <label class="lable-text" for="email">Email Address</label>
-                                        <input id="email" class="input-1" type="text" placeholder="Enter your email"
+                                        <label class="lable-text" for="email">E-Mail адрес</label>
+                                        <input id="email" class="input-1" type="text" placeholder="Введите свой E-Mail"
                                                name="Name">
                                     </div>
                                 </div>
