@@ -1,31 +1,31 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
 
     <section class="sec-padding">
         <div class="container">
             <div class="row">
-
                 <div class="error_holder">
                     <h1 class="uppercase title text-orange-2">404</h1>
                     <br/>
-                    <h2 class="uppercase">Oops... Page Not Found!</h2>
-                    <p>Sorry the Page Could not be Found here. Try using the button below to go to main page of the
-                        site</p>
+                    <h2 class="uppercase">Ой... Такой страницы не существует!</h2>
+                    <p>Извините, но данная страница не может быть найдена. Вернитесь на главную страницу с помощью
+                        кнопки ниже.</p>
                     <br/>
                     <br/>
                     <br/>
-                    <div class="error-search-box">
-                        <form method="get" action="index.html">
-                            <input class="email_input" name="samplees" id="samplees" value="E-mail Address"
-                                   onFocus="if(this.value == 'E-mail Address') {this.value = '';}"
-                                   onBlur="if (this.value == '') {this.value = 'E-mail Address';}" type="text">
-                            <input name="" value="Search" class="input_submit" type="submit">
-                        </form>
-                    </div>
                 </div>
-
             </div>
+        </div>
+
+        <div class="container">
+            <a href="/">
+                <audio src="{% static 'blog/img/vacation-audio.wav' %}" loop autoplay></audio>
+                <em class="PTAG pull-right"></em>
+                <a class="CPTAG CFTAG" href="/"><img src="{% static 'blog/img/vacation-tree.gif' %}" alt=""  class="left"></a>
+                <a class="CPTAG CFTAG" href="/"><img src="{% static 'blog/img/vacation-dance.gif' %}" alt="" class="middle"></a>
+                <a class="CPTAG CFTAG" href="/"><img src="{% static 'blog/img/vacation-tree.gif' %}"  alt="" class="right"></a>
+            </a>
         </div>
     </section>
 
