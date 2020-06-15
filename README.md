@@ -8,7 +8,7 @@ password: MazKzfksHT
 ### Роль администратора
 login: admin  
 password: adminpassword
-### Яндекс.Метрика
+### [Яндекс.Метрика](https://metrika.yandex.ru/dashboard?id=61840354)
 login: nebezdarianalytics  
 password: *yNA2N9WkmZ.tJW
 ## Ссылка на демо-видео
