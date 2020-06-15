@@ -4,7 +4,7 @@
 ## Данные для входа
 ### Роль автора
 login: author  
-password: NAqXEFhrKm
+password: MazKzfksHT
 ### Роль администратора
 login: admin  
 password: adminpassword
