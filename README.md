@@ -1,6 +1,11 @@
 # Публичный корпоративный блог - [nebezdari.ru](https://nebezdari.ru)
 ## Swagger-документация
 [API/v1](https://nebezdari.ru/api/v1/swagger/)
+## Видео с выступлением
+[YouTube](https://youtu.be/3OJwUZJnQJQ)  
+[GoogleDrive](https://drive.google.com/file/d/1Bpdup_ovngTtqZy_Osdl9rAQ5Ar_OFam/view)
+## E-Mail для связи
+borodin_a_o@sc.vsu.ru
 ## Данные для входа
 ### Роль автора
 login: author  
