@@ -21,7 +21,7 @@ def index(request):
             if not categories:
                 posts_list = Post.objects.all().order_by('-posted_at')
             else:
-                posts_list = Post.objects.filter(categories__in=categories).order_by('-posted_at')
+                posts_list = Post.objects.filter(categories__in=categories).distinct().order_by('-posted_at')
         else:
             posts_list = Post.objects.all().order_by('posted_at')
     else:
