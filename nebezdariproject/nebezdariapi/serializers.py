@@ -2,7 +2,13 @@ from rest_framework import serializers
 from rest_framework.generics import get_object_or_404
 from nebezdariapp.models import *
 
-class CategorySerializerForPost(serializers.HyperlinkedModelSerializer):
+class CategoryListSerializer(serializers.HyperlinkedModelSerializer):
+    """
+    Сериализатор для категорий, который позволяет получать и отправлять информацию в виде JSON и XML, содержащую поля
+    'url' - Ссылка на категорию
+    'id' - ID категории
+    'name' - Название категории
+    """
     class Meta:
         model = Category
         fields = ('url', 'id', 'name')
@@ -10,7 +16,18 @@ class CategorySerializerForPost(serializers.HyperlinkedModelSerializer):
             'name': {'validators': []},
         }
 
-class AuthorSerializerForPost(serializers.HyperlinkedModelSerializer):
+class AuthorDetailSerializer(serializers.HyperlinkedModelSerializer):
+    """
+    Сериализатор для автора, который позволяет получать информацию в виде JSON и XML, содержащую поля
+    'url' - Ссылка на автора
+    'id' - ID автора
+    'username' - Логин автора
+    'first_name' - Имя автора
+    'last_name' - Фамилия автора
+    'email' - E-Mail автора
+    'avatar' - Ссылка на местоположение аватара автора
+    """
+
     url = serializers.CharField(read_only=True)
     id = serializers.IntegerField(read_only=True)
     first_name = serializers.CharField(read_only=True)
@@ -25,43 +42,75 @@ class AuthorSerializerForPost(serializers.HyperlinkedModelSerializer):
             'username': {'validators': []},
         }
 
-class PostSerializerForComment(serializers.HyperlinkedModelSerializer):
-    id = serializers.IntegerField(read_only=False, required=True)
-    title = serializers.CharField(read_only=True)
+class PostListSerializer(serializers.HyperlinkedModelSerializer):
+    """
+    Сериализатор для постов, который позволяет получать информацию в виде JSON и XML, содержащую поля
+    'url' - Ссылка на пост
+    'id' - ID поста
+    'title' - Название поста
+    """
 
     class Meta:
         model = Post
         fields = ('url', 'id', 'title')
 
-class PostSerializerForCategory(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Post
-        fields = ('url', 'id', 'title')
+class CommentListSerializer(serializers.HyperlinkedModelSerializer):
+    """
+    Сериализатор для комментариев, который позволяет получать информацию в виде JSON и XML, содержащую поля
+    'url' - Ссылка на комментарий
+    'id' - ID комментария
+    'author' - ID пользователя, кому принадлежит комментарий
+    'name' - Имя пользователя, если комментарий оставил гость
+    'text' - Текст комментария
+    'created_at' - Дата создания комментария
+    'parent' - ID родительского комментария, если данный комментарий является ответом на другой
+    """
 
-class PostSerializerForAuthor(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Post
-        fields = ('url', 'id', 'title')
-
-class CommentSerializerForPost(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Comment
         fields = ('url', 'id', 'author', 'name', 'text', 'created_at', 'parent')
 
 class AuthorSerializer(serializers.HyperlinkedModelSerializer):
-    posts = PostSerializerForAuthor(read_only=True, many=True)
+    """
+    Сериализатор для автора, который позволяет получать информацию в виде JSON и XML, содержащую поля
+    'url' - Ссылка на автора
+    'id' - ID автора
+    'username' - Логин автора
+    'first_name' - Имя автора
+    'last_name' - Фамилия автора
+    'email' - E-Mail автора
+    'about' - Информация об авторе
+    'avatar' - Ссылка на местоположение аватара автора
+    'last_login' - Дата последнего входа автора
+    'posts' - Информация о постах, принадлежащих данному автору (вложенный запрос)
+    """
+    posts = PostListSerializer(read_only=True, many=True)
 
     class Meta:
         model = Author
         fields = ('url', 'id', 'username', 'first_name', 'last_name', 'email', 'about', 'avatar', 'last_login', 'posts')
 
 class MailingMemberSerializer(serializers.HyperlinkedModelSerializer):
+    """
+    Сериализатор для подписчиков по E-Mail, который позволяет получать информацию в виде JSON и XML, содержащую поля
+    'url' - Ссылка на подписчика
+    'id' - ID подписчика
+    'email' - E-Mail подписчика
+    """
     class Meta:
         model = MailingMember
         fields = ('url', 'id', 'email')
 
 class CategorySerializer(serializers.HyperlinkedModelSerializer):
-    posts = PostSerializerForCategory(read_only=True, many=True)
+    """
+    Сериализатор для категорий, который позволяет получать информацию в виде JSON и XML, содержащую поля
+    'url' - Ссылка на категорию
+    'id' - ID категории
+    'name' - Название категории
+    'posts' - Информация о постах, принадлежащих данной категории (вложенный запрос)
+    """
+
+    posts = PostListSerializer(read_only=True, many=True)
 
     class Meta:
         model = Category
@@ -71,8 +120,21 @@ class CategorySerializer(serializers.HyperlinkedModelSerializer):
         }
 
 class CommentSerializer(serializers.HyperlinkedModelSerializer):
-    author = AuthorSerializerForPost(required=False, allow_null=True)
-    post = PostSerializerForComment(read_only=True)
+    """
+    Сериализатор для комментариев, который позволяет получать информацию в виде JSON и XML, содержащую поля
+    'url' - Ссылка на комментарий
+    'id' - ID комментария
+    'author' - ID пользователя, кому принадлежит комментарий
+    'name' - Имя пользователя, если комментарий оставил гость
+    'text' - Текст комментария
+    'created_at' - Дата создания комментария
+    'parent' - ID родительского комментария, если данный комментарий является ответом на другой
+    'author' - Информация об авторе, который является автором комментария (вложенный запрос)
+    'post' - Информация о посте, в котором оставлен комментарий (вложенный запрос)
+    """
+
+    author = AuthorDetailSerializer(required=False, allow_null=True)
+    post = PostListSerializer(read_only=True)
 
     def create(self, validated_data):
         author_validated_data = validated_data.pop('author')
@@ -98,9 +160,23 @@ class CommentSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('url', 'id', 'post', 'author', 'name', 'text', 'created_at', 'parent')
 
 class PostSerializer(serializers.HyperlinkedModelSerializer):
-    author = AuthorSerializerForPost()
-    categories = CategorySerializerForPost(many=True)
-    comments = CommentSerializerForPost(many=True, read_only=True)
+    """
+    Сериализатор для постов, который позволяет получать информацию в виде JSON и XML, содержащую поля
+    'url' - Ссылка на пост
+    'id' - ID поста
+    'title' - Название поста
+    'text' - Текст поста
+    'author' - Информация об авторе, который является автором поста (вложенный запрос)
+    'categories' - Информация о категориях, к которым принадлежит пост (вложенный запрос)
+    'comments' - Информация о комментариях, оставленных под данным постом (вложенный запрос)
+    'posted_at' - Дата опубликования статьи
+    'edited_at' - Дата последнего изменеия статьи
+    'image' - Ссылка на изображение-превью поста
+    """
+
+    author = AuthorDetailSerializer()
+    categories = CategoryListSerializer(many=True)
+    comments = CommentListSerializer(many=True, read_only=True)
     posted_at = serializers.DateTimeField(read_only=True)
     edited_at = serializers.DateTimeField(read_only=True)
 

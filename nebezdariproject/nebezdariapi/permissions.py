@@ -1,6 +1,9 @@
 from rest_framework import permissions
 
 class ReadOnly(permissions.BasePermission):
+    """
+    Custom permission to only allow authors of an post to edit it.
+    """
     def has_permission(self, request, view):
         # Read permissions are allowed to any request,
         # so we'll always allow GET, HEAD or OPTIONS requests.
@@ -8,7 +11,7 @@ class ReadOnly(permissions.BasePermission):
 
 class PostPermission(permissions.BasePermission):
     """
-    Custom permission to only allow authors of an post to edit it.
+    Разрешение, позволяющее только авторам поста и администраторам получить доступ к изменению и удалению поста
     """
 
     def has_object_permission(self, request, view, obj):
@@ -22,7 +25,7 @@ class PostPermission(permissions.BasePermission):
 
 class CommentPermission(permissions.BasePermission):
     """
-    Custom permission to only allow owners of an object to edit it.
+    Разрешение, позволяющее только авторам комментария и администраторам получить доступ к изменению и удалению комментария
     """
 
     def has_object_permission(self, request, view, obj):
@@ -36,7 +39,7 @@ class CommentPermission(permissions.BasePermission):
 
 class IsAdminOrReadOnly(permissions.IsAdminUser):
     """
-    Custom permission to only allow admins to edit it.
+    Разрешение, позволяющее только авторам администраторам получить доступ к изменению и удалению сущности
     """
 
     def has_permission(self, request, view):

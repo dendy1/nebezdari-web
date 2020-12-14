@@ -3,7 +3,10 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 class MailingMember(models.Model):
-    email = models.EmailField(max_length=255)
+    """
+    Сущность "Подписчик по E-mail"
+    """
+    email = models.EmailField(max_length=255)       # E-Mail подписчика
 
     def __str__(self):
         return self.email
@@ -12,34 +15,49 @@ class MailingMember(models.Model):
         db_table = "nebezdariapp_mailing_members"
 
 class Author(AbstractUser):
-    about = models.CharField(max_length=2047, blank=True, default='')
-    avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
+    """
+    Сущность "Автора статьи"
+    """
+    about = models.CharField(max_length=2047, blank=True, default='')           # Личная информация об авторе
+    avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)     # Ссылка на изобрадение-аватар
 
     def __str__(self):
         return self.username
 
 class Category(models.Model):
-    name = models.CharField(max_length=64, unique=True)
+    """
+    Сущность "Категория статьи"
+    """
+    name = models.CharField(max_length=64, unique=True)     # Название категории
 
     def __str__(self):
         return self.name
 
 class Post(models.Model):
-    author = models.ForeignKey(Author, null=True, on_delete=models.SET_NULL, related_name='posts')
-    title = models.CharField(max_length=256)
-    text = RichTextUploadingField()
-    categories = models.ManyToManyField(Category, related_name='posts')
-    image = models.ImageField(upload_to='posts/', null=True, blank=True)
-    posted_at = models.DateTimeField(auto_now_add=True)
-    edited_at = models.DateTimeField(auto_now_add=True)
+    """
+    Сущность "Статья"
+    """
+    author = models.ForeignKey(Author, null=True, on_delete=models.SET_NULL, related_name='posts')      # Автора статьи (внешний ключ)
+    title = models.CharField(max_length=256)                                                            # Заголовок статьи
+    text = RichTextUploadingField()                                                                     # Текст статьи
+    categories = models.ManyToManyField(Category, related_name='posts')                                 # Категории статьи (M2M)
+    image = models.ImageField(upload_to='posts/', null=True, blank=True)                                # Ссылка на изображение-превью
+    posted_at = models.DateTimeField(auto_now_add=True)                                                 # Дата публикации статьи
+    edited_at = models.DateTimeField(auto_now_add=True)                                                 # Дата последнего редактирования статьи
 
     def comments_count(self):
+        """
+        Метод, возвращающий количество комментариев, опубликованных под статьей
+        """
         return self.comments.count()
 
     def __str__(self):
         return self.title
 
 class Comment(models.Model):
+    """
+    Сущность "Комментарий статьи"
+    """
     parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
     post = models.ForeignKey(Post, on_delete = models.CASCADE, null=True, related_name='comments')
     name = models.CharField(max_length=64)
