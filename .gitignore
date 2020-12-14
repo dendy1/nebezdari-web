@@ -8,3 +8,4 @@ connection.cnf
 restart
 passenger_wsgi.py
 tmp/
+venv/
