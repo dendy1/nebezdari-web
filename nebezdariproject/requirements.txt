@@ -11,7 +11,7 @@ django-filter==2.3.0
 django-js-asset==1.2.2
 django-recaptcha3==0.2.0
 django-select2==7.2.3
-djangorestframework==3.11.0
+djangorestframework==3.11.2
 djangorestframework-filters==1.0.0.dev0
 drf-extensions==0.6.0
 drf-yasg==1.17.1
